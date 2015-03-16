@@ -191,7 +191,8 @@
 
             <div class="modal-body">
                 
-
+                <div id="meeting_data"></div>
+				
             </div>
 
             <div class="modal-footer">
@@ -206,6 +207,29 @@
 <script src="<?php echo base_url()."assets/themes/bluish/"?>js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
  
 <script type="text/javascript">
+
+	$(document).on("click","a.fc-event",function()
+	{			
+		var meeting_id = $(this).attr('href');
+		
+		$.ajax({
+			type:'POST',
+			url: '<?php echo site_url()?>site/events/get_meeting_details/'+meeting_id,
+			cache:false,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			success:function(data)
+			{
+				$("#meeting_data").html(data.meeting_data);
+			},
+			error: function(xhr, status, error) {
+				//alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+				$("#meeting_data").html(error);
+			}
+		});
+	});
+	
 $(document).ready(function() {
 	
 	  $(function() {
