@@ -9,10 +9,10 @@
  	<div class="col-md-12 col-lg-12">
      	<h4 class="page-section-heading">Meetings</h4>
      	<div class="col-md-12 col-lg-12" style="margin-bottom:5px;">
-	 		
+	 		<a href="<?php echo base_url();?>/all-events"  class="btn btn-info btn-sm pull-right" > Events table list</a>
 	 	</div>
 	 	<div class="col-md-12 col-lg-12">
-		 	<div class="panel panel-default">
+		 	<div class="panel panel-default" style="height:1000px; padding:15px;">
             	<div id="meetings"></div>
 		    </div>
 		</div>

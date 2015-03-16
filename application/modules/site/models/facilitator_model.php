@@ -21,11 +21,11 @@ class Facilitator_model extends CI_Model
 		
 		return $query;
 	}
-	public function get_all_facilitators_time()
+	public function get_all_facilitators_time($meeting_id)
 	{
 		$this->db->from('facilitator');
 		$this->db->select('facilitator.*');
-		$this->db->where('facilitator_id > 0');
+		$this->db->where('facilitator_id > 0 AND meeting_id = '.$meeting_id);
 		$this->db->order_by('facilitator_id', 'DESC');
 		
 		$query = $this->db->get();

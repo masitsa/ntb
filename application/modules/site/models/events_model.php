@@ -72,8 +72,8 @@ class Events_model extends CI_Model
 	{
 		$data = array(
 				'subject'=>$this->input->post('subject'),
-				'meeting_date'=>$this->input->post('meeting_date'),
-				'end_date'=>$this->input->post('end_date'),
+				'meeting_date'=>date('Y-m-d H:i:s',strtotime($this->input->post('meeting_date'))),
+				'end_date'=> date('Y-m-d H:i:s',strtotime($this->input->post('end_date'))),
 				'location'=>$this->input->post('location'),
 				'country_id'=>$this->input->post('country_id'),
 				'agency_id'=>$this->input->post('agency_id'),
@@ -95,8 +95,8 @@ class Events_model extends CI_Model
 	{
 		$data = array(
 				'subject'=>$this->input->post('subject'),
-				'meeting_date'=>$this->input->post('meeting_date'),
-				'end_date'=>$this->input->post('end_date'),
+				'meeting_date'=>date('Y-m-d H:i a',strtotime($this->input->post('meeting_date'))),
+				'end_date'=> date('Y-m-d H:i a',strtotime($this->input->post('end_date'))),
 				'location'=>$this->input->post('location'),
 				'country_id'=>$this->input->post('country_id'),
 				'agency_id'=>$this->input->post('agency_id'),

@@ -21,11 +21,11 @@ class Action_point_model extends CI_Model
 		
 		return $query;
 	}
-	public function get_all_action_points_time()
+	public function get_all_action_points_time($meeting_id)
 	{
 		$this->db->from('action_point,priority_status,action_status');
 		$this->db->select('action_point.*, priority_status.priority_status_name, action_status.action_status_name');
-		$this->db->where('action_point.priority_status_id = priority_status.priority_status_id AND action_status.action_status_id = action_point.actions_status_id');
+		$this->db->where('action_point.priority_status_id = priority_status.priority_status_id AND action_status.action_status_id = action_point.actions_status_id AND meeting_id ='.$meeting_id);
 		$this->db->order_by('action_point.action_point_id','DESC');
 		$query = $this->db->get();
 		return $query;

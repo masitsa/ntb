@@ -4,7 +4,8 @@
  	<div class="col-md-12 col-lg-12">
      	<h4 class="page-section-heading">NTB scheduled events</h4>
      	<div class="col-md-12 col-lg-12" style="margin-bottom:5px;">
-	 		<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">Add Event</button>
+     		<a href="<?php echo base_url();?>/site/calender"  class="btn btn-info btn-sm " style="margin-right:5px;" >Back Events Calender</a>
+	 		<button type="button" class="btn btn-primary btn-sm pull-right " data-toggle="modal" data-target=".bs-example-modal-lg">Add Event</button>
 
 			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-lg">
@@ -226,6 +227,11 @@
 									$agency_name = $row->agency_name;
 									$location = $row->location;
 									$subject = $row->subject;
+
+
+								
+								
+								
 
 
 									$meeting_date = date('j M Y',strtotime($meeting_date));
@@ -539,6 +545,7 @@
 															                </thead>
 															                <tbody id="responsive-table-body">
 													                        <?php
+													                        	$facilitators = $this->facilitator_model->get_all_facilitators_time($meeting_id);
 													                        	if ($facilitators->num_rows() > 0)
 													                            {
 													                                $count = $page;
@@ -618,6 +625,7 @@
 															                </thead>
 															                <tbody id="responsive-table-body">
 													                        <?php
+													                        $attendees = $this->attendee_model->get_all_attendees_time($meeting_id);
 													                        	if ($attendees->num_rows() > 0)
 													                            {
 													                                $count = $page;
@@ -696,6 +704,7 @@
 															                </thead>
 															                <tbody id="responsive-table-body">
 															                	 <?php
+															                	 $action_points = $this->action_point_model->get_all_action_points_time($meeting_id);
 														                        	if ($action_points->num_rows() > 0)
 														                            {
 														                                $count = $page;
