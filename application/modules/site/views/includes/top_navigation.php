@@ -15,17 +15,15 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="main-nav">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo base_url();?>events">NTB Events Calender</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> social <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">NTB Events Planner <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Public User Pages</li>
-                                <li class="active"><a href="<?php echo base_url();?>timeline">Timeline</a>
+                                <li class="active"><a href="<?php echo base_url();?>all-events">Events & Conferences</a>
                                 </li>
-                                <li><a href="<?php echo base_url();?>profile">About</a>
+                                <li><a href="<?php echo base_url();?>profile">Attendees</a>
                                 </li>
-                                <li><a href="<?php echo base_url();?>friends">Friends</a>
-                                </li>
+                                <!-- <li><a href="<?php echo base_url();?>friends">Friends</a>
+                                </li> -->
                                 <li class="dropdown-header">Private User Pages</li>
                                 <li><a href="<?php echo base_url();?>messages">Messages</a>
                                 </li>
@@ -34,6 +32,8 @@
                                 
                             </ul>
                         </li>
+                        <li><a href="<?php echo base_url();?>site/calender">NTB Events Calender</a></li>
+                        
                         
                       
                     </ul>

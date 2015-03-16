@@ -8,6 +8,10 @@ class Events extends MX_Controller {
 		$this->load->model('admin/users_model');
 		$this->load->model('login/login_model');
 		$this->load->model('events_model');
+
+		$this->load->model('site/action_point_model');
+		$this->load->model('site/attendee_model');
+		$this->load->model('site/facilitator_model');
 	}
     
     
@@ -64,6 +68,7 @@ class Events extends MX_Controller {
 		$v_data['countries'] = $this->events_model->get_all_countries();
 		$v_data['event_types'] = $this->events_model->get_all_event_types();
 		$v_data['agencies'] = $this->events_model->get_all_agencies();
+
 		
 		$data['title'] = 'All orders';
 		$data['content'] = $this->load->view('events/events', $v_data, true);
