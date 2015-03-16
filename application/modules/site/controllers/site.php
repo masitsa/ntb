@@ -428,5 +428,60 @@ class Site extends MX_Controller {
 		$data['title'] = $this->site_model->display_page_title();
 		$this->load->view('templates/general_page', $data);
 	}
+    
+	/*
+	*
+	*	Calender
+	*
+	*/
+	public function calender() 
+	{
+		//get page data
+		$data['content'] = $this->load->view('calender', '', true);
+		
+		$data['title'] = $this->site_model->display_page_title();
+		$this->load->view('templates/general_page', $data);
+	}
+	
+	public function get_meetings_schedule()
+	{
+		//get all meetings
+		$meetings_result = $this->site_model->get_all_meetings();
+		
+		//initialize required variables
+		$totals = '';
+		$highest_bar = 0;
+		$r = 0;
+		$data = array();
+		
+		if($meetings_result->num_rows() > 0)
+		{
+			$result = $meetings_result->result();
+			
+			foreach($result as $res)
+			{
+				$meeting_start_date = date('D M d Y',strtotime($res->meeting_date)); 
+				$meeting_end_date = date('D M d Y',strtotime($res->end_date)); 
+				$time_start = $meeting_start_date.' 8:00:00 GMT+0300'; 
+				$time_end = $meeting_end_date.' 4:00:00 GMT+0300';
+				$event_type_name = $res->event_type_name;
+				$meeting_id = $res->meeting_id;
+				$agency_name = $res->agency_name;
+				$color = $this->site_model->random_color();
+				
+				$data['title'][$r] = $event_type_name.' - '.$agency_name;
+				$data['start'][$r] = $time_start;
+				$data['end'][$r] = $time_start;
+				$data['backgroundColor'][$r] = $color;
+				$data['borderColor'][$r] = $color;
+				$data['allDay'][$r] = TRUE;
+				$data['url'][$r] = site_url().'meeting/'.$meeting_id;
+				$r++;
+			}
+		}
+		
+		$data['total_events'] = $r;
+		echo json_encode($data);
+	}
 }
 ?>

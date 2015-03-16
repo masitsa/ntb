@@ -51,46 +51,9 @@
     </div>
     <!-- /st-container -->
     <!-- Inline Script for colors and config objects; used by various external scripts; -->
-    <script>
-    var colors = {
-        "danger-color": "#e74c3c",
-        "success-color": "#81b53e",
-        "warning-color": "#f0ad4e",
-        "inverse-color": "#2c3e50",
-        "info-color": "#2d7cb5",
-        "default-color": "#6e7882",
-        "default-light-color": "#cfd9db",
-        "purple-color": "#9D8AC7",
-        "mustard-color": "#d4d171",
-        "lightred-color": "#e15258",
-        "body-bg": "#f6f6f6"
-    };
-    var config = {
-        theme: "social-2",
-        skins: {
-            "default": {
-                "primary-color": "#16ae9f"
-            },
-            "orange": {
-                "primary-color": "#e74c3c"
-            },
-            "blue": {
-                "primary-color": "#4687ce"
-            },
-            "purple": {
-                "primary-color": "#af86b9"
-            },
-            "brown": {
-                "primary-color": "#c3a961"
-            },
-            "default-nav-inverse": {
-                "color-block": "#242424"
-            }
-        }
-    };
-    </script>
+    
     <!-- Separate Vendor Script Bundles -->
-    <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-core.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/themes/custom/js/custom.js"></script>
     <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-tables.min.js"></script>
     <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-forms.min.js"></script>
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-media.min.js"></script> -->
@@ -99,8 +62,8 @@
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-charts-flot.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-charts-easy-pie.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-charts-morris.min.js"></script> -->
-    <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-charts-sparkline.min.js"></script> -->
-    <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-maps.min.js"></script>
+    <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-charts-sparkline.min.js"></script> 
+    <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-maps.min.js"></script>-->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-tree.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-nestable.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/vendor-angular.min.js"></script> -->
@@ -125,8 +88,8 @@
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/module-player.min.js"></script> -->
     <script src="<?php echo base_url();?>assets/themes/themekit/js/module-timeline.min.js"></script>
     <script src="<?php echo base_url();?>assets/themes/themekit/js/module-chat.min.js"></script>
-    <script src="<?php echo base_url();?>assets/themes/themekit/js/module-maps.min.js"></script>
-    <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/module-charts-all.min.js"></script> -->
+    <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/module-maps.min.js"></script>
+    <script src="<?php echo base_url();?>assets/themes/themekit/js/module-charts-all.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/module-charts-flot.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/module-charts-easy-pie.min.js"></script> -->
     <!-- <script src="<?php echo base_url();?>assets/themes/themekit/js/module-charts-morris.min.js"></script> -->

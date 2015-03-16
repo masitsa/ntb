@@ -208,6 +208,20 @@ class Site_model extends CI_Model
 		$this->db->where(array('category_status'=> 1, 'category_parent' => 0));
 		return $this->db->get('category');
 	}
+	
+	public function get_all_meetings()
+	{
+		$this->db->where('meeting.event_type_id = event_type.event_type_id AND meeting.agency_id = agency.agency_id');
+		return $this->db->get('meeting, event_type, agency');
+	}
+	
+	public function random_color()
+	{
+		$rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+    	$color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+		
+		return $color;
+	}
 }
 
 ?>
