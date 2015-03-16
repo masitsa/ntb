@@ -181,7 +181,27 @@ $route['events/view-event/(:num)'] = 'site/view_event/$1';
 $route['events/book-event/(:num)'] = 'site/book_event/$1';
 $route['events/open-event/(:num)'] = 'site/open_event/$1';
 
+$route['all-action-points'] = 'site/action_point/all_action_points';
+$route['all-action-points/(:num)'] = 'site/action_point/all_action_points/$1';
+$route['add-action-point'] = 'site/action_point/add_action_point';
+$route['delete-action-point/(:num)'] = 'site/action_point/delete_action_point/$1';
+$route['edit-action-point/(:num)'] = 'site/action_point/edit_action_point/$1';
 
+$route['all-attendees'] = 'site/attendee/all_attendees';
+$route['all-attendees/(:num)'] = 'site/attendee/all_attendees/$1';
+$route['add-attendee'] = 'site/attendee/add_attendee';
+$route['edit-attendee/(:num)'] = 'site/attendee/edit_attendee/$1';
+$route['delete-attendee/(:num)'] = 'site/attendee/delete_attendee/$1';
+$route['activate-attendee/(:num)'] = 'site/attendee/activate_attendee/$1';
+$route['deactivate-attendee/(:num)'] = 'site/attendee/deactivate_attendee/$1';
+
+$route['all-facilitators'] = 'site/facilitator/all_facilitators';
+$route['all-facilitators/(:num)'] = 'site/facilitator/all_facilitators/$1';
+$route['add-facilitator'] = 'site/facilitator/add_facilitator';
+$route['edit-facilitator/(:num)'] = 'site/facilitator/edit_facilitator/$1';
+$route['delete-facilitator/(:num)'] = 'site/facilitator/delete_facilitator/$1';
+$route['activate-facilitator/(:num)'] = 'site/facilitator/activate_facilitator/$1';
+$route['deactivate-facilitator/(:num)'] = 'site/facilitator/deactivate_facilitator/$1';
 
 
 /*

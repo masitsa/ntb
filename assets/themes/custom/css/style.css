@@ -1,0 +1,11 @@
+.form-horizontal .alert-danger::-webkit-input-placeholder {color: #fff;}
+ /* Firefox 18- */
+.form-horizontal .alert-danger:-moz-placeholder {color: #fff;}
+/* Firefox 19+ */
+.form-horizontal .alert-danger::-moz-placeholder {color: #fff;}
+.form-horizontal .alert-danger:-ms-input-placeholder {color: #fff;  }
+.form-horizontal .alert-danger:focus{box-shadow:none;}
+.center-align{margin:0 auto; text-align:center;}
+
+.form-group span.required{color:#e7302a; font-size:0.8em;}
+.form-horizontal{padding: 15px;}
