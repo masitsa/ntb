@@ -288,5 +288,12 @@ class Events extends MX_Controller {
 		
 		redirect('all-events');
 	}
-
+	
+	public function get_meeting_details($meeting_id)
+	{
+		$data['meeting_id'] = $meeting_id;
+		$return['meeting_data'] = $this->load->view('events/event_details', $data, TRUE);
+		
+		echo json_encode($return);
+	}
 }
