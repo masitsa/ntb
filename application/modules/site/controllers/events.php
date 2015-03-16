@@ -8,9 +8,6 @@ class Events extends MX_Controller {
 		$this->load->model('admin/users_model');
 		$this->load->model('login/login_model');
 		$this->load->model('events_model');
-		
-		
-		
 	}
     
     
@@ -99,10 +96,12 @@ class Events extends MX_Controller {
 		//if form has been submitted
 		if ($this->form_validation->run())
 		{
+			$date = $this->input->post('meeting_date');
+			
 			if($this->events_model->add_event())
 			{
 				$this->session->set_userdata('success_message', 'brand added successfully');
-				redirect('all-events');
+				redirect('calender');
 			}
 			
 			else
@@ -220,7 +219,7 @@ class Events extends MX_Controller {
 			if($this->events_model->update_event($event_id))
 			{
 				$this->session->set_userdata('success_message', 'event updated successfully');
-				redirect('all-events');
+				redirect('calender');
 			}
 			
 			else

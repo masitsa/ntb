@@ -13,12 +13,195 @@
 	 	</div>
 	 	<div class="col-md-12 col-lg-12">
 		 	<div class="panel panel-default">
+            	<div class="row" style="margin-bottom:20px;">
+                	<div class="col-md-3 col-md-offset-9">
+                    	<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".add-event">Add Event</button>
+                	</div>
+                </div>
+
+			<div class="modal fade add-event" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			      
+					 <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			            <div class="hgroup title">
+			                 <h3>You're one step closer to ceating a meeting!</h3>
+				                <h5>"" Fill in all the fields to add this meetinf</h5>
+			            </div>
+			        </div>
+
+					 <form enctype="multipart/form-data" product_id="" action="<?php echo base_url();?>add-event"  id = "product_review_form" method="post">
+			      		
+
+			            <div class="modal-body">
+			                <div class="row">
+
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label class="control-label">Meeting Date</label>
+			                            <div class="controls">
+											<div class='input-group date' >
+												<input type='text' id='datepicker' name="meeting_date" class="form-control" />
+												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+											</div>
+			                            </div>
+			                        </div>
+			                    </div>
+
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label class="control-label">End Date</label>
+			                            <div class="controls">
+											<div class='input-group date' >
+												<input type='text' id='datepicker2' name="end_date" class="form-control" />
+												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+											</div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+
+			                <div class="row">
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_author_name" class="control-label">Country</label>
+			                            <div class="controls">
+			                             <select class="form-control" name="country_id">
+			                              		<?php
+			                              		//if users exist display them
+												if ($countries->num_rows() > 0)
+												{
+													foreach ($countries->result() as $cont)
+													{
+														$country_id = $cont->country_id;
+														$country_name = $cont->country_name;
+														?>
+														<option value="<?php echo $country_id;?>"><?php echo $country_name;?></option>
+														<?php
+													}
+												}
+			                              		?>     	
+			                              </select>
+			                            </div>
+			                        </div>
+			                    </div>
+
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_author_email" class="control-label">Agency</label>
+			                            <div class="controls">
+											<select class="form-control" name="agency_id">
+			                              		<?php
+			                              		//if users exist display them
+												if ($agencies->num_rows() > 0)
+												{
+													foreach ($agencies->result() as $agents)
+													{
+														$agency_id = $agents->agency_id;
+														$agency_name = $agents->agency_name;
+														?>
+														<option value="<?php echo $agency_id;?>"><?php echo $agency_name;?></option>
+														<?php
+													}
+												}
+			                              		?>     	
+			                              </select>	                            
+			                             </div>
+			                        </div>
+			                    </div>
+			                </div>
+
+			                <div class="row">
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_text" class="control-label">Events Type</label>
+			                            <div class="controls">
+			                            	<select class="form-control" name="event_type_id">
+			                              		<?php
+			                              		//if users exist display them
+												if ($event_types->num_rows() > 0)
+												{
+													foreach ($event_types->result() as $evt)
+													{
+														$event_type_id = $evt->event_type_id;
+														$event_type_name = $evt->event_type_name;
+														?>
+														<option value="<?php echo $event_type_id;?>"><?php echo $event_type_name;?></option>
+														<?php
+													}
+												}
+			                              		?>     	
+			                              </select>	  
+			                            </div>
+			                        </div>
+
+			                    </div>
+			                </div>
+			                  <div class="row">
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_text" class="control-label">Location</label>
+			                            <div class="controls">
+			                            	<input type="text" class="form-control col-md-12" name="location">
+			                            </div>
+			                        </div>
+
+			                    </div>
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_text" class="control-label">Subject</label>
+			                            <div class="controls">
+			                            	<input type="text" class="form-control col-md-12" name="subject">
+			                            </div>
+			                        </div>
+
+			                    </div>
+			                </div>
+
+			            </div>
+
+			            <div class="modal-footer">
+			                <div class="pull-right">
+			                    <button class="btn btn-primary" type="submit" onclick="">Submit Meeting info</button>
+			                </div>
+			            </div>                         
+				</form>
+ 
+			    </div>
+			  </div>
+			</div>
+                
             	<div id="meetings"></div>
 		    </div>
 		</div>
 	</div>
  </div>
- 
+ <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <div class="hgroup title">
+                 <h3>You're one step closer to ceating a meeting!</h3>
+                    <h5>"" Fill in all the fields to add this meetinf</h5>
+            </div>
+        </div>
+
+            <div class="modal-body">
+                
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button class="btn btn-primary" type="submit" onclick="">Submit Meeting info</button>
+                </div>
+            </div>   
+    </div>
+  </div>
+</div>
 <script src="<?php echo base_url()."assets/themes/bluish/"?>js/jquery-ui-1.10.2.custom.min.js"></script> <!-- jQuery UI -->
 <script src="<?php echo base_url()."assets/themes/bluish/"?>js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
  

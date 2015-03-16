@@ -8,6 +8,7 @@ class Site extends MX_Controller {
 		$this->load->model('admin/users_model');
 		$this->load->model('login/login_model');
 		$this->load->model('site/site_model');
+		$this->load->model('events_model');
 		//user has logged in
 		if($this->login_model->check_user_login())
 		{
@@ -437,7 +438,10 @@ class Site extends MX_Controller {
 	public function calender() 
 	{
 		//get page data
-		$data['content'] = $this->load->view('calender', '', true);
+		$v_data['countries'] = $this->events_model->get_all_countries();
+		$v_data['event_types'] = $this->events_model->get_all_event_types();
+		$v_data['agencies'] = $this->events_model->get_all_agencies();
+		$data['content'] = $this->load->view('calender', $v_data, true);
 		
 		$data['title'] = $this->site_model->display_page_title();
 		$this->load->view('templates/general_page', $data);
@@ -460,10 +464,11 @@ class Site extends MX_Controller {
 			
 			foreach($result as $res)
 			{
-				$meeting_start_date = date('D M d Y',strtotime($res->meeting_date)); 
-				$meeting_end_date = date('D M d Y',strtotime($res->end_date)); 
-				$time_start = $meeting_start_date.' 8:00:00 GMT+0300'; 
-				$time_end = $meeting_end_date.' 4:00:00 GMT+0300';
+				$meeting_start_date = date('D M d Y H:i:s',strtotime($res->meeting_date)); 
+				$meeting_end_date = date('D M d Y H:i:s',strtotime($res->end_date)); 
+				
+				$time_start = $meeting_start_date.' GMT+0300'; 
+				$time_end = $meeting_end_date.' GMT+0300';
 				$event_type_name = $res->event_type_name;
 				$meeting_id = $res->meeting_id;
 				$agency_name = $res->agency_name;
@@ -472,10 +477,10 @@ class Site extends MX_Controller {
 				$data['title'][$r] = $event_type_name.' - '.$agency_name;
 				$data['start'][$r] = $time_start;
 				$data['end'][$r] = $time_start;
-				$data['backgroundColor'][$r] = $color;
-				$data['borderColor'][$r] = $color;
-				$data['allDay'][$r] = TRUE;
-				$data['url'][$r] = site_url().'meeting/'.$meeting_id;
+				$data['backgroundColor'][$r] = '#26A69A';
+				$data['borderColor'][$r] = '#26A69A';
+				$data['allDay'][$r] = FALSE;
+				$data['url'][$r] = $meeting_id;
 				$r++;
 			}
 		}
