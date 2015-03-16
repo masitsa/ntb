@@ -207,6 +207,14 @@
  
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	  $(function() {
+	    $( "#datepicker" ).datepicker();
+	  });
+	  $(function() {
+	    $( "#datepicker2" ).datepicker();
+	  });
+	  
 	var config_url = '<?php echo site_url();?>';
 	var date = new Date();
     var d = date.getDate();
