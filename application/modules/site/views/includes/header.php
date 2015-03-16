@@ -46,7 +46,6 @@
         <![endif]-->
         <!-- Custom -->
         
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/themes/custom/css/style.css">
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,4 +54,3 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <!-- Jquery  --> 
-        <script type="text/javascript" src="<?php echo base_url();?>assets/themes/custom/js/jquery-2.1.1.min.js"></script>

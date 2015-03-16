@@ -21,6 +21,18 @@ class Attendee_model extends CI_Model
 		
 		return $query;
 	}
+	public function get_all_attendees_time()
+	{
+		$this->db->from('attendee');
+		$this->db->select('attendee.*');
+		$this->db->where('attendee_id > 0');
+		$this->db->order_by('attendee_id','DESC');
+		
+		$query = $this->db->get();
+		
+		
+		return $query;
+	}
 	
 	public function get_titles()
 	{

@@ -21,6 +21,18 @@ class Facilitator_model extends CI_Model
 		
 		return $query;
 	}
+	public function get_all_facilitators_time()
+	{
+		$this->db->from('facilitator');
+		$this->db->select('facilitator.*');
+		$this->db->where('facilitator_id > 0');
+		$this->db->order_by('facilitator_id', 'DESC');
+		
+		$query = $this->db->get();
+		
+		
+		return $query;
+	}
 	
 	public function get_titles()
 	{
