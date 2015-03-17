@@ -172,6 +172,7 @@ $route['site/sign-in'] = 'site/user_signin';
 
 $route['home'] = 'site/index';
 $route['calender'] = 'site/calender';
+$route['calendar'] = 'site/calender';
 $route['messages'] = 'site/messages';
 $route['profile'] = 'site/profile';
 $route['timeline'] = 'site/index';

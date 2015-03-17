@@ -73,7 +73,7 @@ class Login_model extends CI_Model
 	{
 		//select the user by email from the database
 		$this->db->select('*');
-		$this->db->where(array('email' => $this->input->post('user_email'), 'activated' => 1, 'password' => md5($this->input->post('user_password'))));
+		$this->db->where(array('email' => $this->input->post('email'), 'activated' => 1, 'password' => md5($this->input->post('password'))));
 		$query = $this->db->get('users');
 		
 		//if users exists

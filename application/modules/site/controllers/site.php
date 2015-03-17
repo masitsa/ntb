@@ -9,16 +9,16 @@ class Site extends MX_Controller {
 		$this->load->model('login/login_model');
 		$this->load->model('site/site_model');
 		$this->load->model('events_model');
-		
+		$user = $this->login_model->check_user_login();
 		//user has logged in
 		if($this->login_model->check_user_login())
 		{
 		}
 		else
 		{
-			redirect('user-login');
+			//redirect('user-login');
 		}
-		
+		var_dump($user);die();
 	}
     
     
