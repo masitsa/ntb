@@ -228,6 +228,7 @@
 				$("#meeting_data").html(error);
 			}
 		});
+		return false;
 	});
 	
 $(document).ready(function() {
