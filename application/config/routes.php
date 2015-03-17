@@ -44,9 +44,6 @@ $route['404_override'] = '';
 /*
 *	Site Routes
 */
-$route['home'] = 'site/home_page';
-$route['about'] = 'site/about';
-$route['terms'] = 'site/terms';
 
 /*
 *	Settings Routes
@@ -60,7 +57,7 @@ $route['dashboard'] = 'admin/index';
 $route['login-admin'] = 'login/login_admin';
 $route['logout-admin'] = 'login/logout_admin';
 
-$route['user-login'] = 'login/user_signin';
+$route['user-signin'] = 'login/user_signin';
 
 $route['logout-user'] = 'login/logout_user';
 /*
@@ -168,7 +165,6 @@ $route['confirm-account/(:any)'] = 'vendor/verify_email/$1';
 *	site Routes
 */
 
-$route['site/sign-in'] = 'site/user_signin';
 
 $route['home'] = 'site/index';
 $route['calender'] = 'site/calender';

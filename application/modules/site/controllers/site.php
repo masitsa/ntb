@@ -35,6 +35,7 @@ class Site extends MX_Controller {
 		$data['title'] = 'Home';
 		$this->load->view('site/templates/general_page', $data);
 	}
+	
 	/*
 	*
 	*	Default action is to go to the home page
