@@ -41,7 +41,7 @@ class Action_point_model extends CI_Model
 		return $this->db->get('priority_status');
 	}
 	
-	public function add_action_point()
+	public function add_action_point($meeting_id)
 	{
 		$data = array
 		(
@@ -49,6 +49,7 @@ class Action_point_model extends CI_Model
 			'priority_status_id' => $this->input->post('priority_status_id'),
 			'actions_status_id' => $this->input->post('actions_status_id'),
 			'action_point_notes' => $this->input->post('action_point_notes'),
+			'meeting_id' => $meeting_id,
 			'created' => date('Y-m-d H:i:s')
 		);
 		

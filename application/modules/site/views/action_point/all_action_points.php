@@ -1,9 +1,38 @@
+<?php
+$meeting_detail = $this->events_model->get_event_name($meeting_id);
+if ($meeting_detail->num_rows() > 0)
+{
+    foreach ($meeting_detail->result() as $row)
+    {
+        $meeting_id = $row->meeting_id;
+        $meeting_date = $row->meeting_date;
+        $meeting_status = $row->meeting_status;
+        $end_date = $row->end_date;
+        $country_id = $row->country_id;
+        $country_name = $row->country_name;
+
+        $event_type_id = $row->event_type_id;
+        $event_type_name = $row->event_type_name;
+        $agency_id = $row->agency_id;
+
+        $agency_name = $row->agency_name;
+        $location = $row->location;
+        $subject = $row->subject;
+
+        $meeting_date = date('j M Y',strtotime($meeting_date));
+        $end_date = date('j M Y',strtotime($end_date));
+    }
+}
+
+?>
  <div class="container-fluid">
  	
  	<div class="col-md-12 col-lg-12">
-     	<h4 class="page-section-heading">NTB action points</h4>
+     	<h4 class="page-section-heading"><?php echo $subject;?> Action Points</h4>
      	<div class="col-md-12 col-lg-12" style="margin-bottom:5px;">
-	 		<a href="<?php echo base_url();?>add-action-point" class="btn btn-success pull-right" data-toggle="tooltip" data-placement="top" title="Add">Add action point</a>
+     		<a href="<?php echo base_url();?>all-events" class="btn btn-primary btn-sm pull-left" data-toggle="tooltip" data-placement="top" title="Back to events">Back to Events</a>
+
+	 		<a href="<?php echo base_url();?>add-action-point/<?php echo $meeting_id;?>" class="btn btn-success btn-sm pull-right" data-toggle="tooltip" data-placement="top" title="Add">Add action point</a>
 	 	</div>
 	 	<div class="col-md-12 col-lg-12">
 		 	<div class="panel panel-default">
@@ -85,10 +114,10 @@
                                         <td><?php echo $action_status_name;?></td>
                                         <td><?php echo $action_point_notes;?></td>
                                         <td >
-                                             <a href="<?php echo base_url();?>delete-action-point/<?php echo $action_point_id;?>" class="btn btn-danger" onclick="return confirm('Do you really want to delete this action point?');">Delete</a>
+                                             <a href="<?php echo base_url();?>delete-action-point/<?php echo $action_point_id;?>/<?php echo $meeting_id;?>" class="btn btn-danger btn-sm" onclick="return confirm('Do you really want to delete this action point?');">Delete</a>
                                         </td>
                                         <td >
-                                             <a href="<?php echo base_url();?>edit-action-point/<?php echo $action_point_id;?>" class="btn btn-info">Edit</a>
+                                             <a href="<?php echo base_url();?>edit-action-point/<?php echo $action_point_id;?>/<?php echo $meeting_id;?>" class="btn btn-info btn-sm">Edit</a>
                                         </td>
                                     </tr>
                                     <?php    

@@ -8,6 +8,7 @@ class Facilitator extends MX_Controller
 		$this->load->model('site_model');
 		$this->load->model('facilitator_model');
 		$this->load->model('admin/users_model');
+		$this->load->model('site/events_model');
 	}
     
 	/*
@@ -17,14 +18,14 @@ class Facilitator extends MX_Controller
 	*/
 	public function all_facilitators($meeting_id = NULL) 
 	{
-		$where = 'facilitator_id > 0';
+		$where = 'facilitator_id > 0 AND meeting_id ='.$meeting_id;
 		$table = 'facilitator';
 		$limit = NULL;
 		
 		//pagination
-		$segment = 2;
+		$segment = 3;
 		$this->load->library('pagination');
-		$config['base_url'] = base_url().'all-facilitators';
+		$config['base_url'] = base_url().'all-facilitators/'.$meeting_id;
 		$config['total_rows'] = $this->users_model->count_items($table, $where, $limit);
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = 21;
@@ -70,6 +71,7 @@ class Facilitator extends MX_Controller
 			$v_data["last"] = $page + $config["per_page"];
 		}
 		$v_data["page"] = $page;
+		$v_data["meeting_id"] = $meeting_id;
 		
 		$v_data['facilitators'] = $this->facilitator_model->get_all_facilitators($table, $where, $config["per_page"], $page, $limit);
 		
@@ -84,7 +86,7 @@ class Facilitator extends MX_Controller
 	*	Add facilitator
 	*
 	*/
-	public function add_facilitator() 
+	public function add_facilitator($meeting_id = NULL) 
 	{
 		//initialize required variables
 		$v_data['facilitator_first_name_error'] = '';
@@ -102,10 +104,10 @@ class Facilitator extends MX_Controller
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
-			if($this->facilitator_model->add_facilitator())
+			if($this->facilitator_model->add_facilitator($meeting_id))
 			{
 				$this->session->set_userdata('success_message', 'Facilitator added successfully');
-				redirect('all-facilitators');
+				redirect('all-facilitators/'.$meeting_id);
 			}
 			
 			else
@@ -144,6 +146,7 @@ class Facilitator extends MX_Controller
 		}
 		
 		$v_data['title'] = 'Add';
+		$v_data['meeting_id'] = $meeting_id;
 		$data['content'] = $this->load->view('facilitator/add_facilitator', $v_data, true);
 		
 		$data['title'] = 'Add';
@@ -155,7 +158,7 @@ class Facilitator extends MX_Controller
 	*	Edit facilitator
 	*
 	*/
-	public function edit_facilitator($facilitator_id) 
+	public function edit_facilitator($facilitator_id,$meeting_id) 
 	{
 		//initialize required variables
 		$v_data['facilitator_first_name_error'] = '';
@@ -177,7 +180,7 @@ class Facilitator extends MX_Controller
 			if($this->facilitator_model->edit_facilitator($facilitator_id))
 			{
 				$this->session->set_userdata('success_message', 'Facilitator edited successfully');
-				redirect('all-facilitators');
+				redirect('all-facilitators/'.$meeting_id);
 			}
 			
 			else
@@ -228,6 +231,7 @@ class Facilitator extends MX_Controller
 			}
 		}
 		$v_data['title'] = 'Edit';
+		$v_data['meeting_id'] = $meeting_id;
 		$data['content'] = $this->load->view('facilitator/add_facilitator', $v_data, true);
 		
 		$data['title'] = 'Add';
@@ -240,7 +244,7 @@ class Facilitator extends MX_Controller
 	*	@param int $facilitator_id
 	*
 	*/
-	public function delete_facilitator($facilitator_id)
+	public function delete_facilitator($facilitator_id,$meeting_id)
 	{
 		//delete facilitator
 		if($this->facilitator_model->delete_facilitator($facilitator_id))
@@ -252,7 +256,7 @@ class Facilitator extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to delete facilitator. Please try again');
 		}
-		redirect('all-facilitators');
+		redirect('all-facilitators/'.$meeting_id);
 	}
     
 	/*
@@ -261,7 +265,7 @@ class Facilitator extends MX_Controller
 	*	@param int $facilitator_id
 	*
 	*/
-	public function activate_facilitator($facilitator_id)
+	public function activate_facilitator($facilitator_id,$meeting_id)
 	{
 		if($this->facilitator_model->activate_facilitator($facilitator_id))
 		{
@@ -272,7 +276,7 @@ class Facilitator extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to activate facilitator. Please try again');
 		}
-		redirect('all-facilitators');
+		redirect('all-facilitators/'.$meeting_id);
 	}
     
 	/*
@@ -281,7 +285,7 @@ class Facilitator extends MX_Controller
 	*	@param int $facilitator_id
 	*
 	*/
-	public function deactivate_facilitator($facilitator_id)
+	public function deactivate_facilitator($facilitator_id,$meeting_id)
 	{
 		if($this->facilitator_model->deactivate_facilitator($facilitator_id))
 		{
@@ -292,7 +296,7 @@ class Facilitator extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to deactivate facilitator. Please try again');
 		}
-		redirect('all-facilitators');
+		redirect('all-facilitators/'.$meeting_id);
 	}
 }
 ?>

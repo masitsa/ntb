@@ -7,16 +7,12 @@
  <div class="container-fluid">
  	
  	<div class="col-md-12 col-lg-12">
-     	<h4 class="page-section-heading">Meetings</h4>
-     	<div class="col-md-12 col-lg-12" style="margin-bottom:5px;">
-	 		<a href="<?php echo base_url();?>/all-events"  class="btn btn-info btn-sm pull-right" > Events table list</a>
-	 	</div>
 	 	<div class="col-md-12 col-lg-12">
         
 		 	<div class="panel panel-default" style="height:1000px; padding:15px;">
             	<div class="row" style="margin-bottom:20px;">
                 	<div class="col-md-3 col-md-offset-9">
-                    	<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".add-event">Add Event</button>
+                    	<button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target=".add-event"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Event</button>
                 	</div>
                 </div>
 
@@ -28,7 +24,6 @@
 			            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			            <div class="hgroup title">
 			                 <h3>You're one step closer to creating a meeting!</h3>
-				                <h5>Fll in all the fields to add this meetinf</h5>
 			            </div>
 			        </div>
 
@@ -180,26 +175,7 @@
  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <div class="hgroup title">
-                 <h3>You're one step closer to ceating a meeting!</h3>
-                    <h5>"" Fill in all the fields to add this meetinf</h5>
-            </div>
-        </div>
-
-            <div class="modal-body">
-                
-                <div id="meeting_data"></div>
-				
-            </div>
-
-            <div class="modal-footer">
-                <div class="pull-right">
-                    <button class="btn btn-primary" type="submit" onclick="">Submit Meeting info</button>
-                </div>
-            </div>   
+          <div id="meeting_data"></div>  
     </div>
   </div>
 </div>

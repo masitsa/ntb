@@ -39,7 +39,7 @@ class Attendee_model extends CI_Model
 		return $this->db->get('title');
 	}
 	
-	public function add_attendee()
+	public function add_attendee($meeting_id)
 	{
 		$data = array
 		(
@@ -47,6 +47,7 @@ class Attendee_model extends CI_Model
 			'attendee_first_name' => $this->input->post('attendee_first_name'),
 			'attendee_last_name' => $this->input->post('attendee_last_name'),
 			'attendee_email' => $this->input->post('attendee_email'),
+			'meeting_id' => $meeting_id,
 			'created' => date('Y-m-d H:i:s')
 		);
 		

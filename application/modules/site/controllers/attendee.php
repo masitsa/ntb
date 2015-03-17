@@ -8,6 +8,7 @@ class Attendee extends MX_Controller
 		$this->load->model('site_model');
 		$this->load->model('attendee_model');
 		$this->load->model('admin/users_model');
+		$this->load->model('site/events_model');
 	}
     
 	/*
@@ -17,14 +18,14 @@ class Attendee extends MX_Controller
 	*/
 	public function all_attendees($meeting_id = NULL) 
 	{
-		$where = 'attendee_id > 0';
+		$where = 'attendee_id > 0 AND meeting_id ='.$meeting_id;
 		$table = 'attendee';
 		$limit = NULL;
 		
 		//pagination
-		$segment = 2;
+		$segment = 3;
 		$this->load->library('pagination');
-		$config['base_url'] = base_url().'all-attendees';
+		$config['base_url'] = base_url().'all-attendees/'.$meeting_id;
 		$config['total_rows'] = $this->users_model->count_items($table, $where, $limit);
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = 21;
@@ -70,6 +71,7 @@ class Attendee extends MX_Controller
 			$v_data["last"] = $page + $config["per_page"];
 		}
 		$v_data["page"] = $page;
+		$v_data["meeting_id"] = $meeting_id;
 		
 		$v_data['attendees'] = $this->attendee_model->get_all_attendees($table, $where, $config["per_page"], $page, $limit);
 		
@@ -84,7 +86,7 @@ class Attendee extends MX_Controller
 	*	Add attendee
 	*
 	*/
-	public function add_attendee() 
+	public function add_attendee($meeting_id) 
 	{
 		//initialize required variables
 		$v_data['attendee_first_name_error'] = '';
@@ -102,10 +104,10 @@ class Attendee extends MX_Controller
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
-			if($this->attendee_model->add_attendee())
+			if($this->attendee_model->add_attendee($meeting_id))
 			{
 				$this->session->set_userdata('success_message', 'Attendee added successfully');
-				redirect('all-attendees');
+				redirect('all-attendees/'.$meeting_id);
 			}
 			
 			else
@@ -144,6 +146,7 @@ class Attendee extends MX_Controller
 		}
 		
 		$v_data['title'] = 'Add';
+		$v_data['meeting_id'] = $meeting_id;
 		$data['content'] = $this->load->view('attendee/add_attendee', $v_data, true);
 		
 		$data['title'] = 'Add';
@@ -155,7 +158,7 @@ class Attendee extends MX_Controller
 	*	Edit attendee
 	*
 	*/
-	public function edit_attendee($attendee_id) 
+	public function edit_attendee($attendee_id,$meeting_id) 
 	{
 		//initialize required variables
 		$v_data['attendee_first_name_error'] = '';
@@ -177,7 +180,7 @@ class Attendee extends MX_Controller
 			if($this->attendee_model->edit_attendee($attendee_id))
 			{
 				$this->session->set_userdata('success_message', 'Attendee edited successfully');
-				redirect('all-attendees');
+				redirect('all-attendees/'.$meeting_id);
 			}
 			
 			else
@@ -228,6 +231,7 @@ class Attendee extends MX_Controller
 			}
 		}
 		$v_data['title'] = 'Edit';
+		$v_data['meeting_id'] = $meeting_id;
 		$data['content'] = $this->load->view('attendee/add_attendee', $v_data, true);
 		
 		$data['title'] = 'Add';
@@ -240,7 +244,7 @@ class Attendee extends MX_Controller
 	*	@param int $attendee_id
 	*
 	*/
-	public function delete_attendee($attendee_id)
+	public function delete_attendee($attendee_id,$meeting_id)
 	{
 		//delete attendee
 		if($this->attendee_model->delete_attendee($attendee_id))
@@ -252,7 +256,7 @@ class Attendee extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to delete attendee. Please try again');
 		}
-		redirect('all-attendees');
+		redirect('all-attendees/'.$meeting_id);
 	}
     
 	/*
@@ -261,7 +265,7 @@ class Attendee extends MX_Controller
 	*	@param int $attendee_id
 	*
 	*/
-	public function activate_attendee($attendee_id)
+	public function activate_attendee($attendee_id,$meeting_id)
 	{
 		if($this->attendee_model->activate_attendee($attendee_id))
 		{
@@ -272,7 +276,7 @@ class Attendee extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to activate attendee. Please try again');
 		}
-		redirect('all-attendees');
+		redirect('all-attendees/'.$meeting_id);
 	}
     
 	/*
@@ -281,7 +285,7 @@ class Attendee extends MX_Controller
 	*	@param int $attendee_id
 	*
 	*/
-	public function deactivate_attendee($attendee_id)
+	public function deactivate_attendee($attendee_id,$meeting_id)
 	{
 		if($this->attendee_model->deactivate_attendee($attendee_id))
 		{
@@ -292,7 +296,7 @@ class Attendee extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to deactivate attendee. Please try again');
 		}
-		redirect('all-attendees');
+		redirect('all-attendees/'.$meeting_id);
 	}
 }
 ?>

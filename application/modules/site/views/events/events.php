@@ -2,9 +2,9 @@
 
  <div class="container-fluid">
  	<div class="col-md-12 col-lg-12">
-     	<h4 class="page-section-heading">NTB scheduled events</h4>
+     	<h4 class="page-section-heading"></h4>
      	<div class="col-md-12 col-lg-12" style="margin-bottom:5px;">
-     		<a href="<?php echo base_url();?>/site/calender"  class="btn btn-info btn-sm " style="margin-right:5px;" >Back Events Calender</a>
+     		<a href="<?php echo base_url();?>calender"  class="btn btn-info btn-sm " style="margin-right:5px;" >Back Events Calender</a>
 	 		<button type="button" class="btn btn-primary btn-sm pull-right " data-toggle="modal" data-target=".bs-example-modal-lg">Add Event</button>
 
 			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -197,12 +197,13 @@
 		                        </th>
 		                        <th>Subject</th>
 		                        <th>Event Date - End Date</th>
-		                        <th>Country</th>
+		                        <th>Country</th><!-- 
 		                        <th>Agency</th>
 		                        <th>Event Type</th>
-		                        <th>Location</th>
+		                        <th>Location</th> -->
 		                        <!-- <th>Attendance</th> -->
-		                        <th class="text-right" colspan="4" width="100">Action</th>
+		                        <th class="text-left" colspan="1">Event Items</th>
+		                        <th class="text-left" colspan="3" >Action</th>
 		                    </tr>
 		                </thead>
 		                <tbody id="responsive-table-body">
@@ -241,13 +242,13 @@
 									if($meeting_status == 1)
 									{
 										$status = 'Active';
-										$button = '<a class="btn btn-danger btn-xs" href="'.site_url().'deactivate-event/'.$meeting_id.'" onclick="return confirm(\'Do you want to activate '.$subject.'?\');">Deactivate event</a>';
+										$button = '<a class="btn btn-danger btn-xs" href="'.site_url().'deactivate-event/'.$meeting_id.'" onclick="return confirm(\'Do you want to activate '.$subject.'?\');">Deactivate</a>';
 
 									}
 									else
 									{
 										$status = 'Disabled';
-										$button = '<a class="btn btn-success btn-xs" href="'.site_url().'activate-event/'.$meeting_id.'" onclick="return confirm(\'Do you want to activate '.$subject.'?\');">Activate event</a>';
+										$button = '<a class="btn btn-success btn-xs" href="'.site_url().'activate-event/'.$meeting_id.'" onclick="return confirm(\'Do you want to activate '.$subject.'?\');">Activate</a>';
 
 									}
 									
@@ -270,10 +271,10 @@
 					                        </td>
 					                        <td><span class="label label-default"><?php echo $meeting_date;?> - <?php echo $end_date;?></span>
 					                        </td>
-					                        <td><?php echo $country_name;?></td>
+					                        <td><?php echo $country_name;?></td><!-- 
 					                        <td><?php echo $agency_name?></td>
 					                        <td><?php echo $event_type_name;?></td>
-					                        <td><?php echo $location;?><a href="#"><i class="fa fa-map-marker fa-fw text-muted"></i></a></td>
+					                        <td><?php echo $location;?><a href="#"><i class="fa fa-map-marker fa-fw text-muted"></i></a></td> -->
 					                       
 					                        <!-- <td>
 					                            <div class="progress">
@@ -281,12 +282,20 @@
 					                                </div>
 					                            </div>
 					                        </td> -->
+					                         <td >
+
+                    					         <a class="btn btn-info btn-xs" href="<?php echo base_url()?>all-facilitators/<?php echo $meeting_id;?>" >Conveyors</a>
+					                         	 <a class="btn btn-warning btn-xs" href="<?php echo base_url()?>all-attendees/<?php echo $meeting_id;?>" >Attendees</a>
+					                             <a class="btn btn-success btn-xs" href="<?php echo base_url()?>all-action-points/<?php echo $meeting_id;?>" >Action point</a>
+
+					                         </td>
 					                        <td >
 
 					                             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target=".bs-example<?php echo $meeting_id;?>-modal-lg">Edit </button>
 					                             <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target=".bs-details<?php echo $meeting_id;?>-modal-lg">Details</button>
-
+					                            
 					                             <?php echo $button;?>
+
 
 					                             <div class="modal fade bs-example<?php echo $meeting_id;?>-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 													  <div class="modal-dialog modal-lg">

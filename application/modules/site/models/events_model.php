@@ -57,6 +57,18 @@ class Events_model extends CI_Model
 		
 		return $query;
 	}
+
+	public function get_event_name($meeting_id)
+	{
+		//retrieve all orders
+		$this->db->from('meeting,country,event_type,agency');
+		$this->db->select('*');
+		$this->db->where('meeting.country_id = country.country_id AND meeting.event_type_id = event_type.event_type_id AND meeting.agency_id = agency.agency_id AND meeting_id ='.$meeting_id);
+		$this->db->order_by('meeting_id','DESC');
+		$query = $this->db->get();
+		
+		return $query;
+	}
 	public function get_all_event_types()
 	{
 		//retrieve all orders

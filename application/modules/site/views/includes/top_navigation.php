@@ -10,13 +10,13 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="#sidebar-chat" data-toggle="sidebar-menu" data-effect="st-effect-1" class="toggle pull-right visible-xs"><i class="fa fa-comments"></i></a>
-                    <a class="navbar-brand" href="">NTB</a>
+                    <a class="navbar-brand" href="">TNC</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="main-nav">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">NTB Events Planner <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">TNC Events Planner <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="active"><a href="<?php echo base_url();?>all-events">Events & Conferences</a>
                                 </li>
@@ -32,7 +32,7 @@
                                 
                             </ul>
                         </li>
-                        <li><a href="<?php echo base_url();?>site/calender">NTB Events Calender</a></li>
+                        <li><a href="<?php echo base_url();?>calender">TNC Events Calender</a></li>
                         
                         
                       
@@ -53,7 +53,7 @@
                                 </li>
                                 <li><a href="<?php echo base_url();?>messages">Messages</a>
                                 </li>
-                                <li><a href="<?php echo base_url();?>site/sign-in">Logout</a>
+                                <li><a href="<?php echo base_url();?>logout-user">Logout</a>
                                 </li>
                             </ul>
                         </li>

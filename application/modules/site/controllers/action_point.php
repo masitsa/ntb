@@ -8,6 +8,7 @@ class Action_point extends MX_Controller
 		$this->load->model('site_model');
 		$this->load->model('action_point_model');
 		$this->load->model('admin/users_model');
+		$this->load->model('site/events_model');
 	}
     
 	/*
@@ -17,14 +18,14 @@ class Action_point extends MX_Controller
 	*/
 	public function all_action_points($meeting_id = NULL) 
 	{
-		$where = 'action_point.priority_status_id = priority_status.priority_status_id AND action_point.actions_status_id = action_status.action_status_id';
+		$where = 'action_point.priority_status_id = priority_status.priority_status_id AND action_point.actions_status_id = action_status.action_status_id AND action_point.meeting_id ='.$meeting_id;
 		$table = 'action_point, priority_status, action_status';
 		$limit = NULL;
 		
 		//pagination
-		$segment = 2;
+		$segment = 3;
 		$this->load->library('pagination');
-		$config['base_url'] = base_url().'all-action-points';
+		$config['base_url'] = base_url().'all-action-points/'.$meeting_id;
 		$config['total_rows'] = $this->users_model->count_items($table, $where, $limit);
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = 21;
@@ -70,7 +71,7 @@ class Action_point extends MX_Controller
 			$v_data["last"] = $page + $config["per_page"];
 		}
 		$v_data["page"] = $page;
-		
+		$v_data["meeting_id"] = $meeting_id;
 		$v_data['action_points'] = $this->action_point_model->get_all_action_points($table, $where, $config["per_page"], $page, $limit);
 		
 		$data['content'] = $this->load->view('action_point/all_action_points', $v_data, true);
@@ -84,7 +85,7 @@ class Action_point extends MX_Controller
 	*	Add action point
 	*
 	*/
-	public function add_action_point() 
+	public function add_action_point($meeting_id) 
 	{
 		//initialize required variables
 		$v_data['assigned_to_error'] = '';
@@ -103,10 +104,10 @@ class Action_point extends MX_Controller
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
-			if($this->action_point_model->add_action_point())
+			if($this->action_point_model->add_action_point($meeting_id))
 			{
 				$this->session->set_userdata('success_message', 'Action point added successfully');
-				redirect('all-action-points');
+				redirect('all-action-points/'.$meeting_id);
 			}
 			
 			else
@@ -145,6 +146,7 @@ class Action_point extends MX_Controller
 		}
 		
 		$v_data['title'] = 'Add';
+		$v_data['meeting_id'] = $meeting_id;
 		$data['content'] = $this->load->view('action_point/add_action_point', $v_data, true);
 		
 		$data['title'] = 'Add';
@@ -156,7 +158,7 @@ class Action_point extends MX_Controller
 	*	Edit action point
 	*
 	*/
-	public function edit_action_point($action_point_id) 
+	public function edit_action_point($action_point_id,$meeting_id) 
 	{
 		//initialize required variables
 		$v_data['assigned_to_error'] = '';
@@ -179,7 +181,7 @@ class Action_point extends MX_Controller
 			if($this->action_point_model->edit_action_point($action_point_id))
 			{
 				$this->session->set_userdata('success_message', 'Action point edited successfully');
-				redirect('all-action-points');
+				redirect('all-action-points/'.$meeting_id);
 			}
 			
 			else
@@ -230,6 +232,7 @@ class Action_point extends MX_Controller
 			}
 		}
 		$v_data['title'] = 'Edit';
+		$v_data['meeting_id'] = $meeting_id;
 		$data['content'] = $this->load->view('action_point/add_action_point', $v_data, true);
 		
 		$data['title'] = 'Add';
@@ -242,7 +245,7 @@ class Action_point extends MX_Controller
 	*	@param int $category_id
 	*
 	*/
-	public function delete_action_point($action_point_id)
+	public function delete_action_point($action_point_id,$meeting_id)
 	{
 		//delete action point
 		if($this->action_point_model->delete_action_point($action_point_id))
@@ -254,7 +257,7 @@ class Action_point extends MX_Controller
 		{
 			$this->session->set_userdata('error_message', 'Unable to delete action point. Please try again');
 		}
-		redirect('all-action-points');
+		redirect('all-action-points/'.$meeting_id);
 	}
 }
 ?>

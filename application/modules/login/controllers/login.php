@@ -71,7 +71,7 @@ class Login extends MX_Controller {
 			if($this->login_model->login_user())
 			{
 				//echo 'Your account is now verified. YAY!';
-				redirect('home');
+				redirect('calendar');
 			}
 			
 			else

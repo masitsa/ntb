@@ -6,7 +6,7 @@
 			  echo form_open($this->uri->uri_string(),"class='form-horizontal'"); 
 			 ?>
             <div class="panel panel-default text-center">
-                <img src="" class="img-circle" style="height:125px;">
+                <img src="<?php echo base_url();?>assets/themes/themekit/images/logo/download.jpg" class="" style="height: 125px;width: 81%; border-radius: none !important;">
                 <div class="panel-body">
                     <input class="form-control"  name="user_email" type="text" placeholder="Username">
                     <input class="form-control" name="user_password" type="password" placeholder="Enter Password">
