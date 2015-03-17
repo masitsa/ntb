@@ -28,7 +28,7 @@ class Login extends MX_Controller {
 				//redirect('dashboard');
 				if($this->session->userdata('user_level') == 1)
 				{
-					redirect('all-customers');
+					redirect('calendar');
 				}
 				else
 				{
@@ -60,7 +60,12 @@ class Login extends MX_Controller {
 		
 		$this->form_validation->set_rules('user_email', 'Email', 'trim|valid_email|required|exists[users.email]|xss_clean');
 		$this->form_validation->set_rules('user_password', 'Password', 'trim|required|xss_clean');
-		
+
+		$this->form_validation->set_error_delimiters('', '');
+		$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required|exists[users.email]|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+		$this->form_validation->set_message('exists', 'This email has not been registered');
+
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
@@ -92,7 +97,7 @@ class Login extends MX_Controller {
 	{
 		$this->session->sess_destroy();
 		$this->session->set_userdata('front_success_message', 'Your have been signed out of your account');
-		redirect('checkout');
+		redirect('');
 	}
 }
 ?>

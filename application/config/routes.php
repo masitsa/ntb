@@ -168,6 +168,7 @@ $route['confirm-account/(:any)'] = 'vendor/verify_email/$1';
 
 $route['home'] = 'site/index';
 $route['calender'] = 'site/calender';
+$route['calendar'] = 'site/calender';
 $route['messages'] = 'site/messages';
 $route['profile'] = 'site/profile';
 $route['timeline'] = 'site/index';
