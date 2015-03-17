@@ -39,7 +39,7 @@ class Facilitator_model extends CI_Model
 		return $this->db->get('title');
 	}
 	
-	public function add_facilitator()
+	public function add_facilitator($meeting_id)
 	{
 		$data = array
 		(
@@ -47,6 +47,7 @@ class Facilitator_model extends CI_Model
 			'facilitator_first_name' => $this->input->post('facilitator_first_name'),
 			'facilitator_last_name' => $this->input->post('facilitator_last_name'),
 			'facilitator_email' => $this->input->post('facilitator_email'),
+			'meeting_id' => $meeting_id,
 			'created' => date('Y-m-d H:i:s')
 		);
 		

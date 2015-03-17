@@ -10,7 +10,7 @@
             <div class="row">
             	<div class="col-md-12">
                     <div class="pull-left">
-                        <a href="<?php echo site_url().'all-facilitators';?>" class="btn btn-primary">Back to facilitators</a>
+                        <a href="<?php echo site_url().'all-facilitators/'.$meeting_id;?>" class="btn btn-primary">Back to facilitators</a>
                     </div>
                 </div>
             </div>
