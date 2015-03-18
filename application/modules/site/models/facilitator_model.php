@@ -95,6 +95,16 @@ class Facilitator_model extends CI_Model
 		$this->db->where('facilitator_id', $facilitator_id);
 		if($this->db->update('facilitator', $data))
 		{
+			$subject ='Invitation to be a facilitator in our coming meeting';
+			
+			$from ='TNC Admin';
+			$from_email = 'info@tnc.com';
+			$message = 'Hello '.$this->input->post('facilitator_first_name').', <br>
+						Trust this email find you well, We would like to invite you to be the facilitator in the comming meeting that we shall have. <br>
+						Regards <br/>
+						Administration TNC';
+						mail($this->input->post('facilitator_email'), $subject, $message);
+			// $this->events_model->mail_person($this->input->post('facilitator_email'),$from,$from_email,$subject,$message);
 			return TRUE;
 		}
 		

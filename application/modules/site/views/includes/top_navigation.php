@@ -15,12 +15,16 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="main-nav">
                     <ul class="nav navbar-nav">
+                        
+                        <li><a href="<?php echo base_url();?>calender">TNC Events Calender</a></li>
+                        
+                        <li><a href="<?php echo base_url();?>all-events">Event Lists</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">TNC Events Planner <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">TNC Social <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="active"><a href="<?php echo base_url();?>all-events">Events & Conferences</a>
+                                <li class="active"><a href="<?php echo base_url();?>home">Timeline</a>
                                 </li>
-                                <li><a href="<?php echo base_url();?>profile">Attendees</a>
+                                <li><a href="<?php echo base_url();?>profile">Profile</a>
                                 </li>
                                 <!-- <li><a href="<?php echo base_url();?>friends">Friends</a>
                                 </li> -->
@@ -32,9 +36,6 @@
                                 
                             </ul>
                         </li>
-                        <li><a href="<?php echo base_url();?>calender">TNC Events Calender</a></li>
-                        
-                        
                       
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
