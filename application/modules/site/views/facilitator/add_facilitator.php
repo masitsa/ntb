@@ -3,17 +3,12 @@
  	<div class="col-md-12 col-lg-12">
      	<h4 class="page-section-heading"><?php echo $title;?> facilitator</h4>
      	<div class="col-md-12 col-lg-12" style="margin-bottom:5px;">
-	 		
+	 		<a href="<?php echo site_url().'all-facilitators/'.$meeting_id;?>" class="btn btn-info btn-sm">Back to facilitators</a>
+
 	 	</div>
 	 	<div class="col-md-12 col-lg-12">
 		 	<div class="panel panel-default">
-            <div class="row">
-            	<div class="col-md-12">
-                    <div class="pull-left">
-                        <a href="<?php echo site_url().'all-facilitators/'.$meeting_id;?>" class="btn btn-primary">Back to facilitators</a>
-                    </div>
-                </div>
-            </div>
+            
                 <?php
 					$attributes = array(
 									'class' => 'form-horizontal',
@@ -21,7 +16,7 @@
 								);
 					echo form_open($this->uri->uri_string(), $attributes);
 				?>
-					<div class="row">
+					<div class="row" style="padding-top:5px; padding-bottom:5px;">
 						<div class="col-md-offset-3 col-md-5">
 							<div class="form-group">
 								<label for="facilitator_title" class="col-sm-4 control-label">Title <span class="required">*</span></label>
@@ -129,13 +124,14 @@
                                 </div>
                             </div>
 						</div>
-					</div>
+					
 					
 					<div class="row center-align">
-						<div class="col-sm-12">
-							<button type="submit" class="btn btn-primary"><?php echo $title;?> facilitator</button>
+						<div class="col-md-offset-5 col-sm-12">
+							<button type="submit" class="btn btn-primary btn-sm"><?php echo $title;?> facilitator</button>
 						</div>
 					</div>
+				</div>
 				<?php echo form_close();?>
                 
 		    </div>

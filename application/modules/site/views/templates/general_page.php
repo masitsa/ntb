@@ -31,7 +31,6 @@
                 <div class="st-content-inner">
 
                    	<!-- inner navigation  -->
-                   		<?php echo $this->load->view('site/includes/inner_navigation', '', TRUE); ?>
                    	<!-- inner navigation  -->
 
                    	<!-- content -->

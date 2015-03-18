@@ -16,9 +16,9 @@ class Site extends MX_Controller {
 		}
 		else
 		{
-			//redirect('user-login');
+			redirect('user-signin');
 		}
-		var_dump($user);die();
+	
 	}
     
     

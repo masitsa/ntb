@@ -62,8 +62,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 		            <div class="panel panel-default text-center">
 		                <img src="<?php echo base_url();?>assets/themes/themekit/images/logo/download.jpg" class="" style="height: 125px;width: 81%; border-radius: none !important;">
 		                <div class="panel-body">
-		                    <input class="form-control"  name="user_email" type="text" placeholder="Username">
-		                    <input class="form-control" name="user_password" type="password" placeholder="Enter Password">
+		                    <input class="form-control"  name="email" type="text" placeholder="Username">
+		                    <input class="form-control" name="password" type="password" placeholder="Enter Password">
 		                    <button class="btn btn-primary">Login <i class="fa fa-fw fa-unlock-alt"></i></button>
 		                    <a href="#" class="forgot-password">Forgot password?</a>
 		                </div>

@@ -58,8 +58,8 @@ class Login extends MX_Controller {
 	{
 		// initialize required variables
 		
-		$this->form_validation->set_rules('user_email', 'Email', 'trim|valid_email|required|exists[users.email]|xss_clean');
-		$this->form_validation->set_rules('user_password', 'Password', 'trim|required|xss_clean');
+		// $this->form_validation->set_rules('user_email', 'Email', 'trim|valid_email|required|exists[users.email]|xss_clean');
+		// $this->form_validation->set_rules('user_password', 'Password', 'trim|required|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '');
 		$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required|exists[users.email]|xss_clean');

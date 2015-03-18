@@ -1,4 +1,3 @@
-
   <!-- jQuery UI -->
   <link rel="stylesheet" href="<?php echo base_url()."assets/themes/bluish/"?>style/jquery-ui.css"> 
   <!-- Calendar -->

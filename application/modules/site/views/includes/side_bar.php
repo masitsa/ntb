@@ -17,7 +17,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="category">Photos</div>
+                <!-- <div class="category">Photos</div>
                 <div class="sidebar-block">
                     <div class="sidebar-photos">
                         <ul>
@@ -106,7 +106,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- Sidebar component with st-effect-1 (set on the toggle button within the navbar) -->

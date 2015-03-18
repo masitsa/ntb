@@ -296,4 +296,6 @@ class Events extends MX_Controller {
 		
 		echo json_encode($return);
 	}
+
+   
 }
