@@ -9,6 +9,7 @@ class Site extends MX_Controller {
 		$this->load->model('login/login_model');
 		$this->load->model('site/site_model');
 		$this->load->model('events_model');
+		$this->load->library('Mandrill', $this->config->item('mandrill_key'));
 		$user = $this->login_model->check_user_login();
 		//user has logged in
 		if($this->login_model->check_user_login())
@@ -523,6 +524,66 @@ class Site extends MX_Controller {
 		
 
 
+	}
+	
+	public function send_email()
+	{
+		$v_data['sender_name_error'] = '';
+		$v_data['sender_email_error'] = '';
+		$v_data['sender_phone_error'] = '';
+		$v_data['message_error'] = '';
+		$v_data['sender_name'] = '';
+		$v_data['sender_email'] = '';
+		$v_data['sender_phone'] = '';
+		$v_data['message'] = '';
+		
+		//form validation rules
+		$this->form_validation->set_error_delimiters('', '');
+		$this->form_validation->set_rules('sender_name', 'Your Name', 'required|xss_clean');
+		$this->form_validation->set_rules('sender_email', 'Email', 'required|valid_email|xss_clean');
+		$this->form_validation->set_rules('sender_phone', 'phone', 'xss_clean');
+		$this->form_validation->set_rules('message', 'Message', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			$response = $this->site_model->contact_admin();
+			$this->session->set_userdata('success_message', $response);
+		}
+		else
+		{
+			$validation_errors = validation_errors();
+			
+			//repopulate form data if validation errors are present
+			if(!empty($validation_errors))
+			{
+				//create errors
+				$v_data['sender_name_error'] = form_error('sender_name');
+				$v_data['sender_email_error'] = form_error('sender_email');
+				$v_data['sender_phone_error'] = form_error('sender_phone');
+				$v_data['message_error'] = form_error('message');
+				
+				//repopulate fields
+				$v_data['sender_name'] = set_value('sender_name');
+				$v_data['sender_email'] = set_value('sender_email');
+				$v_data['sender_phone'] = set_value('sender_phone');
+				$v_data['message'] = set_value('message');
+			}
+			
+			//populate form data on initial load of page
+			else
+			{
+				$v_data['sender_name'] = '';
+				$v_data['sender_email'] = '';
+				$v_data['sender_phone'] = '';
+				$v_data['message'] = '';
+			}
+		}
+		
+		$data['content'] = $this->load->view('contact_us', $v_data, true);
+		
+		$data['title'] = $this->site_model->display_page_title();
+		$this->load->view('templates/general_page', $data);
 	}
 }
 ?>
