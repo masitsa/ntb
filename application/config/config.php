@@ -372,6 +372,7 @@ $config['modules_locations'] = array(
 		APPPATH.'modules/' => '../modules/',
 	);
 
+$config['mandrill_key']    = 'AQQotp1f9KOaQ0RZDDIBkg';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

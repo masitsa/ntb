@@ -7,6 +7,8 @@
         $receiver_id = $row->user_id;
     }
 ?>
+
+    <?php echo smiley_js(); ?>
  <div class="container-fluid">
     <div class="media messages-container media-clearfix-xs-min media-grid">
         <div class="media-left">
