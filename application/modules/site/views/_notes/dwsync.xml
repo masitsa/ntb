@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="terms.php" server="ftp.instorelook.com.au//public_html/development/" local="130640541791556630" remote="130640723400000000" Dst="0" />
-<file name="about.php" server="ftp.instorelook.com.au//public_html/development/" local="130640526010654921" remote="130640720400000000" Dst="0" />
-<file name="privacy.php" server="ftp.instorelook.com.au//public_html/development/" local="130640547980000000" remote="130651466400000000" Dst="0" />
+<file name="add_action_point.php" server="C:/xampp/htdocs/ntb/" local="130709839367189051" remote="130709839360000000" Dst="0" />
+<file name="all_action_points.php" server="C:/xampp/htdocs/ntb/" local="130709840139013197" remote="130709840130000000" Dst="0" />
+<file name="calender.php" server="C:/xampp/htdocs/ntb/" local="130711314937510948" remote="130711314930000000" Dst="0" />
+<file name="edit_action_point.php" server="C:/xampp/htdocs/ntb/" local="130709691302950261" remote="130709691300000000" Dst="0" />
+<file name="add_action_point.php" server="148.251.2.43/public_html/tnc/" local="130709839367189051" remote="130711320000000000" Dst="0" />
+<file name="all_action_points.php" server="148.251.2.43/public_html/tnc/" local="130709840139013197" remote="130711320000000000" Dst="0" />
+<file name="calender.php" server="148.251.2.43/public_html/tnc/" local="130711314937510948" remote="130711320000000000" Dst="0" />
+<file name="edit_action_point.php" server="148.251.2.43/public_html/tnc/" local="130709691302950261" remote="130711320000000000" Dst="0" />
 </dwsync>

@@ -10,4 +10,20 @@
 <file name="comments.php" server="ftp.instorelook.com.au//public_html/development/" local="130603748338594443" remote="130605501000000000" Dst="0" />
 <file name="edit_blog_category.php" server="ftp.instorelook.com.au//public_html/development/" local="130603748338604443" remote="130605501000000000" Dst="0" />
 <file name="edit_post.php" server="ftp.instorelook.com.au//public_html/development/" local="130603748338624444" remote="130605501000000000" Dst="0" />
+<file name="add_category.php" server="C:/xampp/htdocs/ntb/" local="130709691302080211" remote="130709691300000000" Dst="0" />
+<file name="add_comment.php" server="C:/xampp/htdocs/ntb/" local="130709691302100212" remote="130709691300000000" Dst="0" />
+<file name="add_post.php" server="C:/xampp/htdocs/ntb/" local="130709691302130214" remote="130709691300000000" Dst="0" />
+<file name="all_categories.php" server="C:/xampp/htdocs/ntb/" local="130709691302230220" remote="130709691300000000" Dst="0" />
+<file name="all_posts.php" server="C:/xampp/htdocs/ntb/" local="130709691302260221" remote="130709691300000000" Dst="0" />
+<file name="comments.php" server="C:/xampp/htdocs/ntb/" local="130709691302280223" remote="130709691300000000" Dst="0" />
+<file name="edit_blog_category.php" server="C:/xampp/htdocs/ntb/" local="130709691302660244" remote="130709691300000000" Dst="0" />
+<file name="edit_post.php" server="C:/xampp/htdocs/ntb/" local="130709691302810253" remote="130709691300000000" Dst="0" />
+<file name="add_category.php" server="148.251.2.43/public_html/tnc/" local="130709691302080211" remote="130711319400000000" Dst="0" />
+<file name="add_comment.php" server="148.251.2.43/public_html/tnc/" local="130709691302100212" remote="130711319400000000" Dst="0" />
+<file name="add_post.php" server="148.251.2.43/public_html/tnc/" local="130709691302130214" remote="130711319400000000" Dst="0" />
+<file name="all_categories.php" server="148.251.2.43/public_html/tnc/" local="130709691302230220" remote="130711319400000000" Dst="0" />
+<file name="all_posts.php" server="148.251.2.43/public_html/tnc/" local="130709691302260221" remote="130711319400000000" Dst="0" />
+<file name="comments.php" server="148.251.2.43/public_html/tnc/" local="130709691302280223" remote="130711319400000000" Dst="0" />
+<file name="edit_blog_category.php" server="148.251.2.43/public_html/tnc/" local="130709691302660244" remote="130711319400000000" Dst="0" />
+<file name="edit_post.php" server="148.251.2.43/public_html/tnc/" local="130709691302810253" remote="130711319400000000" Dst="0" />
 </dwsync>

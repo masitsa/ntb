@@ -14,4 +14,24 @@
 <file name="control.php" server="ftp.instorelook.com.au//public_html/development/" local="130495605127336840" remote="130605500400000000" Dst="0" />
 <file name="users.php" server="ftp.instorelook.com.au//public_html/development/" local="130571742489742685" remote="130605500400000000" Dst="0" />
 <file name="categories.php" server="ftp.instorelook.com.au//public_html/development/" local="130644016456315550" remote="130644196200000000" Dst="0" />
+<file name="admin.php" server="C:/xampp/htdocs/ntb/" local="130709691298029980" remote="130709691290000000" Dst="0" />
+<file name="blog.php" server="C:/xampp/htdocs/ntb/" local="130709691298059981" remote="130709691290000000" Dst="0" />
+<file name="categories.php" server="C:/xampp/htdocs/ntb/" local="130709691298089983" remote="130709691290000000" Dst="0" />
+<file name="charts.php" server="C:/xampp/htdocs/ntb/" local="130709691298129985" remote="130709691290000000" Dst="0" />
+<file name="control.php" server="C:/xampp/htdocs/ntb/" local="130709691298149986" remote="130709691290000000" Dst="0" />
+<file name="customers.php" server="C:/xampp/htdocs/ntb/" local="130709691298179988" remote="130709691290000000" Dst="0" />
+<file name="orders.php" server="C:/xampp/htdocs/ntb/" local="130709691298199989" remote="130709691290000000" Dst="0" />
+<file name="settings.php" server="C:/xampp/htdocs/ntb/" local="130709691298229991" remote="130709691290000000" Dst="0" />
+<file name="transactions.php" server="C:/xampp/htdocs/ntb/" local="130709691298249992" remote="130709691290000000" Dst="0" />
+<file name="users.php" server="C:/xampp/htdocs/ntb/" local="130709691298279994" remote="130709691290000000" Dst="0" />
+<file name="admin.php" server="148.251.2.43/public_html/tnc/" local="130709691298029980" remote="130711318800000000" Dst="0" />
+<file name="categories.php" server="148.251.2.43/public_html/tnc/" local="130709691298089983" remote="130711318800000000" Dst="0" />
+<file name="control.php" server="148.251.2.43/public_html/tnc/" local="130709691298149986" remote="130711318800000000" Dst="0" />
+<file name="blog.php" server="148.251.2.43/public_html/tnc/" local="130709691298059981" remote="130711318800000000" Dst="0" />
+<file name="customers.php" server="148.251.2.43/public_html/tnc/" local="130709691298179988" remote="130711318800000000" Dst="0" />
+<file name="charts.php" server="148.251.2.43/public_html/tnc/" local="130709691298129985" remote="130711318800000000" Dst="0" />
+<file name="orders.php" server="148.251.2.43/public_html/tnc/" local="130709691298199989" remote="130711318800000000" Dst="0" />
+<file name="settings.php" server="148.251.2.43/public_html/tnc/" local="130709691298229991" remote="130711318800000000" Dst="0" />
+<file name="transactions.php" server="148.251.2.43/public_html/tnc/" local="130709691298249992" remote="130711318800000000" Dst="0" />
+<file name="users.php" server="148.251.2.43/public_html/tnc/" local="130709691298279994" remote="130711318800000000" Dst="0" />
 </dwsync>
