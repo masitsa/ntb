@@ -22,8 +22,9 @@
 if(is_array($messages))
 {
 	$total_messages = count($messages);
+	$last = $total_messages - 1;
 	
-	for($r = 0; $r < $total_messages; $r++)
+	for($r = $last; $r >= 0; $r--)
 	{
 		$message_data = $messages[$r];
 		$sender = $message_data->user_id;
