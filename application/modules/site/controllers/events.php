@@ -12,6 +12,7 @@ class Events extends MX_Controller {
 		$this->load->model('site/action_point_model');
 		$this->load->model('site/attendee_model');
 		$this->load->model('site/facilitator_model');
+		$this->load->model('site/site_model');
 	}
     
     
