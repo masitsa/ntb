@@ -17,7 +17,7 @@
 		$client_id = $row->client_id;
 	}
 
-// var_dump($messages);
+var_dump($messages);
 
 if(is_array($messages))
 {

@@ -100,7 +100,7 @@ if ($meeting_detail->num_rows() > 0)
                             <div class="controls">
                                 <!-- <textarea name="bbcode_field" id="bbcode_field2" class="col-md-12" style="height:200px;width:800px;" ></textarea> -->
                                 <?php
-                                    $rs = $this->site_model->get_meeting_notes($meeting_id);
+                                    $rs = $this->site_model->get_notes_details($meeting_id);
                                     $num_meeting_notes = count($rs);
                                     if($num_meeting_notes > 0)
                                     {

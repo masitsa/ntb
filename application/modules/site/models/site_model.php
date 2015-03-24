@@ -223,7 +223,7 @@ class Site_model extends CI_Model
 		return $color;
 	}
 	
-	public function get_meeting_notes($meeting_id)
+	public function get_notes_details($meeting_id)
 	{
 		//retrieve all orders
 		$this->db->from('meeting_notes');
@@ -233,6 +233,30 @@ class Site_model extends CI_Model
 		$query = $this->db->get();
 		
 		return $query;
+	}
+
+	public function get_meeting_notes($meeting_id)
+	{
+		//retrieve all orders
+		$this->db->from('meeting_notes');
+		$this->db->select('count(*) AS number');
+		$this->db->where('meeting_id = '.$meeting_id);
+		$this->db->order_by('meeting_id','DESC');
+		$query = $this->db->get();
+		
+        $num_meeting_notes = count($query);
+        if($num_meeting_notes > 0)
+        {
+            foreach ($query->result() as $cont)
+            {
+                $number = $cont->number;
+            }
+        }
+        else
+        {
+        	$number =0;
+        }
+        return $number;
 	}
 }
 

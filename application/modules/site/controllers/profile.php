@@ -16,7 +16,7 @@ class Profile extends account
 	
 	public function update_profile_image()
 	{
-		$images_query = $this->profile_model->get_profile_image(1);
+		$images_query = $this->profile_model->get_profile_image($this->user_id);
 		$v_data['profile_images'] = $this->profile_model->display_profile_image($images_query, $this->profile_image_path, $this->profile_image_location, $this->image_size, $this->thumb_size);
 		$images_row = $images_query->row();
 		
@@ -77,7 +77,7 @@ class Profile extends account
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
-			if($this->profile_model->register_profile_details(1, $this->session->userdata('profile_file_name'), $this->session->userdata('profile_thumb_name')))
+			if($this->profile_model->register_profile_details($this->user_id, $this->session->userdata('profile_file_name'), $this->session->userdata('profile_thumb_name')))
 			{
 				//redirect only if logo error isnt present
 				if(empty($v_data['profile_image_error']))
@@ -161,9 +161,9 @@ class Profile extends account
 	
 	public function like_profile($like_id)
 	{
-		if($this->profile_model->like_profile(1, $like_id))
+		if($this->profile_model->like_profile($this->user_id, $like_id))
 		{
-			if($this->payments_model->bill_client(1, $this->like_amount))
+			if($this->payments_model->bill_client($this->user_id, $this->like_amount))
 			{
 			}
 			
@@ -181,7 +181,7 @@ class Profile extends account
 	
 	public function unlike_profile($like_id)
 	{
-		if($this->profile_model->unlike_profile(1, $like_id))
+		if($this->profile_model->unlike_profile($this->user_id, $like_id))
 		{
 			echo 'true';
 		}
@@ -197,8 +197,8 @@ class Profile extends account
 		$v_data['smiley_location'] = $this->smiley_location;
 		
 		$v_data['receiver'] = $this->profile_model->get_client($receiver_id);
-		$v_data['sender'] = $this->profile_model->get_client(1);
-		$v_data['messages'] = $this->profile_model->get_messages(1, $receiver_id, $this->messages_path);
+		$v_data['sender'] = $this->profile_model->get_client($this->user_id);
+		$v_data['messages'] = $this->profile_model->get_messages($this->user_id, $receiver_id, $this->messages_path);
 		$v_data['received_messages'] = $this->profile_model->count_received_messages($v_data['messages']);
 		$v_data['profile_image_location'] = $this->profile_image_location;
 		
@@ -251,7 +251,7 @@ class Profile extends account
 			$content = json_encode($data);
 			
 			//create file name
-			$file_name = $this->profile_model->create_file_name(1, $this->input->post('receiver_id'));
+			$file_name = $this->profile_model->create_file_name($this->user_id, $this->input->post('receiver_id'));
 			$file_path = $this->messages_path.'//'.$file_name;
 			$base_path = $this->messages_path;
 			
@@ -264,7 +264,7 @@ class Profile extends account
 					$this->file_model->write_to_file($file_path, $content);
 					
 					//bill client
-					if($this->payments_model->bill_client(1, $this->message_amount))
+					if($this->payments_model->bill_client($this->user_id, $this->message_amount))
 					{
 					}
 					
@@ -325,7 +325,7 @@ class Profile extends account
 		$v_data['encounter_id_error'] = '';
 		$v_data['gender_id_error'] = '';
 				
-		$client_query = $this->profile_model->get_client(1);
+		$client_query = $this->profile_model->get_client($this->user_id);
 		$row = $client_query->row();
 		$v_data['profile_image_location'] = $this->profile_image_location.$row->client_image;
 		$v_data['neighbourhood_id'] = $row->neighbourhood_id;
@@ -366,7 +366,7 @@ class Profile extends account
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
-			if($this->profile_model->register_profile_details(1, $this->session->userdata('profile_file_name'), $this->session->userdata('profile_thumb_name')))
+			if($this->profile_model->register_profile_details($this->user_id, $this->session->userdata('profile_file_name'), $this->session->userdata('profile_thumb_name')))
 			{
 				//redirect only if logo error isnt present
 				redirect('my-profile');

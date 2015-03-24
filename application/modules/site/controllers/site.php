@@ -503,9 +503,9 @@ class Site extends MX_Controller {
 	        		"notes" => $notes
 		    		);
 
-			$rs = $this->site_model->get_meeting_notes($meeting_id);
-			$num_meeting_notes = count($rs);
-			if($num_meeting_notes > 0)
+			$number = $this->site_model->get_meeting_notes($meeting_id);
+
+			if($number > 0)
 			{
 				// update
 				$this->db->where('meeting_id',$meeting_id);
@@ -519,7 +519,7 @@ class Site extends MX_Controller {
 				$this->db->insert('meeting_notes', $trail_data);
 				$this->session->set_userdata("success_message","Meeting notes was successfully updated");
 			}
-			redirect('calendar');
+			 redirect('calendar');
 		
 
 

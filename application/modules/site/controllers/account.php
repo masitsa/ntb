@@ -31,7 +31,7 @@ class Account extends MX_Controller
 			$this->profile_image_path = realpath(APPPATH . '../assets/images/profile');
 			$this->profile_image_location = base_url().'assets/images/profile/';
 			$this->smiley_location = base_url().'assets/images/smileys/';
-			$this->client_id = $this->session->userdata('user_id');
+			$this->client_id = $this->session->userdata('client_id');
 			$this->image_size = 600;
 			$this->thumb_size = 80;
 		

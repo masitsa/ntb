@@ -514,11 +514,10 @@ class Profile_model extends CI_Model
 		if(!empty($file_name))
 		{
 			$file_path = $messages_path.'/'.$file_name;
-			
+			// var_dump($file_path);die();
 			$content = $this->file_model->get_file_contents($file_path, $messages_path);
-			// var_dump($content);die();
 			$message_array = json_decode('['.$content.']');
-			var_dump($message_array);die();
+			//var_dump($message_array);die();
 		}
 		
 		else

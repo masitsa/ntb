@@ -27,7 +27,7 @@ class Messages extends account
 		$v_data['neighbourhoods_array'] = '';
 		
 		//browse all profiles
-		$where = 'client_message.client_id = '.$this->client_id.' OR client_message.receiver_id = '.$this->client_id;
+		$where = 'client_message.client_id = '.$this->user_id.' OR client_message.receiver_id = '.$this->user_id;
 		$table = 'client_message';
 		$limit = NULL;
 		
@@ -115,7 +115,7 @@ class Messages extends account
 		$v_data['messages'] = $this->messages_model->get_all_messages($table, $where, $config["per_page"], $page, $limit, $order_by, $order_method);
 		$v_data['profile_image_location'] = $this->profile_image_location;
 		$v_data['messages_path'] = $this->messages_path;
-		$v_data['current_client_id'] = $this->client_id;
+		$v_data['current_client_id'] = $this->user_id;
 		$v_data['crumbs'] = $this->site_model->get_crumbs();
 		
 		$data['content'] = $this->load->view('messages/inbox', $v_data, true);
@@ -148,8 +148,8 @@ class Messages extends account
 		
 		$receiver_id = $this->messages_model->get_receiver_id($receiver_web_name);
 		$v_data['receiver'] = $this->profile_model->get_client($receiver_id);
-		$v_data['sender'] = $this->profile_model->get_client(1);
-		$v_data['messages'] = $this->profile_model->get_messages(1, $receiver_id, $this->messages_path);
+		$v_data['sender'] = $this->profile_model->get_client($this->user_id);
+		$v_data['messages'] = $this->profile_model->get_messages($this->user_id, $receiver_id, $this->messages_path);
 		$v_data['received_messages'] = $this->profile_model->count_received_messages($v_data['messages']);
 		$v_data['profile_image_location'] = $this->profile_image_location;
 		
