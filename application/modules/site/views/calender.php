@@ -4,11 +4,39 @@
   <link rel="stylesheet" href="<?php echo base_url()."assets/themes/bluish/"?>style/fullcalendar.css">
   
  <div class="container-fluid">
+
  	
  	<div class="col-md-12 col-lg-12">
 	 	<div class="col-md-12 col-lg-12">
-        
+        	<?php
+				//error messages
+				if($this->session->userdata('error_message'))
+				{
+					?>
+					<div class="alert alert-danger">
+					  <?php 
+						echo $this->session->userdata('error_message');
+						$this->session->unset_userdata('error_message');
+					  ?>
+					</div>
+					<?php
+				}
+				
+				//success messages
+				if($this->session->userdata('success_message'))
+				{
+					?>
+					<div class="alert alert-success">
+					  <?php 
+						echo $this->session->userdata('success_message');
+						$this->session->unset_userdata('success_message');
+					  ?>
+					</div>
+					<?php
+				}
+			?>
 		 	<div class="panel panel-default" style="height:1000px; padding:15px;">
+
             	<div class="row" style="margin-bottom:20px;">
                 	<div class="col-md-3 col-md-offset-9">
                     	<button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target=".add-event"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Event</button>
@@ -180,7 +208,7 @@
 </div>
 <script src="<?php echo base_url()."assets/themes/bluish/"?>js/jquery-ui-1.10.2.custom.min.js"></script> <!-- jQuery UI -->
 <script src="<?php echo base_url()."assets/themes/bluish/"?>js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
- 
+
 <script type="text/javascript">
 
 	$(document).on("click","a.fc-event",function()

@@ -339,3 +339,6 @@ $route['forgot-password'] = 'site/checkout/forgot_password';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
+
+$route['messages/inbox'] = 'site/messages/inbox';
+$route['messages/inbox/(:any)'] = 'site/messages/view_message/$1';

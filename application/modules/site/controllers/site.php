@@ -490,5 +490,39 @@ class Site extends MX_Controller {
 		$data['total_events'] = $r;
 		echo json_encode($data);
 	}
+	function save_meeting_notes($meeting_id)
+	{
+		
+
+		
+			//  enter into the nurse notes trail
+
+			$notes=$this->input->post('editor1');
+			$trail_data = array(
+	        		"meeting_id" => $meeting_id,
+	        		"notes" => $notes
+		    		);
+
+			$rs = $this->site_model->get_meeting_notes($meeting_id);
+			$num_meeting_notes = count($rs);
+			if($num_meeting_notes > 0)
+			{
+				// update
+				$this->db->where('meeting_id',$meeting_id);
+				$this->db->update('meeting_notes', $trail_data);
+				$this->session->set_userdata("success_message","Meeting notes was successfully updated");
+			}
+			else
+			{
+				// /insert
+
+				$this->db->insert('meeting_notes', $trail_data);
+				$this->session->set_userdata("success_message","Meeting notes was successfully updated");
+			}
+			redirect('calendar');
+		
+
+
+	}
 }
 ?>

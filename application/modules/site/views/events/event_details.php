@@ -92,31 +92,54 @@ if ($meeting_detail->num_rows() > 0)
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="control-group">
-                        <label for="review_text" class="control-label">Minutes</label>
-                        <div class="controls">
-                            <textarea name="bbcode_field" id="bbcode_field2" class="col-md-12" style="height:200px;width:800px;" onkeyup="save_vital();"></textarea>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="row">
-                 <div class="col-sm-12">
-                    <div class="control-group">
-                    <label for="review_text" class="control-label"></label>
-
-                        <div class="controls">
-                            <div class="pull-right">
-                                <button class="btn btn-primary btn-sm" type="submit" onclick="">Edit meeting details</button>
+            <?php echo form_open('site/save_meeting_notes/'.$meeting_id, array('class' => 'form-horizontal'));?>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="control-group">
+                            <label for="review_text" class="control-label">Minutes</label>
+                            <div class="controls">
+                                <!-- <textarea name="bbcode_field" id="bbcode_field2" class="col-md-12" style="height:200px;width:800px;" ></textarea> -->
+                                <?php
+                                    $rs = $this->site_model->get_meeting_notes($meeting_id);
+                                    $num_meeting_notes = count($rs);
+                                    if($num_meeting_notes > 0)
+                                    {
+                                        foreach ($rs->result() as $cont)
+                                        {
+                                            $notes = $cont->notes;
+                                        }
+                                        ?>
+                                        <textarea id="editor1" name="editor1" rows="10" cols="100" class="form-control col-md-6" ><?php echo $notes;?></textarea>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <textarea id="editor1" name="editor1" rows="10" cols="100" class="form-control col-md-6" ></textarea>
+                                        <?php
+                                    }
+                                ?>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                     <div class="col-sm-12">
+                        <div class="control-group">
+                        <label for="review_text" class="control-label"></label>
+
+                            <div class="controls">
+                                <div class="pull-right">
+                                    <button class="btn btn-primary btn-sm" type="submit">Edit meeting details</button>
+                                      <!-- <a hred="#" class="btn btn-large btn-success btn-sm" onclick="save_meeting_notes(<?php echo $meeting_id;?>)">Save Nurse Notes</a> -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <?php echo form_close();?>
          </div>
         <div role="tabpanel" class="tab-pane" id="profile">
             <a  href="<?php echo base_url();?>add-facilitator/<?php echo $meeting_id;?>" target="_blank" class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Facilitators</a>
@@ -342,17 +365,28 @@ if ($meeting_detail->num_rows() > 0)
 </div>
 <script type="text/javascript">
 
-    function save_vital(){
-        
-      
+function save_meeting_notes(meeting_id){
+    var data_url = '<?php echo site_url()?>site/save_meeting_notes/'+meeting_id;
+    var val = instance.val();
+    alert(val);
+    // var meeting_notes = $('textarea').sceditor('editor1').val();
+    // window.alert(meeting_notes);
+    // $.ajax({
+    // type:'POST',
+    // url: data_url,
+    // data:{notes: meeting_notes},
+    // dataType: 'text',
+    // success:function(data){
+    //     alert("You have successfully updated the meeting notes");
+    // //obj.innerHTML = XMLHttpRequestObject.responseText;
+    // },
+    // error: function(xhr, status, error) {
+    // //alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+    // alert(error);
+    // }
 
-        var bbcode_field = $('#bbcode_field2').val();
-        alert(bbcode_field);
-        // var data_url = config_url+"/nurse/save_vitals/"+visit_id;
-       
-        
-        
-    }
+    // });
 
-
+    
+}
 </script>

@@ -1,3 +1,12 @@
+<?php
+    //get receiver details
+    if($receiver->num_rows() > 0)
+    {
+        $row = $receiver->row();
+        $receiver_username = $row->client_username;
+        $receiver_id = $row->client_id;
+    }
+?>
  <div class="container-fluid">
     <div class="media messages-container media-clearfix-xs-min media-grid">
         <div class="media-left">
@@ -122,18 +131,26 @@
         </div>
         <div class="media-body">
             <div class="panel panel-default share">
+             <?php
+                echo form_open('site/profile/message_profile/1', array('class' => 'send_message2', 'id' => 'compose_message'));
+                echo form_hidden('receiver_id', $receiver_id);
+            ?>
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <a class="btn btn-primary" href="#">
+                        <button class="btn btn-primary" href="#">
                             <i class="fa fa-envelope"></i> Send
-                        </a>
+                        </button>
+                        
+                         <!-- <i class="fa fa-envelope"></i><input name="submit" class="btn btn-primary" value="Send " type="submit"> -->
                     </div>
-                    <!-- /btn-group -->
-                    <input type="text" class="form-control share-text" placeholder="Write message..." />
+                    <input type="text" name="client_message_details" id="instant_message2" class="form-control share-text" placeholder="Write message..." />
+                    <!-- <textarea name="client_message_details" id="instant_message2" class="form-control input"  size="20" placeholder="Enter message" required="required"></textarea> -->
+
                 </div>
-                <!-- /input-group -->
             </div>
-            <div class="media">
+            <?php echo form_close();?>
+            <?php echo $this->load->view('message_details');?>
+           <!--  <div class="media">
                 <div class="media-left">
                     <a href="#">
                         <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/female.png" width="60" alt="woman" class="media-object" />
@@ -207,7 +224,7 @@
                 <div class="media-right">
                     <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" width="60" alt="" class="media-object" />
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
