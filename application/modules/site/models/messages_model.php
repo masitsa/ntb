@@ -23,22 +23,22 @@ class Messages_model extends CI_Model
 	
 	public function get_receiver_id($receiver_web_name)
 	{
-		$client_username = str_replace("-", " ", $receiver_web_name);
+		$user_username = str_replace("-", " ", $receiver_web_name);
 		
-		$this->db->where('client_username', $client_username);
-		$query = $this->db->get('client');
+		$this->db->where('user_username', $user_username);
+		$query = $this->db->get('users');
 		
 		if($query->num_rows() > 0)
 		{
 			$row = $query->row();
-			$client_id = $row->client_id;
+			$user_id = $row->user_id;
 		}
 		
 		else
 		{
-			$client_id = NULL;
+			$user_id = NULL;
 		}
 		
-		return $client_id;
+		return $user_id;
 	}
 }

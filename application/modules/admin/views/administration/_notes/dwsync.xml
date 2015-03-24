@@ -23,4 +23,20 @@
 <file name="real_time.php" server="ftp.instorelook.com.au//public_html/development/" local="130538204693878140" remote="130605500400000000" Dst="0" />
 <file name="summary.php" server="ftp.instorelook.com.au//public_html/development/" local="130536157018818084" remote="130605500400000000" Dst="0" />
 <file name="table.php" server="ftp.instorelook.com.au//public_html/development/" local="130516128781198542" remote="130605500400000000" Dst="0" />
+<file name="bar_graph.php" server="C:/xampp/htdocs/ntb/" local="130709691299870085" remote="130709691290000000" Dst="0" />
+<file name="calender.php" server="C:/xampp/htdocs/ntb/" local="130709691300100098" remote="130709691300000000" Dst="0" />
+<file name="line_graph.php" server="C:/xampp/htdocs/ntb/" local="130709691300550124" remote="130709691300000000" Dst="0" />
+<file name="logs.php" server="C:/xampp/htdocs/ntb/" local="130709691300850141" remote="130709691300000000" Dst="0" />
+<file name="notifications.php" server="C:/xampp/htdocs/ntb/" local="130709691300880143" remote="130709691300000000" Dst="0" />
+<file name="real_time.php" server="C:/xampp/htdocs/ntb/" local="130709691300910144" remote="130709691300000000" Dst="0" />
+<file name="summary.php" server="C:/xampp/htdocs/ntb/" local="130709691300930145" remote="130709691300000000" Dst="0" />
+<file name="table.php" server="C:/xampp/htdocs/ntb/" local="130709691301030151" remote="130709691300000000" Dst="0" />
+<file name="bar_graph.php" server="148.251.2.43/public_html/tnc/" local="130709691299870085" remote="130711319400000000" Dst="0" />
+<file name="calender.php" server="148.251.2.43/public_html/tnc/" local="130709691300100098" remote="130711319400000000" Dst="0" />
+<file name="line_graph.php" server="148.251.2.43/public_html/tnc/" local="130709691300550124" remote="130711319400000000" Dst="0" />
+<file name="logs.php" server="148.251.2.43/public_html/tnc/" local="130709691300850141" remote="130711319400000000" Dst="0" />
+<file name="notifications.php" server="148.251.2.43/public_html/tnc/" local="130709691300880143" remote="130711319400000000" Dst="0" />
+<file name="real_time.php" server="148.251.2.43/public_html/tnc/" local="130709691300910144" remote="130711319400000000" Dst="0" />
+<file name="summary.php" server="148.251.2.43/public_html/tnc/" local="130709691300930145" remote="130711319400000000" Dst="0" />
+<file name="table.php" server="148.251.2.43/public_html/tnc/" local="130709691301030151" remote="130711319400000000" Dst="0" />
 </dwsync>

@@ -3,18 +3,18 @@
 	if($receiver->num_rows() > 0)
 	{
 		$row = $receiver->row();
-		$receiver_username = $row->client_username;
-		$receiver_thumb = $profile_image_location.$row->client_thumb;
-		$receiver_id = $row->client_id;
+		$receiver_username = $row->user_username;
+		$receiver_thumb = base_url()."assets/themes/themekit/images/people/110/male.png";//$profile_image_location.$row->user_thumb;
+		$receiver_id = $row->user_id;
 	}
 	
-	//get client details
+	//get user details
 	if($sender->num_rows() > 0)
 	{
 		$row = $sender->row();
-		$client_username = $row->client_username;
-		$client_thumb = $profile_image_location.$row->client_thumb;
-		$client_id = $row->client_id;
+		$user_username = $row->user_username;
+		$user_thumb = base_url()."assets/themes/themekit/images/people/110/male.png";//$profile_image_location.$row->user_thumb;
+		$user_id = $row->user_id;
 	}
 
 var_dump($messages);
@@ -26,17 +26,16 @@ if(is_array($messages))
 	for($r = 0; $r < $total_messages; $r++)
 	{
 		$message_data = $messages[$r];
-		$sender = $message_data->client_id;
+		$sender = $message_data->user_id;
 		$receiver = $message_data->receiver_id;
 		$created = $message_data->created;
-		$client_message_details = $this->profile_model->convert_smileys($message_data->client_message_details, $smiley_location);
+		$user_message_details = $this->profile_model->convert_smileys($message_data->user_message_details, $smiley_location);
 		
 		//if I am the one receiving align left
-		if($receiver == $client_id)
+		if($receiver == $user_id)
 		{
 			echo 
 			'
-				
 				<div class="media">
 	                <div class="media-left">
 	                    <a href="#">
@@ -52,7 +51,7 @@ if(is_array($messages))
 	                            <a href="#">Mary D.</a>
 	                        </div>
 	                        <div class="panel-body">
-	                            '.$client_message_details.'
+	                            '.$user_message_details.'
 	                        </div>
 	                    </div>
 	                </div>
@@ -75,7 +74,7 @@ if(is_array($messages))
 	                            <a href="#">Me</a>
 	                        </div>
 	                        <div class="panel-body">
-	                            '.$client_message_details.'
+	                            '.$user_message_details.'
 	                        </div>
 	                    </div>
 	                </div>

@@ -63,10 +63,10 @@
                 {
                     var prev_message_count = parseInt($('#prev_message_count').val());//count the number of messages displayed
                     prev_message_count = prev_message_count + 1;
-                    $('#prev_message_count').val(prev_message_count);
+                    //$('#prev_message_count').val(prev_message_count);
                     $('#instant_message2').val('');
                     $("#view_message").html(data.messages);
-                    $("#available_credit").html(data.account_balance);
+                    //$("#available_credit").html(data.account_balance);
                 }
             },
             error: function(xhr, status, error) {

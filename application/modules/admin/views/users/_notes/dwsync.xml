@@ -6,4 +6,10 @@
 <file name="add_user.php" server="ftp.instorelook.com.au//public_html/development/" local="130603748338964464" remote="130605501000000000" Dst="0" />
 <file name="all_users.php" server="ftp.instorelook.com.au//public_html/development/" local="130571742149893247" remote="130605501000000000" Dst="0" />
 <file name="edit_user.php" server="ftp.instorelook.com.au//public_html/development/" local="130571742660092428" remote="130605501600000000" Dst="0" />
+<file name="add_user.php" server="C:/xampp/htdocs/ntb/" local="130709691306170445" remote="130709691300000000" Dst="0" />
+<file name="all_users.php" server="C:/xampp/htdocs/ntb/" local="130709691306190446" remote="130709691300000000" Dst="0" />
+<file name="edit_user.php" server="C:/xampp/htdocs/ntb/" local="130709691306220448" remote="130709691300000000" Dst="0" />
+<file name="add_user.php" server="148.251.2.43/public_html/tnc/" local="130709691306170445" remote="130711319400000000" Dst="0" />
+<file name="all_users.php" server="148.251.2.43/public_html/tnc/" local="130709691306190446" remote="130711319400000000" Dst="0" />
+<file name="edit_user.php" server="148.251.2.43/public_html/tnc/" local="130709691306220448" remote="130711319400000000" Dst="0" />
 </dwsync>

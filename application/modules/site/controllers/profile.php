@@ -263,6 +263,7 @@ class Profile extends account
 				{
 					$this->file_model->write_to_file($file_path, $content);
 					
+
 					//bill client
 					if($this->payments_model->bill_client($this->user_id, $this->message_amount))
 					{

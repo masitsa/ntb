@@ -4,7 +4,7 @@ class Account extends MX_Controller
 {
 	var $profile_image_path;
 	var $profile_image_location;
-	var $client_id;
+	var $user_id;
 	var $image_size;
 	var $thumb_size;
 	var $messages_path;
@@ -25,13 +25,18 @@ class Account extends MX_Controller
 			$this->load->model('messages_model');
 			
 			$this->load->library('image_lib');
+			$this->load->library('table');
+			$this->load->helper('smiley');
 			
 			//path to image directory
 			$this->messages_path = realpath(APPPATH . '../assets/messages');
 			$this->profile_image_path = realpath(APPPATH . '../assets/images/profile');
 			$this->profile_image_location = base_url().'assets/images/profile/';
 			$this->smiley_location = base_url().'assets/images/smileys/';
-			$this->client_id = $this->session->userdata('client_id');
+
+			// $this->client_id = $this->session->userdata('client_id');
+
+			$this->user_id = $this->session->userdata('user_id');
 			$this->image_size = 600;
 			$this->thumb_size = 80;
 		
@@ -406,19 +411,19 @@ class Account extends MX_Controller
 		$v_data['neighbourhoods_array'] = '';
 		
 		//get user's prefered matches
-		$client_query = $this->profile_model->get_client($this->client_id);
-		$row = $client_query->row();
-		$client_looking_gender_id = $row->client_looking_gender_id;
-		$client_age_group_id = $row->age_group_id;
-		$client_encounter_id = $row->encounter_id;
-		$client_neighbourhood_id = $row->neighbourhood_id;
+		$user_query = $this->profile_model->get_user($this->user_id);
+		$row = $user_query->row();
+		$user_looking_gender_id = $row->user_looking_gender_id;
+		$user_age_group_id = $row->age_group_id;
+		$user_encounter_id = $row->encounter_id;
+		$user_neighbourhood_id = $row->neighbourhood_id;
 		
 		//case of matches
-		//$where = 'client.gender_id = '.$client_looking_gender_id.' AND client.encounter_id = '.$client_encounter_id.' AND client.neighbourhood_id = '.$client_neighbourhood_id.' AND client.client_status = 1 AND client.client_id != '.$this->client_id;
+		//$where = 'user.gender_id = '.$user_looking_gender_id.' AND user.encounter_id = '.$user_encounter_id.' AND user.neighbourhood_id = '.$user_neighbourhood_id.' AND user.user_status = 1 AND user.user_id != '.$this->user_id;
 		
 		//browse all profiles
-		$where = 'client.neighbourhood_id = neighbourhood.neighbourhood_id AND client.gender_id = gender.gender_id AND client.encounter_id = encounter.encounter_id AND client.gender_id = '.$client_looking_gender_id.' AND client.client_status = 1 AND client.client_id != '.$this->client_id;
-		$table = 'client, gender, encounter, neighbourhood';
+		$where = 'user.neighbourhood_id = neighbourhood.neighbourhood_id AND user.gender_id = gender.gender_id AND user.encounter_id = encounter.encounter_id AND user.gender_id = '.$user_looking_gender_id.' AND user.user_status = 1 AND user.user_id != '.$this->user_id;
+		$table = 'user, gender, encounter, neighbourhood';
 		$limit = NULL;
 		
 		//ordering products
@@ -428,7 +433,7 @@ class Account extends MX_Controller
 				$order_method = 'DESC';
 			break;
 			
-			case 'client_username':
+			case 'user_username':
 				$order_method = 'ASC';
 			break;
 			
@@ -440,7 +445,7 @@ class Account extends MX_Controller
 		//case of filter_age_groups
 		if($age_group_id != '__')
 		{
-			$return = $this->profile_model->create_age_filter($age_group_id, 'client.client_dob');
+			$return = $this->profile_model->create_age_filter($age_group_id, 'user.user_dob');
 			$where .= $return['where'];
 			$v_data['ages_array'] = $return['parameters'];
 		}
@@ -448,7 +453,7 @@ class Account extends MX_Controller
 		//case of filter_encounters
 		if($encounter_id != '__')
 		{
-			$return = $this->profile_model->create_query_filter($encounter_id, 'client.encounter_id');
+			$return = $this->profile_model->create_query_filter($encounter_id, 'user.encounter_id');
 			$where .= $return['where'];
 			$v_data['encounters_array'] = $return['parameters'];
 		}
@@ -456,13 +461,13 @@ class Account extends MX_Controller
 		//case of filter_gender
 		if($gender_id != '__')
 		{
-			//$where .= $this->profile_model->create_query_filter($gender_id, 'client.gender_id');
+			//$where .= $this->profile_model->create_query_filter($gender_id, 'user.gender_id');
 		}
 		
 		//case of filter_neighbourhood
 		if($neighbourhood_id != '__')
 		{
-			$return = $this->profile_model->create_query_filter($neighbourhood_id, 'client.neighbourhood_id');
+			$return = $this->profile_model->create_query_filter($neighbourhood_id, 'user.neighbourhood_id');
 			$where .= $return['where'];
 			$v_data['neighbourhoods_array'] = $return['parameters'];
 		}
@@ -470,26 +475,26 @@ class Account extends MX_Controller
 		//case of search
 		if($search != '__')
 		{
-			$where .= " client.encounter_id = encounter.encounter_id AND (client.client_username LIKE '%".$search."%' OR encounter.encounter_name LIKE '%".$search."%')";
+			$where .= " user.encounter_id = encounter.encounter_id AND (user.user_username LIKE '%".$search."%' OR encounter.encounter_name LIKE '%".$search."%')";
 			$table .= ', encounter';
 		}
 		
 		//case of category
 		if($encounter_id > 0)
 		{
-			$where .= ' AND client.encounter_id = encounter.encounter_id = '.$encounter_id.' ';
+			$where .= ' AND user.encounter_id = encounter.encounter_id = '.$encounter_id.' ';
 		}
 		
 		//case of brand
 		if($neighbourhood_id > 0)
 		{
-			$where .= ' AND client.neighbourhood_id = '.$neighbourhood_id;
+			$where .= ' AND user.neighbourhood_id = '.$neighbourhood_id;
 		}
 		
 		//case of brand
 		if($gender_id > 0)
 		{
-			$where .= ' AND client.gender_id = '.$gender_id;
+			$where .= ' AND user.gender_id = '.$gender_id;
 		}
 		
 		//pagination
@@ -550,9 +555,9 @@ class Account extends MX_Controller
 			$v_data["total"] = $config['total_rows'];
 			$v_data["last"] = $config['total_rows'];
 		}
-		$v_data['profiles'] = $this->profile_model->get_all_clients($table, $where, $config["per_page"], $page, $limit, $order_by, $order_method);
+		$v_data['profiles'] = $this->profile_model->get_all_users($table, $where, $config["per_page"], $page, $limit, $order_by, $order_method);
 		$v_data['profile_image_location'] = $this->profile_image_location;
-		$v_data['current_client_id'] = $this->client_id;
+		$v_data['current_user_id'] = $this->user_id;
 		$v_data['neighbourhoods_query'] = $this->profile_model->get_neighbourhoods();
 		$v_data['genders_query'] = $this->profile_model->get_gender();
 		$v_data['age_groups_query'] = $this->profile_model->get_age_group();
@@ -616,19 +621,19 @@ class Account extends MX_Controller
 		$v_data['encounters_array'] = '';
 		$v_data['neighbourhoods_array'] = '';
 		$v_data['profile_page'] = 1;
-		$v_data['current_client_id'] = $this->client_id;
+		$v_data['current_user_id'] = $this->user_id;
 		
-		$client_username = str_replace("-", " ", $web_name);
+		$user_username = str_replace("-", " ", $web_name);
 		
 		//Required general page data
-		$v_data['profile_query'] = $this->profile_model->get_client_username($client_username);
+		$v_data['profile_query'] = $this->profile_model->get_user_username($user_username);
 		$v_data['profile_image_location'] = $this->profile_image_location;
 		
 		//message history details
 		$receiver_id = $this->messages_model->get_receiver_id($web_name);
-		$v_data['receiver'] = $this->profile_model->get_client($receiver_id);
-		$v_data['sender'] = $this->profile_model->get_client($this->client_id);
-		$v_data['messages'] = $this->profile_model->get_messages($this->client_id, $receiver_id, $this->messages_path);
+		$v_data['receiver'] = $this->profile_model->get_user($receiver_id);
+		$v_data['sender'] = $this->profile_model->get_user($this->user_id);
+		$v_data['messages'] = $this->profile_model->get_messages($this->user_id, $receiver_id, $this->messages_path);
 		$v_data['received_messages'] = $this->profile_model->count_received_messages($v_data['messages']);
 		$v_data['crumbs'] = $this->site_model->get_crumbs();
 		

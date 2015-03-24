@@ -3,8 +3,8 @@
     if($receiver->num_rows() > 0)
     {
         $row = $receiver->row();
-        $receiver_username = $row->client_username;
-        $receiver_id = $row->client_id;
+        $receiver_username = $row->user_username;
+        $receiver_id = $row->user_id;
     }
 ?>
  <div class="container-fluid">
@@ -132,7 +132,7 @@
         <div class="media-body">
             <div class="panel panel-default share">
              <?php
-                echo form_open('site/profile/message_profile/1', array('class' => 'send_message2', 'id' => 'compose_message'));
+                echo form_open('site/messages/message_profile', array('class' => 'send_message2', 'id' => 'compose_message'));
                 echo form_hidden('receiver_id', $receiver_id);
             ?>
                 <div class="input-group">
@@ -143,13 +143,16 @@
                         
                          <!-- <i class="fa fa-envelope"></i><input name="submit" class="btn btn-primary" value="Send " type="submit"> -->
                     </div>
-                    <input type="text" name="client_message_details" id="instant_message2" class="form-control share-text" placeholder="Write message..." />
+                    <input type="text" name="user_message_details" id="instant_message" class="form-control share-text" placeholder="Write message..." />
                     <!-- <textarea name="client_message_details" id="instant_message2" class="form-control input"  size="20" placeholder="Enter message" required="required"></textarea> -->
 
                 </div>
             </div>
+                <?php echo $smiley_table;?>
             <?php echo form_close();?>
-            <?php echo $this->load->view('message_details');?>
+            <div id="view_message">
+            <?php echo $this->load->view('messages/message_details');?>
+            </div>
            <!--  <div class="media">
                 <div class="media-left">
                     <a href="#">
