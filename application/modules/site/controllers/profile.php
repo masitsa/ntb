@@ -251,7 +251,7 @@ class Profile extends account
 			$content = json_encode($data);
 			
 			//create file name
-			$file_name = $this->profile_model->create_file_name(1, $this->input->post('receiver_id'));
+			$file_name = $this->profile_model->create_file_name($this->user_id, $this->input->post('receiver_id'));
 			$file_path = $this->messages_path.'//'.$file_name;
 			$base_path = $this->messages_path;
 			
@@ -263,14 +263,6 @@ class Profile extends account
 				{
 					$this->file_model->write_to_file($file_path, $content);
 					
-					//bill client
-					if($this->payments_model->bill_client(1, $this->message_amount))
-					{
-					}
-					
-					else
-					{
-					}
 					$this->send_message($data['receiver_id'], $page);
 				}
 				

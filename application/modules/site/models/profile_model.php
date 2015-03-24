@@ -1,7 +1,7 @@
 <?php
 class Profile_model extends CI_Model 
 {
-	public function upload_profile_image($profile_image_path, $client_image = NULL, $client_thumb = NULL)
+	public function upload_profile_image($profile_image_path, $user_image = NULL, $user_thumb = NULL)
 	{
 		//upload product's gallery images
 		$resize['width'] = 500;
@@ -11,11 +11,11 @@ class Profile_model extends CI_Model
 		{
 			$image = $this->session->userdata('profile_file_name');
 			
-			if((!empty($image)) || ($client_image != NULL))
+			if((!empty($image)) || ($user_image != NULL))
 			{
-				if($client_image != NULL)
+				if($user_image != NULL)
 				{
-					$image = $client_image;
+					$image = $user_image;
 				}
 				
 				//delete any other uploaded image
@@ -55,10 +55,10 @@ class Profile_model extends CI_Model
 		
 		else
 		{
-			if($client_image != NULL)
+			if($user_image != NULL)
 			{
-				$this->session->set_userdata('profile_file_name', $client_image);
-				$this->session->set_userdata('profile_thumb_name', $client_thumb);
+				$this->session->set_userdata('profile_file_name', $user_image);
+				$this->session->set_userdata('profile_thumb_name', $user_thumb);
 			}
 			
 			$profile_file_name = $this->session->userdata('profile_file_name');
@@ -76,13 +76,13 @@ class Profile_model extends CI_Model
 		}
 	}
 	
-	public function get_profile_image($client_id)
+	public function get_profile_image($user_id)
 	{
 		//get profile data
-		$table = "client";
-		$where = "client_id = ".$client_id;
+		$table = "user";
+		$where = "user_id = ".$user_id;
 		
-		$this->db->select('client_image, client_thumb');
+		$this->db->select('user_image, user_thumb');
 		$this->db->where($where);
 		$image_query = $this->db->get($table);
 		
@@ -95,8 +95,8 @@ class Profile_model extends CI_Model
 		{
 			$row = $image_query->row();
 			
-			$image = $row->client_image;
-			$thumb = $row->client_thumb;
+			$image = $row->user_image;
+			$thumb = $row->user_thumb;
 			
 			$return['image'] = $this->file_model->image_display($image_path, $image_location, $image, $image_size);
 			$return['thumb'] = $this->file_model->image_display($image_path, $image_location, $thumb, $thumb_size);
@@ -154,22 +154,22 @@ class Profile_model extends CI_Model
 		return $query;
 	}
 	
-	public function register_profile_details($client_id, $client_image, $client_thumb)
+	public function register_profile_details($user_id, $user_image, $user_thumb)
 	{
 		$newdata = array(
-			   'client_about'			=> $this->input->post('client_about'),
-			   'client_dob'				=> $this->input->post('client_dob3').'-'.$this->input->post('client_dob2').'-'.$this->input->post('client_dob1'),
+			   'user_about'			=> $this->input->post('user_about'),
+			   'user_dob'				=> $this->input->post('user_dob3').'-'.$this->input->post('user_dob2').'-'.$this->input->post('user_dob1'),
 			   'neighbourhood_id'		=> $this->input->post('neighbourhood_id'),
-			   'client_looking_gender_id'	=> $this->input->post('client_looking_gender_id'),
+			   'user_looking_gender_id'	=> $this->input->post('user_looking_gender_id'),
 			   'gender_id'				=> $this->input->post('gender_id'),
 			   'age_group_id'			=> $this->input->post('age_group_id'),
 			   'encounter_id'			=> $this->input->post('encounter_id'),
-			   'client_image'			=> $client_image,
-			   'client_thumb'			=> $client_thumb
+			   'user_image'			=> $user_image,
+			   'user_thumb'			=> $user_thumb
 		   );
 		
-		$this->db->where('client_id', $client_id);
-		if($this->db->update('client', $newdata))
+		$this->db->where('user_id', $user_id);
+		if($this->db->update('user', $newdata))
 		{
 			return TRUE;
 		}
@@ -179,11 +179,11 @@ class Profile_model extends CI_Model
 		}
 	}
 	
-	public function get_client($client_id)
+	public function get_user($user_id)
 	{
 		//get profile data
-		$table = "client";
-		$where = "client_id = ".$client_id;
+		$table = "users";
+		$where = "user_id = ".$user_id;
 		
 		$this->db->where($where);
 		$query = $this->db->get($table);
@@ -191,12 +191,12 @@ class Profile_model extends CI_Model
 		return $query;
 	}
 	
-	public function get_client_username($client_username)
+	public function get_user_username($user_username)
 	{
 		//get profile data
-		$where = "client.neighbourhood_id = neighbourhood.neighbourhood_id AND client.gender_id = gender.gender_id AND client.encounter_id = encounter.encounter_id AND client.client_status = 1 AND client.client_username = '".$client_username."'";
-		$table = 'client, gender, encounter, neighbourhood';
-		$this->db->select('client.*, gender.gender_name, encounter.encounter_name, neighbourhood.neighbourhood_name');
+		$where = "user.neighbourhood_id = neighbourhood.neighbourhood_id AND user.gender_id = gender.gender_id AND user.encounter_id = encounter.encounter_id AND user.user_status = 1 AND user.user_username = '".$user_username."'";
+		$table = 'user, gender, encounter, neighbourhood';
+		$this->db->select('user.*, gender.gender_name, encounter.encounter_name, neighbourhood.neighbourhood_name');
 		$this->db->where($where);
 		$query = $this->db->get($table);
 		
@@ -209,10 +209,10 @@ class Profile_model extends CI_Model
 	* 	@param string $where
 	*
 	*/
-	public function get_all_clients($table, $where, $per_page, $page, $limit = NULL, $order_by = 'created', $order_method = 'DESC')
+	public function get_all_users($table, $where, $per_page, $page, $limit = NULL, $order_by = 'created', $order_method = 'DESC')
 	{
 		$this->db->from($table);
-		$this->db->select('client.*, gender.gender_name, encounter.encounter_name, neighbourhood.neighbourhood_name');
+		$this->db->select('user.*, gender.gender_name, encounter.encounter_name, neighbourhood.neighbourhood_name');
 		$this->db->where($where);
 		$this->db->order_by($order_by, $order_method);
 		
@@ -229,14 +229,14 @@ class Profile_model extends CI_Model
 		return $query;
 	}
 	
-	public function is_profile_liked($client_id, $like_id)
+	public function is_profile_liked($user_id, $like_id)
 	{
 		$where = array(
-			'client_id' => $client_id,
+			'user_id' => $user_id,
 			'like_id' => $like_id
 		);
 		$this->db->where($where);
-		$query = $this->db->get('client_like');
+		$query = $this->db->get('user_like');
 		
 		if($query->num_rows() > 0)
 		{
@@ -248,14 +248,14 @@ class Profile_model extends CI_Model
 		}
 	}
 	
-	public function like_profile($client_id, $like_id)
+	public function like_profile($user_id, $like_id)
 	{
 		$data = array(
-			'client_id' => $client_id,
+			'user_id' => $user_id,
 			'like_id' => $like_id
 		);
 		
-		if($this->db->insert('client_like', $data))
+		if($this->db->insert('user_like', $data))
 		{
 			return TRUE;
 		}
@@ -265,15 +265,15 @@ class Profile_model extends CI_Model
 		}
 	}
 	
-	public function unlike_profile($client_id, $like_id)
+	public function unlike_profile($user_id, $like_id)
 	{
 		$where = array(
-			'client_id' => $client_id,
+			'user_id' => $user_id,
 			'like_id' => $like_id
 		);
 		
 		$this->db->where($where);
-		if($this->db->delete('client_like'))
+		if($this->db->delete('user_like'))
 		{
 			return TRUE;
 		}
@@ -443,16 +443,16 @@ class Profile_model extends CI_Model
 		return $web_name;
 	}
 	
-	public function chat_exists($client_id, $receiver_id)
+	public function chat_exists($user_id, $receiver_id)
 	{
-		$where = '(client_id = '.$client_id.' AND receiver_id = '.$receiver_id.') OR (client_id = '.$receiver_id.' AND receiver_id = '.$client_id.')';
+		$where = '(user_id = '.$user_id.' AND receiver_id = '.$receiver_id.') OR (user_id = '.$receiver_id.' AND receiver_id = '.$user_id.')';
 		$this->db->where($where);
-		$query = $this->db->get('client_message');
+		$query = $this->db->get('user_message');
 		
 		return $query;
 	}
 	
-	public function create_file_name($client_id, $receiver_id)
+	public function create_file_name($user_id, $receiver_id)
 	{
 		//check if file name session exists
 		$file_name = $this->session->userdata('message_file_name_'.$receiver_id);
@@ -460,32 +460,32 @@ class Profile_model extends CI_Model
 		if(empty($file_name))
 		{
 			//check if file exists in the db
-			$query = $this->chat_exists($client_id, $receiver_id);
+			$query = $this->chat_exists($user_id, $receiver_id);
 			
 			if($query->num_rows() > 0)
 			{
 				$row = $query->row();
 				$file_name = $row->message_file_name;
-				$client_message_id = $row->client_message_id;
+				$user_message_id = $row->user_message_id;
 				$update_data['last_chatted'] = date('Y-m-d H:i:s');
 				
 				//update last date chatted
-				$this->db->where('client_message_id', $client_message_id);
-				$this->db->update('client_message', $update_data);
+				$this->db->where('user_message_id', $user_message_id);
+				$this->db->update('user_message', $update_data);
 			}
 			
 			else
 			{
 				//create file name
-				$file_name = md5('message-'.$client_id.'-'.$receiver_id.'-'.date('Y-m-d')).'.json';
+				$file_name = md5('message-'.$user_id.'-'.$receiver_id.'-'.date('Y-m-d')).'.json';
 				
 				//save file name to db
 				$data['message_file_name'] = $file_name;
-				$data['client_id'] = $client_id;
+				$data['user_id'] = $user_id;
 				$data['receiver_id'] = $receiver_id;
 				$data['created'] = date('Y-m-d H:i:s');
 				$data['last_chatted'] = date('Y-m-d H:i:s');
-				$this->db->insert('client_message', $data);
+				$this->db->insert('user_message', $data);
 			}
 			$this->session->set_userdata('message_file_name_'.$receiver_id, $file_name);
 		}
@@ -493,15 +493,15 @@ class Profile_model extends CI_Model
 		return $file_name;
 	}
 	
-	public function get_messages($client_id, $receiver_id, $messages_path)
+	public function get_messages($user_id, $receiver_id, $messages_path)
 	{
 		//check if message session exists
 		$file_name = $this->session->userdata('message_file_name_'.$receiver_id);
-		// var_dump($file_name);die();
+		//var_dump($file_name);die();
 		if(empty($file_name))
 		{
 			//check if file exists in the db
-			$query = $this->chat_exists($client_id, $receiver_id);
+			$query = $this->chat_exists($user_id, $receiver_id);
 			
 			if($query->num_rows() > 0)
 			{
@@ -516,9 +516,9 @@ class Profile_model extends CI_Model
 			$file_path = $messages_path.'/'.$file_name;
 			
 			$content = $this->file_model->get_file_contents($file_path, $messages_path);
-			// var_dump($content);die();
+			//var_dump($content);die();
 			$message_array = json_decode('['.$content.']');
-			var_dump($message_array);die();
+			//var_dump($message_array);die();
 		}
 		
 		else
