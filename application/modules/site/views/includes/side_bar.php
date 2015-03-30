@@ -9,7 +9,7 @@ $profile_image_location = $this->profile_image_location.$row->user_image;
             <div data-scrollable>
                 <div class="sidebar-block">
                     <div class="profile">
-                        <img src="<?php echo $profile_image_location;?>" alt="people" class="img-circle" style="width:100%;height:100%;"/>
+                        <img src="<?php echo $profile_image_location;?>" alt="people" class="img-circle" style="width:100%;height:175px;"/>
                         <h4><?php echo $this->session->userdata('first_name');?>.</h4>
                     </div>
                 </div>
