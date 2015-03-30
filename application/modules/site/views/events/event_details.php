@@ -233,7 +233,7 @@ if ($meeting_detail->num_rows() > 0)
                     </div>
                 </div>
             </div>
-            <table class="table v-middle">
+           <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th width="20">
@@ -250,7 +250,7 @@ if ($meeting_detail->num_rows() > 0)
                         <th class="text-right" colspan="3">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="responsive-table-body">
+                <tbody >
                 <?php
                     $facilitators = $this->facilitator_model->get_all_facilitators_time($meeting_id);
                     if ($facilitators->num_rows() > 0)
@@ -581,7 +581,7 @@ if ($meeting_detail->num_rows() > 0)
                     </div>
                 </div>
             </div>
-               <table class="table v-middle">
+               <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
                 <thead>
                     <th width="20">
                         <div class="checkbox checkbox-single margin-none">
@@ -648,14 +648,14 @@ if ($meeting_detail->num_rows() > 0)
                              <h3>Attachments for <?php echo $subject;?>!</h3>
                         </div>
                     </div>
-                        <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-attachment/<?php echo $meeting_id;?>"  id = "attachment_form" method="post">
+                        <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>site/upload_controller/do_upload/<?php echo $meeting_id;?>"  id = "attachment_form" method="post">
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="control-group">
                                             <label class="control-label">Attachment</label>
                                             <div class="controls">
-                                               <input type="file" name="file"  class="form-control">
+                                               <input type="file" name="userfile"  class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -668,10 +668,12 @@ if ($meeting_detail->num_rows() > 0)
                                 </div>
                             </div> 
                         </form>
+
+
                     </div>
                 </div>
             </div>
-               <table class="table v-middle">
+               <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
                 <thead>
                     <th width="20">
                         <div class="checkbox checkbox-single margin-none">

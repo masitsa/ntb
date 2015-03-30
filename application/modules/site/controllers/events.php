@@ -1,5 +1,6 @@
 <?php   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once "./application/modules/site/controllers/account.php";
+
 class Events extends account {
 	
 	function __construct()
@@ -298,5 +299,23 @@ class Events extends account {
 		echo json_encode($return);
 	}
 
-   
+      
+    public function file_upload_demo()
+    {
+        try
+        {
+            if($this->input->post("submit")){        
+                $this->load->library("uploader");
+                $this->uploader->do_upload();
+            }
+           echo "sdgakjsdga";
+        }
+        catch(Exception $err)
+        {
+            // log_message("error",$err->getMessage());
+            // return show_error($err->getMessage());
+
+
+        }
+    }
 }
