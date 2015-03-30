@@ -218,4 +218,40 @@
           });
           return false;
          });
+
+
+          //Add to attachments
+       $(document).on("submit","form#attachment_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            if(data.result == "success")
+            {
+                alert('Attachment has been successfully uploaded.'); 
+            }
+            else
+            {
+                alert('Sorry, something went wrong all the fields are filled.');
+            }
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
     </script>
