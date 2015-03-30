@@ -77,6 +77,61 @@ class Profile_model extends CI_Model
 			return FALSE;
 		}
 	}
+	public function update_profile_image($profile_image_path, $profile_image_location, $user_id)
+	{
+		//upload product's gallery images
+		$resize['width'] = 500;
+		$resize['height'] = 500;
+		
+		if(!empty($_FILES['profile_image']['tmp_name']))
+		{
+			$image = $profile_image_location;
+			
+			if(!empty($image))
+			{
+				//delete any other uploaded image
+				if($this->file_model->delete_file($image, $profile_image_path))
+				{
+				}
+			}
+			//Upload image
+			$response = $this->file_model->upload_banner($profile_image_path, 'profile_image', $resize);
+			//var_dump($response['check']) or die();
+			if($response['check'])
+			{
+				$file_name = $response['file_name'];
+				$thumb_name = $response['thumb_name'];
+				
+				$data['user_image'] = $file_name;
+				$data['user_thumb'] = $thumb_name;
+				
+				$this->db->where('user_id', $user_id);
+				if($this->db->update('users', $data))
+				{
+					$this->session->set_userdata('success_message', 'Image updated successfully');
+					return TRUE;
+				}
+				
+				else
+				{
+					$this->session->set_userdata('error_message', 'Something went wrong. Please try again');
+					return FALSE;
+				}
+			}
+		
+			else
+			{
+				$this->session->set_userdata('error_message', $response['error']);
+				return FALSE;
+			}
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', 'Please select an image to upload');
+			return FALSE;
+		}
+	}
 	
 	public function get_profile_image($user_id)
 	{

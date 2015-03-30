@@ -14,29 +14,6 @@ class Profile extends account
 		$this->like_amount = 0.5;
 	}
 	
-	public function update_profile_image()
-	{
-		$images_query = $this->profile_model->get_profile_image($this->user_id);
-		$v_data['profile_images'] = $this->profile_model->display_profile_image($images_query, $this->profile_image_path, $this->profile_image_location, $this->image_size, $this->thumb_size);
-		$images_row = $images_query->row();
-		
-		$this->session->unset_userdata('profile_error_message');
-		
-		//upload image if it has been selected
-		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $edit_image = $images_row->user_image, $edit_thumb = $images_row->user_thumb);
-
-		if($response)
-		{
-			$this->session->set_userdata('profile_image_success_message', 'Your profile image has been successfully updated');
-			$this->update_profile_image();
-		}
-		
-		// $data['content'] = $this->load->view("account/profile/profile_pic", $v_data, TRUE);
-		// $data['title'] = 'Update profile';
-		
-		// $this->load->view('site/templates/account', $data);
-	}
-	
 	public function about_you()
 	{
 		//initialize required variables
@@ -300,6 +277,13 @@ class Profile extends account
 		}
 	}
 	
+	public function update_profile_image($profile_image_location)
+	{
+		//upload image if it has been selected
+		$response = $this->profile_model->update_profile_image($this->profile_image_path, $profile_image_location, $this->user_id);
+		redirect('profile');
+	}
+	
 	public function edit_profile()
 	{
 		$v_data['genders_query'] = $this->profile_model->get_gender();
@@ -327,7 +311,7 @@ class Profile extends account
 		$v_data['user_dob3'] = date('Y',strtotime($user_dob));
 		
 		//upload image if it has been selected
-		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $row->user_image, $row->user_thumb);
+		/*$response = $this->profile_model->upload_profile_image($this->profile_image_path, $row->user_image, $row->user_thumb);
 		if($response)
 		{
 			$v_data['profile_image_location'] = $this->profile_image_location.$this->session->userdata('profile_file_name');
@@ -337,7 +321,7 @@ class Profile extends account
 		else
 		{
 			$v_data['profile_image_error'] = $this->session->userdata('profile_error_message');
-		}
+		}*/
 		
 		$this->form_validation->set_error_delimiters('', '');
 		$this->form_validation->set_rules('user_about', 'About you', 'trim|required|min_length[20]|xss_clean');
