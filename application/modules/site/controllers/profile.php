@@ -277,10 +277,10 @@ class Profile extends account
 		}
 	}
 	
-	public function update_profile_image($profile_image_location)
+	public function update_profile_image($user_image)
 	{
 		//upload image if it has been selected
-		$response = $this->profile_model->update_profile_image($this->profile_image_path, $profile_image_location, $this->user_id);
+		$response = $this->profile_model->update_profile_image($this->profile_image_path, $user_image, $this->user_id);
 		redirect('profile');
 	}
 	
@@ -303,6 +303,7 @@ class Profile extends account
 		$user_query = $this->profile_model->get_user($this->user_id);
 		$row = $user_query->row();
 		$v_data['profile_image_location'] = $this->profile_image_location.$row->user_image;
+		$v_data['user_image'] = $row->user_image;
 		$v_data['gender_id'] = $row->gender_id;
 		$v_data['user_about'] = $row->user_about;
 		$user_dob = $row->user_dob;

@@ -49,7 +49,7 @@
                     <i class="fa fa-fw fa-info-circle"></i> About
                 </div>
                 <div class="panel-body">
-                 <?php echo form_open_multipart('site/profile/update_profile_image/'.$profile_image_location, array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
+                 <?php echo form_open_multipart('site/profile/update_profile_image/'.$user_image, array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
                     <div class="form-group">
                         <label class="col-lg-4 control-label">Profile image</label>
                         <div class="col-lg-8">
