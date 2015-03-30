@@ -77,7 +77,7 @@ class Profile_model extends CI_Model
 			return FALSE;
 		}
 	}
-	public function update_profile_image($profile_image_path, $profile_image_location, $user_id)
+	public function update_profile_image($profile_image_path, $user_image, $user_id)
 	{
 		//upload product's gallery images
 		$resize['width'] = 500;
@@ -85,13 +85,21 @@ class Profile_model extends CI_Model
 		
 		if(!empty($_FILES['profile_image']['tmp_name']))
 		{
-			$image = $profile_image_location;
+			$image = $user_image;
 			
 			if(!empty($image))
 			{
 				//delete any other uploaded image
-				if($this->file_model->delete_file($image, $profile_image_path))
+				if($this->file_model->delete_file($profile_image_path."\\".$image))
 				{
+					//delete any other uploaded thumbnail
+					$this->file_model->delete_file($profile_image_path."\\thumbnail_".$image);
+				}
+				
+				else
+				{
+					$this->file_model->delete_file($profile_image_path."/".$image);
+					$this->file_model->delete_file($profile_image_path."/thumbnail_".$image);
 				}
 			}
 			//Upload image
