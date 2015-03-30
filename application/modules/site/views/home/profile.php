@@ -1,3 +1,5 @@
+<link href="<?php echo base_url()."assets/themes/jasny/css/jasny-bootstrap.css"?>" rel="stylesheet"/>
+<script type="text/javascript" src="<?php echo base_url()."assets/themes/jasny/js/jasny-bootstrap.js"?>"></script>
 <div class="container-fluid">
     <!-- <div class="tabbable">
         <ul class="nav nav-tabs">
@@ -23,6 +25,21 @@
             </div>
         </div>
     </div> -->
+    <!-- Adding Errors -->
+	<?php
+	$error = $this->session->userdata('error_message');
+	$success = $this->session->userdata('success_message');
+	
+    if(!empty($error)){
+        echo '<div class="alert alert-danger center-align">'.$error.'</div>';
+		$this->session->unset_userdata('error_message');
+    }
+	
+    if(!empty($success)){
+        echo '<div class="alert alert-success center-align">'.$success.'</div>';
+		$this->session->unset_userdata('success_message');
+    }
+    ?>
     <div class="row">
        
         <div class="col-md-12">
@@ -32,25 +49,30 @@
                     <i class="fa fa-fw fa-info-circle"></i> About
                 </div>
                 <div class="panel-body">
-                 <?php echo form_open('site/profile/update_profile_image', array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
-                    <div class="col-md-4">
-                        <!--  -->
-                        <div class="row">
-                            <div class="col-md-11">  
-                             <img src="<?php echo $profile_image_location;?>" alt="people" class="img-responsive" />
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top:5px;">
-                            <div class="col-md-12">
-                                <span class="btn btn-file btn-primary"><span class="fileinput-new">Click here to upload image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image" class="form-control"></span>
+                 <?php echo form_open_multipart('site/profile/update_profile_image/'.$profile_image_location, array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Profile image</label>
+                        <div class="col-lg-8">
                             
+                            <div class="row">
+                            
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="height:160px; width:212px;">
+                                    		<img src="<?php echo $profile_image_location;?>">
+                                        </div>
+                                        <div>
+                                            <span class="btn btn-file btn-info"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image"></span>
+                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            
                         </div>
-                        <div class="row" style="margin-top:5px;">
-                            <div class="col-md-12">
-                                <button class="btn btn-sm btn-success" type="submit"> Upload image</button>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="center-align">
+                    	<button type="submit" class="btn btn-primary">Update image</button>
                     </div>
                      <?php echo form_close();?>
                     <div class="col-md-5">
