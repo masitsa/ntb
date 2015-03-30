@@ -4,7 +4,7 @@
 	{
 		$row = $receiver->row();
 		$receiver_username = $row->user_username;
-		$receiver_thumb = base_url()."assets/themes/themekit/images/people/110/male.png";//$profile_image_location.$row->user_thumb;
+		$receiver_thumb = $profile_image_location.$row->user_thumb;
 		$receiver_id = $row->user_id;
 	}
 	
@@ -13,7 +13,7 @@
 	{
 		$row = $sender->row();
 		$user_username = $row->user_username;
-		$user_thumb = base_url()."assets/themes/themekit/images/people/110/male.png";//$profile_image_location.$row->user_thumb;
+		$user_thumb = $profile_image_location.$row->user_thumb;
 		$user_id = $row->user_id;
 	}
 
@@ -81,7 +81,7 @@ if(is_array($messages))
 	                    </div>
 	                </div>
 	                <div class="media-right">
-	                    <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" width="60" alt="" class="media-object" />
+	                    <img src="'.$user_thumb.'" width="60" alt="" class="media-object" />
 	                </div>
 	            </div>
 			';

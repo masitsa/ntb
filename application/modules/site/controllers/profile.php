@@ -23,17 +23,18 @@ class Profile extends account
 		$this->session->unset_userdata('profile_error_message');
 		
 		//upload image if it has been selected
-		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $edit_image = $images_row->client_image, $edit_thumb = $images_row->client_thumb);
+		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $edit_image = $images_row->user_image, $edit_thumb = $images_row->user_thumb);
+
 		if($response)
 		{
 			$this->session->set_userdata('profile_image_success_message', 'Your profile image has been successfully updated');
 			$this->update_profile_image();
 		}
 		
-		$data['content'] = $this->load->view("account/profile/profile_pic", $v_data, TRUE);
-		$data['title'] = 'Update profile';
+		// $data['content'] = $this->load->view("account/profile/profile_pic", $v_data, TRUE);
+		// $data['title'] = 'Update profile';
 		
-		$this->load->view('site/templates/account', $data);
+		// $this->load->view('site/templates/account', $data);
 	}
 	
 	public function about_you()
@@ -301,47 +302,32 @@ class Profile extends account
 	
 	public function edit_profile()
 	{
-		$v_data['neighbourhoods_query'] = $this->profile_model->get_neighbourhoods();
 		$v_data['genders_query'] = $this->profile_model->get_gender();
-		$v_data['age_groups_query'] = $this->profile_model->get_age_group();
-		$v_data['encounters_query'] = $this->profile_model->get_encounter();
-		
-		$v_data['post_neighbourhoods'] = '';
+
 		$v_data['post_genders'] = '';
 		$v_data['post_ages'] = '';
-		$v_data['post_encounters'] = '';
 		
 		$v_data['ages_array'] = '';
-		$v_data['encounters_array'] = '';
-		$v_data['neighbourhoods_array'] = '';
 		
 		//initialize required variables
-		$v_data['neighbourhood_id_error'] = '';
 		$v_data['client_about_error'] = '';
 		$v_data['client_dob1_error'] = '';
 		$v_data['client_dob2_error'] = '';
 		$v_data['client_dob3_error'] = '';
-		$v_data['client_looking_gender_id_error'] = '';
-		$v_data['age_group_id_error'] = '';
-		$v_data['encounter_id_error'] = '';
 		$v_data['gender_id_error'] = '';
 				
-		$client_query = $this->profile_model->get_client($this->user_id);
-		$row = $client_query->row();
-		$v_data['profile_image_location'] = $this->profile_image_location.$row->client_image;
-		$v_data['neighbourhood_id'] = $row->neighbourhood_id;
+		$user_query = $this->profile_model->get_user($this->user_id);
+		$row = $user_query->row();
+		$v_data['profile_image_location'] = $this->profile_image_location.$row->user_image;
 		$v_data['gender_id'] = $row->gender_id;
-		$v_data['client_about'] = $row->client_about;
-		$v_data['client_looking_gender_id'] = $row->client_looking_gender_id;
-		$v_data['age_group_id'] = $row->age_group_id;
-		$v_data['encounter_id'] = $row->encounter_id;
-		$client_dob = $row->client_dob;
-		$v_data['client_dob1'] = date('d',strtotime($client_dob));
-		$v_data['client_dob2'] = date('m',strtotime($client_dob));
-		$v_data['client_dob3'] = date('Y',strtotime($client_dob));
+		$v_data['user_about'] = $row->user_about;
+		$user_dob = $row->user_dob;
+		$v_data['user_dob1'] = date('d',strtotime($user_dob));
+		$v_data['user_dob2'] = date('m',strtotime($user_dob));
+		$v_data['user_dob3'] = date('Y',strtotime($user_dob));
 		
 		//upload image if it has been selected
-		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $row->client_image, $row->client_thumb);
+		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $row->user_image, $row->user_thumb);
 		if($response)
 		{
 			$v_data['profile_image_location'] = $this->profile_image_location.$this->session->userdata('profile_file_name');
@@ -354,15 +340,11 @@ class Profile extends account
 		}
 		
 		$this->form_validation->set_error_delimiters('', '');
-		$this->form_validation->set_rules('neighbourhood_id', 'Neighbourhood', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('client_about', 'About you', 'trim|required|min_length[20]|xss_clean');
-		$this->form_validation->set_rules('client_dob1', 'Day of birth', 'trim|required|greater_than[0]|less_than[32]|xss_clean');
-		$this->form_validation->set_rules('client_dob2', 'Month of birth', 'trim|required|greater_than[0]|less_than[13]|xss_clean');
-		$this->form_validation->set_rules('client_dob3', 'Year of birth', 'trim|required|greater_than[1900]|xss_clean');
-		$this->form_validation->set_rules('client_looking_gender_id', 'Looking for', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('user_about', 'About you', 'trim|required|min_length[20]|xss_clean');
+		$this->form_validation->set_rules('user_dob1', 'Day of birth', 'trim|required|greater_than[0]|less_than[32]|xss_clean');
+		$this->form_validation->set_rules('user_dob2', 'Month of birth', 'trim|required|greater_than[0]|less_than[13]|xss_clean');
+		$this->form_validation->set_rules('user_dob3', 'Year of birth', 'trim|required|greater_than[1900]|xss_clean');
 		$this->form_validation->set_rules('gender_id', 'I am a', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('age_group_id', 'Aged', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('encounter_id', 'Encounter type', 'trim|required|xss_clean');
 		
 		//if form conatins invalid data
 		if ($this->form_validation->run())
@@ -384,26 +366,18 @@ class Profile extends account
 		if(!empty($validation_errors))
 		{
 			//create errors
-			$v_data['neighbourhood_id_error'] = form_error('neighbourhood_id');
-			$v_data['client_about_error'] = form_error('client_about');
-			$v_data['client_dob1_error'] = form_error('client_dob1');
-			$v_data['client_dob2_error'] = form_error('client_dob2');
-			$v_data['client_dob3_error'] = form_error('client_dob3');
-			$v_data['client_looking_gender_id_error'] = form_error('client_looking_gender_id');
+			$v_data['user_about_error'] = form_error('user_about');
+			$v_data['user_dob1_error'] = form_error('user_dob1');
+			$v_data['user_dob2_error'] = form_error('user_dob2');
+			$v_data['user_dob3_error'] = form_error('user_dob3');
 			$v_data['gender_id'] = form_error('gender_id');
-			$v_data['age_group_id_error'] = form_error('age_group_id');
-			$v_data['encounter_id_error'] = form_error('encounter_id');
 			
 			//repopulate fields
-			$v_data['neighbourhood_id'] = set_value('neighbourhood_id');
-			$v_data['client_about'] = set_value('client_about');
-			$v_data['client_looking_gender_id'] = set_value('client_looking_gender_id');
+			$v_data['user_about'] = set_value('user_about');
 			$v_data['gender_id'] = set_value('gender_id');
-			$v_data['age_group_id'] = set_value('age_group_id');
-			$v_data['encounter_id'] = set_value('encounter_id');
-			$v_data['client_dob1'] = set_value('client_dob1');
-			$v_data['client_dob2'] = set_value('client_dob2');
-			$v_data['client_dob3'] = set_value('client_dob3');
+			$v_data['user_dob1'] = set_value('user_dob1');
+			$v_data['user_dob2'] = set_value('user_dob2');
+			$v_data['user_dob3'] = set_value('user_dob3');
 		}
 		
 		//populate form data on initial load of page
@@ -412,28 +386,61 @@ class Profile extends account
 			if(!empty($v_data['profile_image_error']))
 			{
 				/*$v_data['neighbourhood_id'] = set_value('neighbourhood_id');
-				$v_data['client_about'] = set_value('client_about');
-				$v_data['client_looking_gender_id'] = set_value('client_looking_gender_id');
+				$v_data['user_about'] = set_value('user_about');
+				$v_data['user_looking_gender_id'] = set_value('user_looking_gender_id');
 				$v_data['age_group_id'] = set_value('age_group_id');
 				$v_data['encounter_id'] = set_value('encounter_id');
-				$v_data['client_dob1'] = set_value('client_dob1');
+				$v_data['user_dob1'] = set_value('user_dob1');
 
-				$v_data['client_dob2'] = set_value('client_dob2');
-				$v_data['client_dob3'] = set_value('client_dob3');*/
+				$v_data['user_dob2'] = set_value('user_dob2');
+				$v_data['user_dob3'] = set_value('user_dob3');*/
 			}
 			
 			else
 			{
 			}
 		}
-		$v_data['neighbourhoods_query'] = $this->profile_model->get_neighbourhoods();
-		$v_data['genders_query'] = $this->profile_model->get_gender();
-		$v_data['age_groups_query'] = $this->profile_model->get_age_group();
-		$v_data['encounters_query'] = $this->profile_model->get_encounter();
+		// $v_data['genders_query'] = $this->profile_model->get_gender();
 		
-		$data['content'] = $this->load->view('register/edit_profile', $v_data, true);
+		// $data['content'] = $this->load->view('home/edit_profile', $v_data, true);
 		
-		$data['title'] = $this->site_model->display_page_title();
-		$this->load->view('templates/general_page', $data);
+		// $data['title'] = $this->site_model->display_page_title();
+		// $this->load->view('templates/general_page', $data);
+		$data['content'] = $this->load->view('home/profile', $v_data, true);
+		
+		$data['title'] = 'Home';
+		$this->load->view('site/templates/general_page', $data);
 	}
+	public function profile_page() 
+	{
+		// $this->load->view('includes/top_navigation');
+		$user_query = $this->profile_model->get_user($this->user_id);
+		$row = $user_query->row();
+		$v_data['profile_image_location'] = $this->profile_image_location.$row->user_image;
+		$v_data['gender_id'] = $row->gender_id;
+		$v_data['user_about'] = $row->user_about;
+		$user_dob = $row->user_dob;
+		$v_data['user_dob1'] = date('d',strtotime($user_dob));
+		$v_data['user_dob2'] = date('m',strtotime($user_dob));
+		$v_data['user_dob3'] = date('Y',strtotime($user_dob));
+		
+		//upload image if it has been selected
+		$response = $this->profile_model->upload_profile_image($this->profile_image_path, $row->user_image, $row->user_thumb);
+		if($response)
+		{
+			$v_data['profile_image_location'] = $this->profile_image_location.$this->session->userdata('profile_file_name');
+		}
+		
+		//case of upload error
+		else
+		{
+			$v_data['profile_image_error'] = $this->session->userdata('profile_error_message');
+		}
+		$v_data['genders_query'] = $this->profile_model->get_gender();
+		$data['content'] = $this->load->view('home/profile', $v_data, true);
+		
+		$data['title'] = 'Home';
+		$this->load->view('site/templates/general_page', $data);
+	}
+    
 }

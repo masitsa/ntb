@@ -1,6 +1,6 @@
 <?php   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Events extends MX_Controller {
+require_once "./application/modules/site/controllers/account.php";
+class Events extends account {
 	
 	function __construct()
 	{

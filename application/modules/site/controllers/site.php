@@ -1,6 +1,8 @@
 <?php   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Site extends MX_Controller {
+require_once "./application/modules/site/controllers/account.php";
+
+class Site extends account {
 	
 	function __construct()
 	{
@@ -9,6 +11,8 @@ class Site extends MX_Controller {
 		$this->load->model('login/login_model');
 		$this->load->model('site/site_model');
 		$this->load->model('events_model');
+		$this->load->model('action_point_model');
+		$this->load->model('attendee_model');
 		$this->load->library('Mandrill', $this->config->item('mandrill_key'));
 		$user = $this->login_model->check_user_login();
 		//user has logged in
@@ -102,15 +106,7 @@ class Site extends MX_Controller {
 		$this->load->view('site/templates/general_page', $data);
 	}
 
-	public function profile() 
-	{
-		// $this->load->view('includes/top_navigation');
-		$data['content'] = $this->load->view('home/profile', '', true);
-		
-		$data['title'] = 'Home';
-		$this->load->view('site/templates/general_page', $data);
-	}
-    
+	
     
 	/*
 	*
@@ -444,6 +440,7 @@ class Site extends MX_Controller {
 		$v_data['countries'] = $this->events_model->get_all_countries();
 		$v_data['event_types'] = $this->events_model->get_all_event_types();
 		$v_data['agencies'] = $this->events_model->get_all_agencies();
+		
 		$data['content'] = $this->load->view('calender', $v_data, true);
 		
 		$data['title'] = $this->site_model->display_page_title();
@@ -497,7 +494,11 @@ class Site extends MX_Controller {
 
 		
 			//  enter into the nurse notes trail
-
+		$this->form_validation->set_rules('editor1', 'editor1', 'trim|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
 			$notes=$this->input->post('editor1');
 			$trail_data = array(
 	        		"meeting_id" => $meeting_id,
@@ -520,8 +521,14 @@ class Site extends MX_Controller {
 				$this->db->insert('meeting_notes', $trail_data);
 				$this->session->set_userdata("success_message","Meeting notes was successfully updated");
 			}
-			 redirect('calendar');
+			$data['result'] = 'success';
+		}
+		else
+		{
+			$data['result'] = 'failure';
+		}
 		
+		echo json_encode($data);
 
 
 	}

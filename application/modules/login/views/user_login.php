@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Events Planner</title>
+    <title>Login</title>
     <!-- Compressed Vendor BUNDLE
     Includes vendor (3rd party) styling such as the customized Bootstrap and other 3rd party libraries used for the current theme/module -->
     <link href="<?php echo base_url()."assets/themes/themekit/";?>css/vendor.min.css" rel="stylesheet">
@@ -55,12 +55,12 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
     	<div id="content">
 		    <div class="container-fluid">
 		        <div class="lock-container">
-		            <h1>Events Planner</h1>
+		            <h1>Meetings Scheduler</h1>
 		            <?php 
 					  echo form_open($this->uri->uri_string(),"class='form-horizontal'"); 
 					 ?>
 		            <div class="panel panel-default text-center">
-		                <img src="<?php echo base_url();?>assets/themes/themekit/images/logo/download.jpg" class="" style="height: 125px;width: 81%; border-radius: none !important;">
+		                <img src="<?php echo base_url();?>assets/themes/themekit/images/logo/download.jpg" class="" style="width: 81%; border-radius: none !important;">
 		                <div class="panel-body">
 		                    <input class="form-control"  name="email" type="text" placeholder="Username">
 		                    <input class="form-control" name="password" type="password" placeholder="Enter Password">
@@ -75,7 +75,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!-- end of content -->
     <!-- Footer -->
     <footer class="footer">
-        <strong>Events Planner</strong> v0.1 &copy; Copyright 2015
+        <strong>Meetings Scheduler</strong> v0.1 &copy; Copyright 2015
     </footer>
     <!-- // Footer -->
     <!-- Inline Script for colors and config objects; used by various external scripts; -->

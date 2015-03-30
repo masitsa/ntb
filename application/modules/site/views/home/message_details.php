@@ -4,7 +4,7 @@
 	{
 		$row = $receiver->row();
 		$receiver_username = $row->user_username;
-		$receiver_thumb = base_url()."assets/themes/themekit/images/people/110/male.png";//$profile_image_location.$row->user_thumb;
+		$receiver_thumb = $profile_image_location.$row->user_thumb;
 		$receiver_id = $row->user_id;
 	}
 	
@@ -13,11 +13,11 @@
 	{
 		$row = $sender->row();
 		$user_username = $row->user_username;
-		$user_thumb = base_url()."assets/themes/themekit/images/people/110/male.png";//$profile_image_location.$row->user_thumb;
+		$user_thumb = $profile_image_location.$row->user_thumb;
 		$user_id = $row->user_id;
 	}
 
-var_dump($messages);
+// var_dump($messages);
 
 if(is_array($messages))
 {

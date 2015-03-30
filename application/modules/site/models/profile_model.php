@@ -9,6 +9,7 @@ class Profile_model extends CI_Model
 		
 		if(!empty($_FILES['profile_image']['tmp_name']))
 		{
+			
 			$image = $this->session->userdata('profile_file_name');
 			
 			if((!empty($image)) || ($user_image != NULL))
@@ -33,6 +34,7 @@ class Profile_model extends CI_Model
 			}
 			//Upload image
 			$response = $this->file_model->upload_banner($profile_image_path, 'profile_image', $resize);
+			var_dump($response['check']) or die();
 			if($response['check'])
 			{
 				$file_name = $response['file_name'];
@@ -79,7 +81,7 @@ class Profile_model extends CI_Model
 	public function get_profile_image($user_id)
 	{
 		//get profile data
-		$table = "user";
+		$table = "users";
 		$where = "user_id = ".$user_id;
 		
 		$this->db->select('user_image, user_thumb');

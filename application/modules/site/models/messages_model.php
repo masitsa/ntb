@@ -1,6 +1,25 @@
 <?php
 class Messages_model extends CI_Model 
 {
+	public function get_all_users($table, $where, $per_page, $page, $limit = NULL, $order_by = 'created', $order_method = 'DESC')
+	{
+		$this->db->from($table);
+		$this->db->select('users.*');
+		$this->db->where($where);
+		$this->db->order_by($order_by, $order_method);
+		
+		if(isset($limit))
+		{
+			$query = $this->db->get('', $limit);
+		}
+		
+		else
+		{
+			$query = $this->db->get('', $per_page, $page);
+		}
+		
+		return $query;
+	}
 	public function get_all_messages($table, $where, $per_page, $page, $limit = NULL, $order_by = 'created', $order_method = 'DESC')
 	{
 		$this->db->from($table);

@@ -1,6 +1,6 @@
 <?php   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Attendee extends MX_Controller 
+require_once "./application/modules/site/controllers/account.php";
+class Attendee extends account 
 {	
 	function __construct()
 	{
@@ -297,6 +297,33 @@ class Attendee extends MX_Controller
 			$this->session->set_userdata('error_message', 'Unable to deactivate attendee. Please try again');
 		}
 		redirect('all-attendees/'.$meeting_id);
+	}
+	public function add_meeting_attendee($meeting_id)
+	{
+		$this->form_validation->set_rules('attendee_title', 'Title', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('attendee_first_name', 'First name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('attendee_last_name', 'Last name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('attendee_email', 'Email', 'trim|required|valid_email|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->attendee_model->add_attendee($meeting_id))
+			{
+				$this->session->set_userdata('success_message', 'Attendee edited successfully');
+				$data['result'] = 'success';
+			}
+			else
+			{
+				$data['result'] = 'failure';
+			}
+		}
+		else
+		{
+			$data['result'] = 'failure';
+		}
+		
+		echo json_encode($data);
 	}
 }
 ?>

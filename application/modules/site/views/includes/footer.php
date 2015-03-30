@@ -75,4 +75,147 @@
         });
         return false;
     });
+
+
+        //Add to cart and redirect
+       $(document).on("submit","form#action_point_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            if(data.result == "success")
+            {
+                alert('The action point has been successfully added.');
+                 parent.location ='<?php echo base_url(); ?>calendar';   
+            }
+            else
+            {
+                alert('Sorry, something went wrong make sure your have rated and entered your name.');
+            }
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+
+        //Add to attendee
+       $(document).on("submit","form#attendee_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            if(data.result == "success")
+            {
+                alert('You have successfully added a new attendee.');
+                 parent.location ='<?php echo base_url(); ?>calendar';   
+            }
+            else
+            {
+                alert('Sorry, something went wrong all the fields are filled.');
+            }
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+        //Add to conveyee
+       $(document).on("submit","form#convenor_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            if(data.result == "success")
+            {
+                alert('You have successfully added a new convenor.');
+                 parent.location ='<?php echo base_url(); ?>calendar';   
+            }
+            else
+            {
+                alert('Sorry, something went wrong all the fields are filled.');
+            }
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+
+         //Add to meeting data
+       $(document).on("submit","form#meeting_notes_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            if(data.result == "success")
+            {
+                alert('Minutes have been updated.'); 
+            }
+            else
+            {
+                alert('Sorry, something went wrong all the fields are filled.');
+            }
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
     </script>

@@ -1,6 +1,6 @@
 <?php   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Action_point extends MX_Controller 
+require_once "./application/modules/site/controllers/account.php";
+class Action_point extends account 
 {	
 	function __construct()
 	{
@@ -258,6 +258,33 @@ class Action_point extends MX_Controller
 			$this->session->set_userdata('error_message', 'Unable to delete action point. Please try again');
 		}
 		redirect('all-action-points/'.$meeting_id);
+	}
+	public function add_meeting_action_point($meeting_id)
+	{
+
+		$this->form_validation->set_rules('assigned_to', 'Assigned to', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('priority_status_id', 'Priority', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('actions_status_id', 'Action', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('action_point_notes', 'Notes', 'trim|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->action_point_model->add_action_point($meeting_id))
+			{
+				$data['result'] = 'success';
+			}
+			else
+			{
+				$data['result'] = 'failure';
+			}
+		}
+		else
+		{
+			$data['result'] = 'failure';
+		}
+		
+		echo json_encode($data);
 	}
 }
 ?>

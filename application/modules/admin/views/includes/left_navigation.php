@@ -12,8 +12,18 @@
                 <!-- Use the class nred, ngreen, nblue, nlightblue, nviolet or norange to add background color. You need to use this in <li> tag. -->
 
                 <li><a href="<?php echo base_url()."admin";?>"><i class="icon-desktop"></i> Dashboard</a></li>
-                <li><a href="<?php echo base_url()."all-users";?>"><i class="icon-desktop"></i> Users</a></li>
-                        
+                <li><a href="<?php echo base_url()."all-users";?>"><i class="icon-list"></i> Users</a></li>
+                 <!-- Menu with sub menu -->
+                <li class="has_submenu">
+                    <a href="#">
+                        <!-- Menu name with icon -->
+                        <i class="icon-th"></i> Administration
+                    </a>
+                    <ul>
+                        <li><a href="<?php echo site_url();?>all-agencies">Agencies</a></li>
+                        <li><a href="<?php echo site_url();?>all-event-types">Event type</a></li>
+                    </ul>
+                </li>        
                 
 
                 

@@ -448,6 +448,7 @@ class File_model extends CI_Model
 			);
 			
 		$this->load->library('upload', $config);
+		var_dump($field_name);
 		
 		if ( ! $this->upload->do_upload($field_name))
 		{

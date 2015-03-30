@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="tabbable">
+    <!-- <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#home" data-toggle="tab"><i class="fa fa-fw fa-picture-o"></i> Photos</a>
             </li>
@@ -22,111 +22,83 @@
                 <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row">
-        <div class="col-md-6">
+       
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading panel-heading-gray">
                     <a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>
                     <i class="fa fa-fw fa-info-circle"></i> About
                 </div>
                 <div class="panel-body">
-                    <ul class="list-unstyled profile-about margin-none">
-                        <li class="padding-v-5">
-                            <div class="row">
-                                <div class="col-sm-4"><span class="text-muted">Date of Birth</span>
-                                </div>
-                                <div class="col-sm-8">12 January 1990</div>
+                 <?php echo form_open('site/profile/update_profile_image', array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
+                    <div class="col-md-4">
+                        <!--  -->
+                        <div class="row">
+                            <div class="col-md-11">  
+                             <img src="<?php echo $profile_image_location;?>" alt="people" class="img-responsive" />
                             </div>
-                        </li>
-                        <li class="padding-v-5">
-                            <div class="row">
-                                <div class="col-sm-4"><span class="text-muted">Job</span>
-                                </div>
-                                <div class="col-sm-8">Specialist</div>
+                        </div>
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col-md-12">
+                                <span class="btn btn-file btn-primary"><span class="fileinput-new">Click here to upload image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image" class="form-control"></span>
+                            
                             </div>
-                        </li>
-                        <li class="padding-v-5">
-                            <div class="row">
-                                <div class="col-sm-4"><span class="text-muted">Gender</span>
-                                </div>
-                                <div class="col-sm-8">Male</div>
+                        </div>
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col-md-12">
+                                <button class="btn btn-sm btn-success" type="submit"> Upload image</button>
                             </div>
-                        </li>
-                        <li class="padding-v-5">
-                            <div class="row">
-                                <div class="col-sm-4"><span class="text-muted">Lives in</span>
-                                </div>
-                                <div class="col-sm-8">Miami, FL, USA</div>
-                            </div>
-                        </li>
-                        <li class="padding-v-5">
-                            <div class="row">
-                                <div class="col-sm-4"><span class="text-muted">Credits</span>
-                                </div>
-                                <div class="col-sm-8">249</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading panel-heading-gray">
-                    <div class="pull-right">
-                        <a href="#" class="btn btn-primary btn-xs">Add <i class="fa fa-plus"></i></a>
+                        </div>
                     </div>
-                    <i class="icon-user-1"></i> Friends
-                </div>
-                <div class="panel-body">
-                    <ul class="img-grid">
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/female.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/female.png" alt="image" />
-                            </a>
-                        </li>
-                        <li class="clearfix">
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/female.png" alt="image" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="image" />
-                            </a>
-                        </li>
-                    </ul>
+                     <?php echo form_close();?>
+                    <div class="col-md-5">
+                        <ul class="list-unstyled profile-about margin-none">
+                            <li class="padding-v-5">
+                                <div class="row">
+                                    <div class="col-sm-4"><span class="text-muted">Names : </span></div>
+                                    
+                                    <div class="col-sm-8" >
+                                        <input type="text" id="inputSuccess1" name='first_name' class="form-control" placeholder="First name">
+                                     
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            <li class="padding-v-5">
+                                <div class="row">
+                                    <div class="col-sm-4"><span class="text-muted">Email address : </span>
+                                    </div>
+                                    <div class="col-sm-8">Specialist</div>
+                                </div>
+                            </li>
+                            <li class="padding-v-5">
+                                <div class="row">
+                                    <div class="col-sm-4"><span class="text-muted">Gender</span>
+                                    </div>
+                                    <div class="col-sm-8">Male</div>
+                                </div>
+                            </li>
+                            <li class="padding-v-5">
+                                <div class="row">
+                                    <div class="col-sm-4"><span class="text-muted">Lives in</span>
+                                    </div>
+                                    <div class="col-sm-8">Miami, FL, USA</div>
+                                </div>
+                            </li>
+                            <li class="padding-v-5">
+                                <div class="row">
+                                    <div class="col-sm-4"><span class="text-muted">Credits</span>
+                                    </div>
+                                    <div class="col-sm-8">249</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- notifications -->
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Facilitator extends MX_Controller 
+require_once "./application/modules/site/controllers/account.php";
+class Facilitator extends account 
 {	
 	function __construct()
 	{
@@ -297,6 +297,33 @@ class Facilitator extends MX_Controller
 			$this->session->set_userdata('error_message', 'Unable to deactivate facilitator. Please try again');
 		}
 		redirect('all-facilitators/'.$meeting_id);
+	}
+	public function add_meeting_facilitator($meeting_id)
+	{
+		$this->form_validation->set_rules('facilitator_title', 'Title', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('facilitator_first_name', 'First name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('facilitator_last_name', 'Last name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('facilitator_email', 'Email', 'trim|required|valid_email|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->facilitator_model->add_facilitator($meeting_id))
+			{
+				$this->session->set_userdata('success_message', 'Facilitator edited successfully');
+				$data['result'] = 'success';
+			}
+			else
+			{
+				$data['result'] = 'failure';
+			}
+		}
+		else
+		{
+			$data['result'] = 'failure';
+		}
+		
+		echo json_encode($data);
 	}
 }
 ?>

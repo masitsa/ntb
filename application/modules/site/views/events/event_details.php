@@ -87,12 +87,15 @@ if ($meeting_detail->num_rows() > 0)
         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Convenors</a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Attendees</a></li>
         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Action points</a></li>
+        <li role="presentation"><a href="#attachments" aria-controls="attachments" role="tab" data-toggle="tab">Attachments</a></li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-            <?php echo form_open('site/save_meeting_notes/'.$meeting_id, array('class' => 'form-horizontal'));?>
+            <!-- <?php echo form_open('site/save_meeting_notes/'.$meeting_id, array('class' => 'form-horizontal'));?> -->
+           <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>site/save_meeting_notes/<?php echo $meeting_id;?>"  id = "meeting_notes_form" method="post">
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="control-group">
@@ -102,7 +105,9 @@ if ($meeting_detail->num_rows() > 0)
                                 <?php
                                     $rs = $this->site_model->get_notes_details($meeting_id);
                                     $num_meeting_notes = count($rs);
-                                    if($num_meeting_notes > 0)
+                                   $number = $this->site_model->get_meeting_notes($meeting_id);
+
+                                    if($number > 0)
                                     {
                                         foreach ($rs->result() as $cont)
                                         {
@@ -142,8 +147,92 @@ if ($meeting_detail->num_rows() > 0)
             <?php echo form_close();?>
          </div>
         <div role="tabpanel" class="tab-pane" id="profile">
-            <a  href="<?php echo base_url();?>add-facilitator/<?php echo $meeting_id;?>" target="_blank" class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Facilitators</a>
+            <a data-toggle="modal" data-target=".add-convenor"  class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Convenor</a>
+            
+            <div class="modal fade add-convenor" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <div class="hgroup title">
+                             <h3>Convenors for <?php echo $subject;?>!</h3>
+                        </div>
+                    </div>
+                        <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-meeting-facilitator/<?php echo $meeting_id;?>"  id = "convenor_form" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                            <label class="control-label">Title</label>
+                                            <div class="controls">
+                                               <select name="facilitator_title" class="form-control">
+                                                <option value="">--Select title--</option>
+                                                <?php
+                                                $titles_query = $this->attendee_model->get_titles();
 
+                                                if($titles_query->num_rows() > 0)
+                                                {
+                                                    foreach($titles_query->result() as $res)
+                                                    {
+                                                        $title_id = $res->title_id;
+                                                        $title_name = $res->title_name;
+                                                        
+                                                        if($title_name == $attendee_title)
+                                                        {
+                                                            echo '<option value="'.$title_name.'" selected="selected">'.$title_name.'</option>';
+                                                        }
+                                                        
+                                                        else
+                                                        {
+                                                            echo '<option value="'.$title_name.'">'.$title_name.'</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">First Name</label>
+                                            <div class="controls">
+                                                 <input type="text" class="form-control" name="facilitator_first_name" placeholder="First name" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">Last Name</label>
+                                            <div class="controls">
+                                                 <input type="text" class="form-control" name="facilitator_last_name" placeholder="Last name" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">Convenor email</label>
+                                            <div class="controls">
+                                                 <input type="text" class="form-control" name="facilitator_email" placeholder="Email address" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                    <button class="btn btn-danger btn-sm" type="submit"  data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" onclick="">Add Convenor</button>
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
             <table class="table v-middle">
                 <thead>
                     <tr>
@@ -220,8 +309,92 @@ if ($meeting_detail->num_rows() > 0)
 
         </div>
         <div role="tabpanel" class="tab-pane" id="messages">
-            <a  href="<?php echo base_url();?>add-attendee/<?php echo $meeting_id;?>" target="_blank" class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Attendees</a>
+            <a data-toggle="modal" data-target=".add-attendees"  class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add attendee</a>
+            
+            <div class="modal fade add-attendees" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <div class="hgroup title">
+                             <h3>Attendees for <?php echo $subject;?>!</h3>
+                        </div>
+                    </div>
+                        <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-meeting-attendee/<?php echo $meeting_id;?>"  id = "attendee_form" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                            <label class="control-label">Title</label>
+                                            <div class="controls">
+                                               <select name="attendee_title" class="form-control">
+                                                <option value="">--Select title--</option>
+                                                <?php
+                                                $titles_query = $this->attendee_model->get_titles();
 
+                                                if($titles_query->num_rows() > 0)
+                                                {
+                                                    foreach($titles_query->result() as $res)
+                                                    {
+                                                        $title_id = $res->title_id;
+                                                        $title_name = $res->title_name;
+                                                        
+                                                        if($title_name == $attendee_title)
+                                                        {
+                                                            echo '<option value="'.$title_name.'" selected="selected">'.$title_name.'</option>';
+                                                        }
+                                                        
+                                                        else
+                                                        {
+                                                            echo '<option value="'.$title_name.'">'.$title_name.'</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">First Name</label>
+                                            <div class="controls">
+                                                 <input type="text" class="form-control" name="attendee_first_name" placeholder="First name" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">Last Name</label>
+                                            <div class="controls">
+                                                 <input type="text" class="form-control" name="attendee_last_name" placeholder="Last name" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">Atendee email</label>
+                                            <div class="controls">
+                                                 <input type="text" class="form-control" name="attendee_email" placeholder="Email address" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                    <button class="btn btn-danger btn-sm" type="submit"  data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" onclick="">Add attendee</button>
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
             <table class="table v-middle">
                 <thead>
                     <tr>
@@ -298,8 +471,206 @@ if ($meeting_detail->num_rows() > 0)
 
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
-                <a  href="<?php echo base_url();?>add-action-point/<?php echo $meeting_id;?>" target="_blank" class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add action point</a>
+         <a data-toggle="modal" data-target=".add-acction-point"  class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add action point</a>
+            
+            <div class="modal fade add-acction-point" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <div class="hgroup title">
+                             <h3>Action point for <?php echo $subject;?>!</h3>
+                        </div>
+                    </div>
+                        <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-meeting-action-point/<?php echo $meeting_id;?>"  id = "action_point_form" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                             <label class="control-label">Assign to</label>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" name="assigned_to" id="assigned_to" placeholder="Assigned to" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                            <label class="control-label">Priority</label>
+                                            <div class="controls">
+                                               <select name="priority_status_id" id="priority_status_id" class="form-control">
+                                                <option value="">--Select priority--</option>
+                                                <?php
+                                                $priority_status_query = $this->action_point_model->get_priority_statuses();
+                                                $action_status_query = $this->action_point_model->get_action_statuses();
+                                                
+                                                if($priority_status_query->num_rows() > 0)
+                                                {
+                                                    foreach($priority_status_query->result() as $res)
+                                                    {
+                                                        $priority_status_id2 = $res->priority_status_id;
+                                                        $priority_status_name = $res->priority_status_name;
+                                                        
+                                                        if($priority_status_id2 == $priority_status_id)
+                                                        {
+                                                            echo '<option value="'.$priority_status_id2.'" selected="selected">'.$priority_status_name.'</option>';
+                                                        }
+                                                        
+                                                        else
+                                                        {
+                                                            echo '<option value="'.$priority_status_id2.'">'.$priority_status_name.'</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="control-group">
+                                            <label class="control-label">Action Status</label>
+                                            <div class="controls">
+                                               <select name="actions_status_id" id="actions_status_id" class="form-control">
+                                                <option value="">--Select action--</option>
+                                            <?php
+                                                if($action_status_query->num_rows() > 0)
+                                                {
+                                                    foreach($action_status_query->result() as $res)
+                                                    {
+                                                        $actions_status_id2 = $res->action_status_id;
+                                                        $action_status_name = $res->action_status_name;
+                                                        
+                                                        if($actions_status_id2 == $actions_status_id)
+                                                        {
+                                                            echo '<option value="'.$actions_status_id2.'" selected="selected">'.$action_status_name.'</option>';
+                                                        }
+                                                        
+                                                        else
+                                                        {
+                                                            echo '<option value="'.$actions_status_id2.'">'.$action_status_name.'</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="control-group">
+                                             <label class="control-label">Note</label>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" name="action_point_notes" id="action_point_notes" placeholder="point 1, point 2" value="">
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                    <button class="btn btn-danger btn-sm" type="submit"  data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" onclick="">Add action point</button>
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+               <table class="table v-middle">
+                <thead>
+                    <th width="20">
+                        <div class="checkbox checkbox-single margin-none">
+                            <input id="checkAll" data-toggle="check-all" data-target="#responsive-table-body" type="checkbox">
+                            <label for="checkAll">Check All</label>
+                        </div>
+                    </th>
+                    <th>Assigned to</th>
+                    <th>Priority</th>
+                    <th>Action</th>
+                    <th>Notes</th>
+                    <th class="text-right" colspan="2">Actions</th>
+                </thead>
+                <tbody id="responsive-table-body">
+                     <?php
+                        $action_points = $this->action_point_model->get_all_action_points_time($meeting_id);
+                        if ($action_points->num_rows() > 0)
+                        {
+                          
+                            
+                            foreach ($action_points->result() as $row)
+                            {
+                                $action_point_id = $row->action_point_id;
+                                $created = $row->created;
+                                $priority_status_name = $row->priority_status_name;
+                                $action_status_name = $row->action_status_name;
+                                $assigned_to = $row->assigned_to;
+                                $action_point_notes = $row->action_point_notes;
+                             
+                                
+                                ?>
+                                <tr>
+                                    <td>
+                                        <div class="checkbox checkbox-single">
+                                            <input id="checkbox<?php echo $action_point_id?>" type="checkbox" checked>
+                                            <label for="checkbox<?php echo $action_point_id?>">Label</label>
+                                        </div>
+                                    </td>
+                                    <td><?php echo $assigned_to;?></td>
+                                    <td><?php echo $priority_status_name;?></td>
+                                    <td><?php echo $action_status_name;?></td>
+                                    <td><?php echo $action_point_notes;?></td>
+                                    <td >
+                                         <a href="<?php echo base_url();?>edit-action-point/<?php echo $action_point_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-info btn-sm">Edit Action point</a>
+                                    </td>
+                                </tr>
+                                <?php    
+                            }
+                        }
+                        ?>
+                </tbody>
+              </table>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="attachments">
+            <a data-toggle="modal" data-target=".add-event"  class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add attachment</a>
+            
+            <div class="modal fade add-event" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <div class="hgroup title">
+                             <h3>Attachments for <?php echo $subject;?>!</h3>
+                        </div>
+                    </div>
+                        <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-attachment/<?php echo $meeting_id;?>"  id = "attachment_form" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="control-group">
+                                            <label class="control-label">Attachment</label>
+                                            <div class="controls">
+                                               <input type="file" name="file"  class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                    <button class="btn btn-danger btn-sm" type="submit"  data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-primary btn-sm" type="submit" onclick="">Upload Attachment</button>
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
                <table class="table v-middle">
                 <thead>
                     <th width="20">
@@ -357,7 +728,6 @@ if ($meeting_detail->num_rows() > 0)
                         ?>
                 </tbody>
               </table>
-
         </div>
       </div>
 
