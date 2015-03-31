@@ -169,7 +169,7 @@ class Facilitator_model extends CI_Model
 	public function send_meeting_reminder_email($meeting_id, $facilitator_id) 
 	{
 		$this->load->model('site/email_model');
-		$this->load->library('Mandrill', $this->config->item('appID'));
+		$this->load->library('Mandrill', $this->config->item('mandrill_key'));
 		
 		// get meeting details
 		$meeting_detail = $this->events_model->get_event_name($meeting_id);
