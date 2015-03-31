@@ -339,7 +339,7 @@ class Facilitator extends account
 		else
 		{
 			$this->session->set_userdata('error_message', 'You do not have the rights to perform thhis action');
-			}	
+				
 		}
 		redirect('all-facilitators/'.$meeting_id);
 	}
