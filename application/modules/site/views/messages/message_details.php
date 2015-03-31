@@ -4,7 +4,15 @@
 	{
 		$row = $receiver->row();
 		$receiver_username = $row->user_username;
-		$receiver_thumb = $profile_image_location.$row->user_thumb;
+		if(empty($row->user_thumb))
+        {
+            $receiver_thumb = "http://placehold.it/350x150";
+        }
+        else
+        {
+            $receiver_thumb = $this->profile_image_location.$row->user_thumb;
+
+        }
 		$receiver_id = $row->user_id;
 	}
 	
@@ -13,7 +21,15 @@
 	{
 		$row = $sender->row();
 		$user_username = $row->user_username;
-		$user_thumb = $profile_image_location.$row->user_thumb;
+		if(empty($row->user_thumb))
+        {
+            $user_thumb = "http://placehold.it/350x150";
+        }
+        else
+        {
+            $user_thumb = $this->profile_image_location.$row->user_thumb;
+
+        }
 		$user_id = $row->user_id;
 	}
 
@@ -32,6 +48,7 @@ if(is_array($messages))
 		$created = $message_data->created;
 		$user_message_details = $this->profile_model->convert_smileys($message_data->user_message_details, $smiley_location);
 		
+		$difference = $this->messages_model->dateDiff($created, $time2 = date("Y-m-d H:i:s"));
 		//if I am the one receiving align left
 		if($receiver == $user_id)
 		{
@@ -41,14 +58,14 @@ if(is_array($messages))
 				<div class="media">
 	                <div class="media-left">
 	                    <a href="#">
-	                        <img src="'.$receiver_thumb.'" width="60" alt="woman" class="media-object" />
+	                        <img src="'.$receiver_thumb.'" width="60" height="60" alt="woman" class="img-circle"  />
 	                    </a>
 	                </div>
 	                <div class="media-body message">
 	                    <div class="panel panel-default">
 	                        <div class="panel-heading panel-heading-white">
 	                            <div class="pull-right">
-	                                <small class="text-muted">2 min ago</small>
+	                                <small class="text-muted">'.$difference.'</small>
 	                            </div>
 	                            <a href="#">Mary D.</a>
 	                        </div>
@@ -71,7 +88,7 @@ if(is_array($messages))
 	                    <div class="panel panel-default">
 	                        <div class="panel-heading panel-heading-white">
 	                            <div class="pull-right">
-	                                <small class="text-muted">10 min ago</small>
+	                                <small class="text-muted">'.$difference.'</small>
 	                            </div>
 	                            <a href="#">Me</a>
 	                        </div>
@@ -81,7 +98,7 @@ if(is_array($messages))
 	                    </div>
 	                </div>
 	                <div class="media-right">
-	                    <img src="'.$user_thumb.'" width="60" alt="" class="media-object" />
+	                    <img src="'.$user_thumb.'" width="60" height="60" alt="" class="img-circle" />
 	                </div>
 	            </div>
 			';

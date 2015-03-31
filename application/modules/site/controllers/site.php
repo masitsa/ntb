@@ -499,29 +499,68 @@ class Site extends account {
 		//if form conatins invalid data
 		if ($this->form_validation->run())
 		{
-			$notes=$this->input->post('editor1');
-			$trail_data = array(
-	        		"meeting_id" => $meeting_id,
-	        		"notes" => $notes
-		    		);
 
-			$number = $this->site_model->get_meeting_notes($meeting_id);
-
-			if($number > 0)
+			$meeting_detail = $this->events_model->get_event_name($meeting_id);
+			if ($meeting_detail->num_rows() > 0)
 			{
-				// update
-				$this->db->where('meeting_id',$meeting_id);
-				$this->db->update('meeting_notes', $trail_data);
-				$this->session->set_userdata("success_message","Meeting notes was successfully updated");
+			    foreach ($meeting_detail->result() as $row)
+			    {
+			        $created_by = $row->created_by;
+			        $created = $row->created;
+			    }
+			}
+
+			if($created_by == $this->user_id)
+			{
+				//  check whether the date are withing the stated time
+
+				$date_created = $created;
+
+				$todays_date = date("Y-m-d");
+
+				$date_created_ts = strtotime($date_created);
+  				$todays_date_ts = strtotime($todays_date);
+
+  				if($date_created_ts >= $todays_date_ts)
+  				{
+					$notes=$this->input->post('editor1');
+					$trail_data = array(
+			        		"meeting_id" => $meeting_id,
+			        		"notes" => $notes
+				    		);
+
+					$number = $this->site_model->get_meeting_notes($meeting_id);
+
+					if($number > 0)
+					{
+						// update
+						$this->db->where('meeting_id',$meeting_id);
+						$this->db->update('meeting_notes', $trail_data);
+						$this->session->set_userdata("success_message","Meeting notes was successfully updated");
+					}
+					else
+					{
+						// /insert
+
+						$this->db->insert('meeting_notes', $trail_data);
+						$this->session->set_userdata("success_message","Meeting notes was successfully updated");
+					}
+					$data['result'] = 'success';
+
+				}
+				else
+				{
+					$data['result'] = 'failure';
+				}
+				
 			}
 			else
 			{
-				// /insert
-
-				$this->db->insert('meeting_notes', $trail_data);
-				$this->session->set_userdata("success_message","Meeting notes was successfully updated");
+				$data['result'] = 'success';	
 			}
-			$data['result'] = 'success';
+
+
+			
 		}
 		else
 		{

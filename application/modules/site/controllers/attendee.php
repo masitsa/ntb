@@ -325,5 +325,115 @@ class Attendee extends account
 		
 		echo json_encode($data);
 	}
+
+	function send_attendee_notification($attendee_id,$meeting_id)
+	{
+			// get meeting details
+			$meeting_detail = $this->events_model->get_event_name($meeting_id);
+			if ($meeting_detail->num_rows() > 0)
+			{
+			    foreach ($meeting_detail->result() as $row)
+			    {
+			        $meeting_id = $row->meeting_id;
+			        $meeting_date = $row->meeting_date;
+			        $meeting_status = $row->meeting_status;
+			        $end_date = $row->end_date;
+			        $country_id = $row->country_id;
+			        $country_name = $row->country_name;
+
+			        $event_type_id = $row->event_type_id;
+			        $event_type_name = $row->event_type_name;
+			        $agency_id = $row->agency_id;
+
+			        $agency_name = $row->agency_name;
+			        $location = $row->location;
+			        $subject = $row->subject;
+
+			        $meeting_date = date('j M Y',strtotime($meeting_date));
+			        $end_date = date('j M Y',strtotime($end_date));
+			    }
+			}
+			
+			// get facilitator details
+			$attendee_array = $this->attendee_model->get_attendee($attendee_id);
+			if ($attendee_array->num_rows() > 0)
+			{
+			    foreach ($attendee_array->result() as $attendee_row)
+			    {
+			    	$attendee_id = $attendee_row->attendee_id;
+                    $attendee_first_name = $attendee_row->attendee_first_name;
+                    $attendee_last_name = $attendee_row->attendee_last_name;
+                    $attendee_title = $attendee_row->attendee_title;
+                    $attendee_email = $attendee_row->attendee_email;
+                    $attendee_status = $attendee_row->attendee_status;
+			    }
+			}
+			// end of attendee details
+
+			//  use this to create a message and send to the attendee 
+
+			// message function here
+			// end of message function here
+
+			$data['result'] = 'success';
+
+			echo json_encode($data);
+	}
+
+	function send_attendee_mass_notification($meeting_id)
+	{
+			// get meeting details
+			$meeting_detail = $this->events_model->get_event_name($meeting_id);
+			if ($meeting_detail->num_rows() > 0)
+			{
+			    foreach ($meeting_detail->result() as $row)
+			    {
+			        $meeting_id = $row->meeting_id;
+			        $meeting_date = $row->meeting_date;
+			        $meeting_status = $row->meeting_status;
+			        $end_date = $row->end_date;
+			        $country_id = $row->country_id;
+			        $country_name = $row->country_name;
+
+			        $event_type_id = $row->event_type_id;
+			        $event_type_name = $row->event_type_name;
+			        $agency_id = $row->agency_id;
+
+			        $agency_name = $row->agency_name;
+			        $location = $row->location;
+			        $subject = $row->subject;
+
+			        $meeting_date = date('j M Y',strtotime($meeting_date));
+			        $end_date = date('j M Y',strtotime($end_date));
+			    }
+			}
+			
+			// get attendee details
+			$attendee_array = $this->attendee_model->get_all_attendees_time($meeting_id);
+			if ($attendee_array->num_rows() > 0)
+			{
+			    foreach ($attendee_array->result() as $attendee_row)
+			    {
+			    	$attendee_id = $attendee_row->attendee_id;
+                    $attendee_first_name = $attendee_row->attendee_first_name;
+                    $attendee_last_name = $attendee_row->attendee_last_name;
+                    $attendee_title = $attendee_row->attendee_title;
+                    $attendee_email = $attendee_row->attendee_email;
+                    $attendee_status = $attendee_row->attendee_status;
+
+                    // message function here
+
+					// end of message function here
+			    }
+			}
+			// end of attendee details
+
+
+			
+
+			$data['result'] = 'success';
+
+			echo json_encode($data);
+	}
 }
 ?>

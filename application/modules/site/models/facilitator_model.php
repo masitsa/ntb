@@ -81,6 +81,11 @@ class Facilitator_model extends CI_Model
 		$this->db->where('facilitator_id', $facilitator_id);
 		return $this->db->get('facilitator');
 	}
+	public function get_meeting_facilitator($meeting_id)
+	{
+		$this->db->where('meeting_id = '.$meeting_id.' AND facilitator_status = 1');
+		return $this->db->get('facilitator');
+	}
 	
 	public function edit_facilitator($facilitator_id)
 	{

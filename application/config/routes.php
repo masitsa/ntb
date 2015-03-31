@@ -124,6 +124,8 @@ $route['edit-attendee/(:num)/(:num)'] = 'site/attendee/edit_attendee/$1/$2';
 $route['delete-attendee/(:num)/(:num)'] = 'site/attendee/delete_attendee/$1/$2';
 $route['activate-attendee/(:num)/(:num)'] = 'site/attendee/activate_attendee/$1/$2';
 $route['deactivate-attendee/(:num)/(:num)'] = 'site/attendee/deactivate_attendee/$1/$2';
+$route['send-attendee-notification/(:num)/(:num)'] = 'site/attendee/send_attendee_notification/$1/$2';
+$route['send-attendee-mass-notification/(:num)'] = 'site/attendee/send_attendee_mass_notification/$1';
 
 $route['all-facilitators'] = 'site/facilitator/all_facilitators';
 $route['all-facilitators/(:num)'] = 'site/facilitator/all_facilitators/$1';
@@ -131,8 +133,13 @@ $route['add-facilitator/(:num)'] = 'site/facilitator/add_facilitator/$1';
 $route['add-meeting-facilitator/(:num)'] = 'site/facilitator/add_meeting_facilitator/$1';
 $route['edit-facilitator/(:num)/(:num)'] = 'site/facilitator/edit_facilitator/$1/$2';
 $route['delete-facilitator/(:num)/(:num)'] = 'site/facilitator/delete_facilitator/$1/$2';
+
+$route['delete-meeting-facilitator/(:num)/(:num)'] = 'site/facilitator/delete_meeting_facilitator/$1/$2';
 $route['activate-facilitator/(:num)/(:num)'] = 'site/facilitator/activate_facilitator/$1/$2';
 $route['deactivate-facilitator/(:num)/(:num)'] = 'site/facilitator/deactivate_facilitator/$1/$2';
+$route['deactivate_meeting_facilitator/(:num)'] = 'site/facilitator/deactivate_meeting_facilitator/$1';
+$route['send-convenor-notification/(:num)/(:num)'] = 'site/facilitator/send_convenor_notification/$1/$2';
+$route['send-convenor-mass-notification/(:num)'] = 'site/facilitator/send_convenor_mass_notification/$1';
 
 
 

@@ -147,6 +147,8 @@ if ($meeting_detail->num_rows() > 0)
             <?php echo form_close();?>
          </div>
         <div role="tabpanel" class="tab-pane" id="profile">
+            <a   class="btn btn-info btn-xs send_mass_convenors_mail" href="<?php echo $meeting_id;?>" meeting_id='<?php echo $meeting_id;?>' data-toggle="tooltip" data-placement="top" title="" data-original-title="send mass notification"><i class="fa fa-fw fa-envelope"></i> Send Mass Email Notification</a>
+
             <a data-toggle="modal" data-target=".add-convenor"  class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Convenor</a>
             
             <div class="modal fade add-convenor" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -264,18 +266,20 @@ if ($meeting_detail->num_rows() > 0)
                             $facilitator_title = $row->facilitator_title;
                             $facilitator_email = $row->facilitator_email;
                             $facilitator_status = $row->facilitator_status;
+
+                            $combine = $facilitator_id."/".$meeting_id;
                             
                             
                             if($facilitator_status == 1)
                             {
-                                $status = '<span class="label label-success">Active</span>';
-                                $button = '<a class="btn btn-default btn-sm" href="'.site_url().'deactivate-facilitator/'.$facilitator_id.'" onclick="return confirm(\'Do you want to deactivate '.$facilitator_first_name.'?\');">Deactivate</a>';
+                                $status = '<span class="label label-success btn-xs">Active</span>';
+                                $button = '<a class="btn btn-default btn-xs delete_facilitator"  href="'.$facilitator_id.'" facilitator_id="'.$facilitator_id.'" >Deactivate</a>';
                             }
                             
                             else
                             {
-                                $status = '<span class="label label-danger">Disabled</span>';
-                                $button = '<a class="btn btn-danger btn-sm" href="'.site_url().'activate-facilitator/'.$facilitator_id.'" onclick="return confirm(\'Do you want to activate '.$facilitator_first_name.'?\');">Activate</a>';
+                                $status = '<span class="label label-danger label-xs">Disabled</span>';
+                                $button = '<a class="btn btn-danger btn-xs" href="'.site_url().'activate-facilitator/'.$facilitator_id.'" onclick="return confirm(\'Do you want to activate '.$facilitator_first_name.'?\');">Activate</a>';
                             }
                             
                             ?>
@@ -294,8 +298,15 @@ if ($meeting_detail->num_rows() > 0)
                                 <td><?php echo $facilitator_email;?></td>
                                 <td><?php echo $status;?></td>
                                 <td><?php echo $button;?></td>
-                                <td >
-                                     <a href="<?php echo base_url();?>edit-facilitator/<?php echo $facilitator_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-info btn-sm">Edit Facilitator Details</a>
+                                
+                                <td>
+                                    <a href="<?php echo base_url();?>edit-facilitator/<?php echo $facilitator_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td>
+                                    <a  class="btn btn-danger btn-xs delete_facilitator"  href="<?php echo $combine;?>" facilitator_id="<?php echo $combine;?>"data-toggle="tooltip"  data-placement="top" title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                </td>
+                                <td>
+                                    <a  class="btn btn-info btn-xs send_convenors_mail" href="<?php echo $combine;?>" facilitator_id="<?php echo $combine;?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="send notification"><i class="fa fa-fw fa-envelope"></i></a>
                                 </td>
                             </tr>
                             <?php    
@@ -309,6 +320,8 @@ if ($meeting_detail->num_rows() > 0)
 
         </div>
         <div role="tabpanel" class="tab-pane" id="messages">
+            <a   class="btn btn-info btn-xs send_mass_attendees_mail" href="<?php echo $meeting_id;?>" meeting_id='<?php echo $meeting_id;?>' data-toggle="tooltip" data-placement="top" title="" data-original-title="send mass notification"><i class="fa fa-fw fa-envelope"></i> Send Mass Email Notification</a>
+
             <a data-toggle="modal" data-target=".add-attendees"  class="btn btn-success btn-sm pull-right"  data-toggle="tooltip" data-placement="top" title="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add attendee</a>
             
             <div class="modal fade add-attendees" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -426,6 +439,7 @@ if ($meeting_detail->num_rows() > 0)
                             $attendee_title = $row->attendee_title;
                             $attendee_email = $row->attendee_email;
                             $attendee_status = $row->attendee_status;
+                             $combine2 = $attendee_id."/".$meeting_id;
                            
                             if($attendee_status == 1)
                             {
@@ -455,10 +469,16 @@ if ($meeting_detail->num_rows() > 0)
                                 <td><?php echo $attendee_email;?></td>
                                 <td><?php echo $status;?></td>
                                 <td><?php echo $button;?></td>
-                                <td >
-                                     <a href="<?php echo base_url();?>edit-attendee/<?php echo $attendee_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-info btn-sm">Edit Attendee details</a>
-                                </td>
                                 
+                                <td>
+                                    <a href="<?php echo base_url();?>edit-attendee/<?php echo $attendee_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-danger btn-xs " data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                </td>
+                                <td>
+                                    <a  class="btn btn-info btn-xs send_attendees_mail" href="<?php echo $combine2;?>" attendee_id="<?php echo $combine2;?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="send notification"><i class="fa fa-fw fa-envelope"></i></a>
+                                </td>
                             </tr>
                             <?php    
                         }
@@ -676,52 +696,44 @@ if ($meeting_detail->num_rows() > 0)
                <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
                 <thead>
                     <th width="20">
-                        <div class="checkbox checkbox-single margin-none">
-                            <input id="checkAll" data-toggle="check-all" data-target="#responsive-table-body" type="checkbox">
-                            <label for="checkAll">Check All</label>
-                        </div>
+                       
                     </th>
                     <th>Created</th>
-                    <th>Assigned to</th>
-                    <th>Priority</th>
-                    <th>Action</th>
-                    <th>Notes</th>
+                    <th>File Name</th>
+                    <th>Attachment</th>
                     <th class="text-right" colspan="2">Actions</th>
                 </thead>
                 <tbody id="responsive-table-body">
                      <?php
-                        $action_points = $this->action_point_model->get_all_action_points_time($meeting_id);
-                        if ($action_points->num_rows() > 0)
+                        $meeting_attachments = $this->site_model->get_all_meeting_attachments($meeting_id);
+                        if ($meeting_attachments->num_rows() > 0)
                         {
                           
-                            
-                            foreach ($action_points->result() as $row)
+                            $x =0;
+                            foreach ($meeting_attachments->result() as $row)
                             {
-                                $action_point_id = $row->action_point_id;
-                                $created = $row->created;
-                                $priority_status_name = $row->priority_status_name;
-                                $action_status_name = $row->action_status_name;
-                                $assigned_to = $row->assigned_to;
-                                $action_point_notes = $row->action_point_notes;
+                                $file_id = $row->file_id;
+                                $created = $row->created_on;
+                                $file_delete = $row->file_delete;
+                                $file_name = $row->filename;
+                                $created_by = $row->created_by;
                              
-                                
+                                $x++;
                                 ?>
                                 <tr>
                                     <td>
-                                        <div class="checkbox checkbox-single">
-                                            <input id="checkbox<?php echo $action_point_id?>" type="checkbox" checked>
-                                            <label for="checkbox<?php echo $action_point_id?>">Label</label>
-                                        </div>
+                                        <?php echo $x;?>
                                     </td>
                                      <td>
                                         <span class="label label-default"><?php echo date('jS M Y H:i a',strtotime($created));?></span>
                                     </td>
-                                    <td><?php echo $assigned_to;?></td>
-                                    <td><?php echo $priority_status_name;?></td>
-                                    <td><?php echo $action_status_name;?></td>
-                                    <td><?php echo $action_point_notes;?></td>
+                                    <td>
+                                        <?php echo $file_name;?>
+                                    </td>
+                                    <td><a href="<?php echo base_url();?>assets/files/<?php echo $file_name;?>" target="_blank">Download attachment</a></td>
+
                                     <td >
-                                         <a href="<?php echo base_url();?>edit-action-point/<?php echo $action_point_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-info btn-sm">Edit Action point</a>
+                                         <a href="<?php echo base_url();?>" target="_blank" class="btn btn-warning btn-sm">Delete</a>
                                     </td>
                                 </tr>
                                 <?php    

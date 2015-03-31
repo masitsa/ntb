@@ -36,8 +36,15 @@
                                             $user_first_name = $row->first_name;
                                             $user_last_name = $row->other_names;
                                             $user_username = $row->user_username;
+                                            if(empty($row->user_thumb))
+                                            {
+                                                $receiver_thumb = "http://placehold.it/350x150";
+                                            }
+                                            else
+                                            {
+                                                $receiver_thumb = $this->profile_image_location.$row->user_thumb;
 
-                                            $receiver_thumb = $profile_image_location.$row->user_thumb;
+                                            }
                                             $name = $user_first_name." ".$user_last_name;
                                             $count++;
                                             
@@ -46,7 +53,7 @@
                                                     <a href="'.base_url().'messages/'.$user_username.'">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img src="'.$receiver_thumb.'" width="50" alt="" class="media-object" />
+                                                                <img src="'.$receiver_thumb.'" width="50" height="50" alt="" class="img-circle"/>
                                                             </div>
                                                             <div class="media-body">
                                                                 <span class="date">Today</span>

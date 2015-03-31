@@ -103,17 +103,47 @@ class Events extends account {
 		//if form has been submitted
 		if ($this->form_validation->run())
 		{
-			$date = $this->input->post('meeting_date');
+			$meeting_date = $this->input->post('meeting_date');
+			$end_date = $this->input->post('end_date');
 			
-			if($this->events_model->add_event())
+			$meeting_date_ts = strtotime($meeting_date);
+			$end_date_ts = strtotime($end_date);
+
+			$todays_date = strtotime(date("Y-m-d"));
+
+
+			if($meeting_date_ts >= $meeting_date_ts)
 			{
-				$this->session->set_userdata('success_message', 'brand added successfully');
-				redirect('calender');
+				// also check if the meeting date is 
+
+				if($meeting_date_ts > $todays_date)
+				{
+					if($this->events_model->add_event())
+					{
+						$this->session->set_userdata('success_message', 'Meeting added successfully');
+						redirect('calender');
+					}
+					
+					else
+					{
+							$this->session->set_userdata('error_message', 'Unable to add meeting details. Please try again');
+							redirect('calender');
+					}
+
+				}
+				else
+				{
+						$this->session->set_userdata('error_message', 'Unable to create the meeting. Ensure that the date of the meeting is not today or days before');
+						redirect('calender');
+	
+				}
+				
 			}
-			
 			else
 			{
-					$this->session->set_userdata('meeting_error_message', 'Unable to add meeting details. Please try again');
+						$this->session->set_userdata('error_message', 'Ensure that meeting date is equal to or greater that the complating date');
+						redirect('calender');
+
 			}
 		}
 		else
@@ -300,22 +330,5 @@ class Events extends account {
 	}
 
       
-    public function file_upload_demo()
-    {
-        try
-        {
-            if($this->input->post("submit")){        
-                $this->load->library("uploader");
-                $this->uploader->do_upload();
-            }
-           echo "sdgakjsdga";
-        }
-        catch(Exception $err)
-        {
-            // log_message("error",$err->getMessage());
-            // return show_error($err->getMessage());
-
-
-        }
-    }
+   
 }

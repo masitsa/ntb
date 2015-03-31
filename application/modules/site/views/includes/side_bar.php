@@ -1,7 +1,16 @@
 <?php
 $user_query = $this->profile_model->get_user($this->user_id);
 $row = $user_query->row();
-$profile_image_location = $this->profile_image_location.$row->user_image;
+
+if(empty($row->user_image))
+{
+    $profile_image_location = "http://placehold.it/350x150";
+}
+else
+{
+    $profile_image_location = $this->profile_image_location.$row->user_image;
+
+}
 
 ?>
 <!-- Sidebar component with st-effect-1 (set on the toggle button within the navbar) -->

@@ -34,7 +34,7 @@ class Profile_model extends CI_Model
 			}
 			//Upload image
 			$response = $this->file_model->upload_banner($profile_image_path, 'profile_image', $resize);
-			var_dump($response['check']) or die();
+			
 			if($response['check'])
 			{
 				$file_name = $response['file_name'];
@@ -90,16 +90,16 @@ class Profile_model extends CI_Model
 			if(!empty($image))
 			{
 				//delete any other uploaded image
-				if($this->file_model->delete_file($profile_image_path."\\".$image))
+				if($this->file_model->delete_file($profile_image_path."\\".$image,$profile_image_path))
 				{
 					//delete any other uploaded thumbnail
-					$this->file_model->delete_file($profile_image_path."\\thumbnail_".$image);
+					$this->file_model->delete_file($profile_image_path."\\thumbnail_".$image,$profile_image_path);
 				}
 				
 				else
 				{
-					$this->file_model->delete_file($profile_image_path."/".$image);
-					$this->file_model->delete_file($profile_image_path."/thumbnail_".$image);
+					$this->file_model->delete_file($profile_image_path."/".$image,$profile_image_path);
+					$this->file_model->delete_file($profile_image_path."/thumbnail_".$image,$profile_image_path);
 				}
 			}
 			//Upload image

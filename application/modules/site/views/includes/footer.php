@@ -1,5 +1,5 @@
  <footer class="footer">
-    <strong>Events Planner </strong> v0.1 &copy; Copyright 2015
+    <strong>Meeting Scheduler </strong> v0.1 &copy; Copyright 2015
 </footer><script>
     var colors = {
         "danger-color": "#e74c3c",
@@ -208,7 +208,7 @@
             }
             else
             {
-                alert('Sorry, something went wrong all the fields are filled.');
+                alert('Sorry, something went wrong, you might not have the rights to update or create this, only the person who created the meeting should be able to do this action.');
             }
            },
            error: function(xhr, status, error) {
@@ -254,4 +254,209 @@
           });
           return false;
          });
+
+
+       //Add to cart
+        $(document).on("click","a.delete_facilitator",function()
+        {
+            var facilitator_id = $(this).attr('facilitator_id');
+      
+            $.ajax({
+                type:'POST',
+                url: '<?php echo site_url();?>deactivate_meeting_facilitator/'+facilitator_id,
+                cache:false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success:function(data){
+                    
+                    if(data.result == "success")
+                    {
+                       
+
+
+                    }
+                    else
+                    {
+                        alert('Could not diactivate user');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+                }
+            });
+            
+            return false;
+        });
+        //Add to delete_facilitator
+        $(document).on("click","a.delete_facilitator",function()
+        {
+            var facilitator_id = $(this).attr('facilitator_id');
+      
+            $.ajax({
+                type:'POST',
+                url: '<?php echo site_url();?>delete-meeting-facilitator/'+facilitator_id,
+                cache:false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success:function(data){
+                    
+                    if(data.result == "success")
+                    {
+                       
+
+
+                    }
+                    else
+                    {
+                        alert('Could not diactivate user');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+                }
+            });
+            
+            return false;
+        });
+
+
+        //Add to cart
+        $(document).on("click","a.send_convenors_mail",function()
+        {
+            var facilitator_id = $(this).attr('facilitator_id');
+          
+            $.ajax({
+                type:'POST',
+                url: '<?php echo site_url();?>send-convenor-notification/'+facilitator_id,
+                cache:false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success:function(data){
+                    
+                    if(data.result == "success")
+                    {
+                       
+                       alert('Could not diactivate user');
+
+                    }
+                    else
+                    {
+                        alert('Could not diactivate user');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+                }
+            });
+            
+            return false;
+        });
+        //Add to cart
+
+         //Add to cart
+        $(document).on("click","a.send_mass_convenors_mail",function()
+        {
+            var meeting_id = $(this).attr('meeting_id');
+          
+            $.ajax({
+                type:'POST',
+                url: '<?php echo site_url();?>send-convenor-mass-notification/'+meeting_id,
+                cache:false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success:function(data){
+                    
+                    if(data.result == "success")
+                    {
+                       
+                       alert('Successfully send the mass mail');
+
+                    }
+                    else
+                    {
+                        alert('Could send the mails. Please check the configurations');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+                }
+            });
+            
+            return false;
+        });
+
+
+
+        //Add to cart
+        $(document).on("click","a.send_attendees_mail",function()
+        {
+            var attendee_id = $(this).attr('attendee_id');
+          
+            $.ajax({
+                type:'POST',
+                url: '<?php echo site_url();?>send-attendee-notification/'+attendee_id,
+                cache:false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success:function(data){
+                    
+                    if(data.result == "success")
+                    {
+                       
+                       alert('Successfully sent message to the attendee');
+
+                    }
+                    else
+                    {
+                        alert('Could not send the mail');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+                }
+            });
+            
+            return false;
+        });
+        //Add to cart
+
+         //Add to cart
+        $(document).on("click","a.send_mass_attendees_mail",function()
+        {
+            var meeting_id = $(this).attr('meeting_id');
+          
+            $.ajax({
+                type:'POST',
+                url: '<?php echo site_url();?>send-attendee-mass-notification/'+meeting_id,
+                cache:false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success:function(data){
+                    
+                    if(data.result == "success")
+                    {
+                       
+                       alert('Successfully send the mass mail');
+
+                    }
+                    else
+                    {
+                        alert('Could send the mails. Please check the configurations');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+                }
+            });
+            
+            return false;
+        });
+
+        
     </script>

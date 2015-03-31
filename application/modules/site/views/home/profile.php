@@ -49,32 +49,34 @@
                     <i class="fa fa-fw fa-info-circle"></i> About
                 </div>
                 <div class="panel-body">
-                 <?php echo form_open_multipart('site/profile/update_profile_image/'.$user_image, array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
-                    <div class="form-group">
-                        <label class="col-lg-4 control-label">Profile image</label>
-                        <div class="col-lg-8">
-                            
-                            <div class="row">
-                            
-                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="height:160px; width:212px;">
-                                    		<img src="<?php echo $profile_image_location;?>">
-                                        </div>
-                                        <div>
-                                            <span class="btn btn-file btn-info"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image"></span>
-                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    <div class="col-md-5">
+                    <?php echo form_open_multipart('site/profile/update_profile_image/'.$user_image, array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Profile image</label>
+                            <div class="col-lg-8">
+                                
+                                <div class="row">
+                                
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="height:160px; width:212px;">
+                                        		<img src="<?php echo $profile_image_location;?>">
+                                            </div>
+                                            <div>
+                                                <span class="btn btn-file btn-info"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image"></span>
+                                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            
                         </div>
-                    </div>
-                    <div class="center-align">
-                    	<button type="submit" class="btn btn-primary">Update image</button>
-                    </div>
+                        <div class="align-center">
+                        	<button type="submit" class="btn btn-sm btn-success">Update image</button>
+                        </div>
                      <?php echo form_close();?>
+                    </div>
                     <div class="col-md-5">
                         <ul class="list-unstyled profile-about margin-none">
                             <li class="padding-v-5">

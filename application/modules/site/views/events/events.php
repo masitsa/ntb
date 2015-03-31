@@ -228,28 +228,39 @@
 
 		        <!-- Progress table -->
 		        <div class="table-responsive">
-		            <table class="table v-middle">
-		                <thead>
-		                    <tr>
-		                        <th width="20">
-		                            <div class="checkbox checkbox-single margin-none">
-		                                <input id="checkAll" data-toggle="check-all" data-target="#responsive-table-body" type="checkbox" checked>
-		                                <label for="checkAll">Check All</label>
-		                            </div>
-		                        </th>
-		                        <th>Subject</th>
-		                        <th>Event Date - End Date</th>
-		                        <th>Country</th><!-- 
-		                        <th>Agency</th>
-		                        <th>Event Type</th>
-		                        <th>Location</th> -->
-		                        <!-- <th>Attendance</th> -->
-		                        <th class="text-left" colspan="1">Event Items</th>
-		                        <th class="text-left" colspan="3" >Action</th>
-		                    </tr>
-		                </thead>
-		                <tbody id="responsive-table-body">
-		                	<?php
+		        	 <table data-toggle="data-table" class="table col-md-12 col-sm-9" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                     <th width="20">
+							                            <div class="checkbox checkbox-single margin-none">
+							                                <input id="checkAll" data-toggle="check-all" data-target="#responsive-table-body" type="checkbox" checked>
+							                                <label for="checkAll">Check All</label>
+							                            </div>
+							                        </th>
+							                        <th>Subject</th>
+							                        <th>Event Date - End Date</th>
+							                        <th>Country</th>
+							                        <th>Country</th>
+							                        <th>Country</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th width="20">
+							                            <div class="checkbox checkbox-single margin-none">
+							                                <input id="checkAll" data-toggle="check-all" data-target="#responsive-table-body" type="checkbox" checked>
+							                                <label for="checkAll">Check All</label>
+							                            </div>
+							                        </th>
+							                        <th>Subject</th>
+							                        <th>Event Date - End Date</th>
+							                        <th>Country</th>
+							                        <th>Country</th>
+							                        <th>Country</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                               <?php
 		                	//if users exist display them
 							if ($query->num_rows() > 0)
 							{
@@ -816,9 +827,9 @@
 					               	}
 			                	}
 			                    ?>
-		                  
-		                </tbody>
-		            </table>
+                        </tbody>
+                    </table>
+		            
 		        </div>
 		        <!-- Large modal -->
 

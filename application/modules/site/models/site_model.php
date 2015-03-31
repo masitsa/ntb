@@ -290,6 +290,15 @@ class Site_model extends CI_Model
 		
 		return $response;
 	}
+	public function get_all_meeting_attachments($meeting_id)
+	{
+		$this->db->from('files');
+		$this->db->select('*');
+		$this->db->where('meeting_id ='.$meeting_id);
+		$this->db->order_by('files.file_id','DESC');
+		$query = $this->db->get();
+		return $query;
+	}
 }
 
 ?>

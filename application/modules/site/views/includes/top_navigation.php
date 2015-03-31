@@ -10,7 +10,12 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="#sidebar-chat" data-toggle="sidebar-menu" data-effect="st-effect-1" class="toggle pull-right visible-xs"><i class="fa fa-comments"></i></a>
-                    <a class="navbar-brand" href="">TNC</a>
+                    <a class="navbar-brand" href="">
+                        <div class="profile">
+                        <img src="<?php echo base_url();?>assets/themes/themekit/images/logo/download.jpg" alt="people" width="100%" style="height: 50px;"/>
+                        
+                        </div>
+                    </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="main-nav">
@@ -22,10 +27,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">TNC Social <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="active"><a href="<?php echo base_url();?>home">Timeline</a>
-                                </li>
-                                <li><a href="<?php echo base_url();?>profile">Profile</a>
-                                </li>
+                               <!--  <li class="active"><a href="<?php echo base_url();?>home">Timeline</a>
+                                </li> -->
+                               
                                 <!-- <li><a href="<?php echo base_url();?>friends">Friends</a>
                                 </li> -->
                                 <li class="dropdown-header">Private User Pages</li>
@@ -39,15 +43,30 @@
                       
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="hidden-xs">
+                        <!-- <li class="hidden-xs">
                             <a href="#sidebar-chat" data-toggle="sidebar-menu" data-effect="st-effect-1">
                                 <i class="fa fa-comments"></i>
                             </a>
-                        </li>
+                        </li> -->
                         <!-- User -->
                         <li class="dropdown">
+                            <?php
+                            $user_query = $this->profile_model->get_user($this->user_id);
+                            $row = $user_query->row();
+
+                            if(empty($row->user_image))
+                            {
+                                $profile_image_location = "http://placehold.it/350x150";
+                            }
+                            else
+                            {
+                                $profile_image_location = $this->profile_image_location.$row->user_image;
+
+                            }
+
+                            ?>
                             <a href="#" class="dropdown-toggle user" data-toggle="dropdown">
-                                <img src="<?php echo base_url();?>assets/themes/themekit/images/people/110/male.png" alt="<?php echo $this->session->userdata('first_name');?>" class="img-circle" width="40" /> <?php echo $this->session->userdata('first_name');?> <span class="caret"></span>
+                                <img src="<?php echo $profile_image_location;?>" alt="<?php echo $this->session->userdata('first_name');?>" class="img-circle" width="40" height="33"/> <?php echo $this->session->userdata('first_name');?> <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="<?php echo base_url();?>profile">Profile</a>
