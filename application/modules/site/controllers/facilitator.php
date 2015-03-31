@@ -388,114 +388,44 @@ class Facilitator extends account
 		
 		echo json_encode($data);
 	}
-	function send_convenor_notification($facilitator_id,$meeting_id)
+	function send_convenor_notification($facilitator_id, $meeting_id)
 	{
-			// get meeting details
-			$meeting_detail = $this->events_model->get_event_name($meeting_id);
-			if ($meeting_detail->num_rows() > 0)
-			{
-			    foreach ($meeting_detail->result() as $row)
-			    {
-			        $meeting_id = $row->meeting_id;
-			        $meeting_date = $row->meeting_date;
-			        $meeting_status = $row->meeting_status;
-			        $end_date = $row->end_date;
-			        $country_id = $row->country_id;
-			        $country_name = $row->country_name;
-
-			        $event_type_id = $row->event_type_id;
-			        $event_type_name = $row->event_type_name;
-			        $agency_id = $row->agency_id;
-
-			        $agency_name = $row->agency_name;
-			        $location = $row->location;
-			        $subject = $row->subject;
-
-			        $meeting_date = date('j M Y',strtotime($meeting_date));
-			        $end_date = date('j M Y',strtotime($end_date));
-			    }
-			}
-			
-			// get facilitator details
-			$facilitator_array = $this->facilitator_model->get_facilitator($facilitator_id);
-			if ($facilitator_array->num_rows() > 0)
-			{
-			    foreach ($facilitator_array->result() as $facilitator_row)
-			    {
-			    	$facilitator_id = $facilitator_row->facilitator_id;
-                    $facilitator_first_name = $facilitator_row->facilitator_first_name;
-                    $facilitator_last_name = $facilitator_row->facilitator_last_name;
-                    $facilitator_title = $facilitator_row->facilitator_title;
-                    $facilitator_email = $facilitator_row->facilitator_email;
-                    $facilitator_status = $facilitator_row->facilitator_status;
-			    }
-			}
-			// end of facilitator details
-
-			//  use this to create a message and send to the facilitator 
-
-			// message function here
-			// end of message function here
-
+		if($this->facilitator_model->send_meeting_reminder_email($meeting_id, $facilitator_id))
+		{			
 			$data['result'] = 'success';
+		}
+		
+		else
+		{
+			$data['result'] = 'fail';
+		}
 
-			echo json_encode($data);
+		echo json_encode($data);
 	}
 
 	function send_convenor_mass_notification($meeting_id)
 	{
-			// get meeting details
-			$meeting_detail = $this->events_model->get_event_name($meeting_id);
-			if ($meeting_detail->num_rows() > 0)
+		// get facilitator details
+		$facilitator_array = $this->facilitator_model->get_meeting_facilitator($meeting_id);
+		if ($facilitator_array->num_rows() > 0)
+		{
+			foreach ($facilitator_array->result() as $facilitator_row)
 			{
-			    foreach ($meeting_detail->result() as $row)
-			    {
-			        $meeting_id = $row->meeting_id;
-			        $meeting_date = $row->meeting_date;
-			        $meeting_status = $row->meeting_status;
-			        $end_date = $row->end_date;
-			        $country_id = $row->country_id;
-			        $country_name = $row->country_name;
-
-			        $event_type_id = $row->event_type_id;
-			        $event_type_name = $row->event_type_name;
-			        $agency_id = $row->agency_id;
-
-			        $agency_name = $row->agency_name;
-			        $location = $row->location;
-			        $subject = $row->subject;
-
-			        $meeting_date = date('j M Y',strtotime($meeting_date));
-			        $end_date = date('j M Y',strtotime($end_date));
-			    }
+				$facilitator_id = $facilitator_row->facilitator_id;
+				
+				if($this->facilitator_model->send_meeting_reminder_email($meeting_id, $facilitator_id))
+				{			
+					$data['result'] = 'success';
+				}
+				
+				else
+				{
+					$data['result'] = 'fail';
+				}
 			}
-			
-			// get facilitator details
-			$facilitator_array = $this->facilitator_model->get_meeting_facilitator($meeting_id);
-			if ($facilitator_array->num_rows() > 0)
-			{
-			    foreach ($facilitator_array->result() as $facilitator_row)
-			    {
-			    	$facilitator_id = $facilitator_row->facilitator_id;
-                    $facilitator_first_name = $facilitator_row->facilitator_first_name;
-                    $facilitator_last_name = $facilitator_row->facilitator_last_name;
-                    $facilitator_title = $facilitator_row->facilitator_title;
-                    $facilitator_email = $facilitator_row->facilitator_email;
-                    $facilitator_status = $facilitator_row->facilitator_status;
-
-                    // message function here
-
-					// end of message function here
-			    }
-			}
-			// end of facilitator details
-
-
-			
-
-			$data['result'] = 'success';
-
-			echo json_encode($data);
+		}
+		
+		echo json_encode($data);
 	}
 }
 ?>
