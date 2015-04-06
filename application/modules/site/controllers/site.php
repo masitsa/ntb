@@ -13,6 +13,7 @@ class Site extends account {
 		$this->load->model('events_model');
 		$this->load->model('action_point_model');
 		$this->load->model('attendee_model');
+		$this->load->model('facilitator_model');
 		$this->load->library('Mandrill', $this->config->item('mandrill_key'));
 		$user = $this->login_model->check_user_login();
 		//user has logged in
@@ -83,10 +84,15 @@ class Site extends account {
 	*	Default action is to go to the home page
 	*
 	*/
-	public function view_event() 
+	public function view_event($meeting_id) 
 	{
 		// $this->load->view('includes/top_navigation');
-		$data['content'] = $this->load->view('events/view_event', '', true);
+		$v_data['countries'] = $this->events_model->get_all_countries();
+		$v_data['event_types'] = $this->events_model->get_all_event_types();
+		$v_data['agencies'] = $this->events_model->get_all_agencies();
+
+		$v_data['meeting_id'] = $meeting_id;
+		$data['content'] = $this->load->view('events/view_event',$v_data, true);
 		
 		$data['title'] = 'View event';
 		$this->load->view('site/templates/general_page', $data);
@@ -415,6 +421,7 @@ class Site extends account {
 		$this->load->view('templates/general_page', $data);
 	}
     
+
 	/*
 	*
 	*	Terms Page
@@ -440,6 +447,7 @@ class Site extends account {
 		$v_data['countries'] = $this->events_model->get_all_countries();
 		$v_data['event_types'] = $this->events_model->get_all_event_types();
 		$v_data['agencies'] = $this->events_model->get_all_agencies();
+		
 		
 		$data['content'] = $this->load->view('calender', $v_data, true);
 		
@@ -631,5 +639,70 @@ class Site extends account {
 		$data['title'] = $this->site_model->display_page_title();
 		$this->load->view('templates/general_page', $data);
 	}
+
+	public function assigned_tasks()
+    {
+    	$this->load->view('home/assigned_tasks','');	
+    }
+    public function tasks_to_review()
+    {
+    	$this->load->view('home/tasks_to_review','');	
+    }
+    public function upcoming_meetings()
+    {
+    	$this->load->view('home/upcoming_meetings','');	
+    }
+    public function my_statistics()
+    {
+    	$this->load->view('home/my_statistics','');	
+    }
+    public function send_other_notification($action_status,$meeting_id,$attendee_id,$action_point_id)
+    {
+
+    	// if status == 1 ... this is accept received mail
+    	// if status == 2 .. send message that the task has been completed
+    	// else status == 0 send mail that the task is not done, therefore remind the person that he should do the work
+
+    	if($this->attendee_model->send_meeting_action_email($action_status,$meeting_id, $attendee_id,$action_point_id))
+		{			
+			$data['result'] = 'success';
+		}
+		
+		else
+		{
+			$data['result'] = 'fail';
+		}
+
+		echo json_encode($data);
+		
+    }
+    public function mark_as_complete($action_point_id)
+    {
+    	if($this->action_point_model->mark_as_complete($action_point_id))
+		{
+			
+		}
+		
+		else
+		{
+			
+		}
+    }
+    public function send_for_review($action_point_id,$attendee_id,$meeting_id)
+    {
+    	if($this->action_point_model->send_for_review($action_point_id,$attendee_id,$meeting_id))
+		{
+			
+		}
+		
+		else
+		{
+			
+		}
+    }
+    public function assigned_tasks_notification()
+    {
+    	$this->load->view('includes/assigned_task_notification','');	
+    }
 }
 ?>

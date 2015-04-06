@@ -20,9 +20,9 @@ class Account extends MX_Controller
 		
 			$this->load->model('admin/file_model');
 			$this->load->model('admin/users_model');
-			$this->load->model('profile_model');
-			$this->load->model('site_model');
-			$this->load->model('messages_model');
+			$this->load->model('site/profile_model');
+			$this->load->model('site/site_model');
+			$this->load->model('site/messages_model');
 			
 			$this->load->library('image_lib');
 			$this->load->library('table');
@@ -172,7 +172,7 @@ class Account extends MX_Controller
 		//if form has been submitted
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->session->set_userdata('front_error_message', validation_errors());
+			$this->session->set_userdata('error_message', validation_errors());
 		}
 		
 		else
@@ -181,16 +181,16 @@ class Account extends MX_Controller
 			$update = $this->users_model->edit_password($this->session->userdata('user_id'));
 			if($update['result'])
 			{
-				$this->session->set_userdata('front_success_message', 'Your password has been successfully updated');
+				$this->session->set_userdata('success_message', 'Your password has been successfully updated');
 			}
 			
 			else
 			{
-				$this->session->set_userdata('front_error_message', $update['message']);
+				$this->session->set_userdata('error_message', $update['message']);
 			}
 		}
 		
-		$this->my_details();
+		redirect('profile');
 	}
     
 	/*

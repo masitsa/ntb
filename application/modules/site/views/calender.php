@@ -37,12 +37,12 @@
 			?>
 		 	<div class="panel panel-default" style="height:1000px; padding:15px;">
 
-            	<div class="row" style="margin-bottom:20px;">
+            	<!-- <div class="row" style="margin-bottom:20px;">
                 	<div class="col-md-3 col-md-offset-9">
                     	<button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target=".add-event"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Event</button>
                 	</div>
                 </div>
-
+ -->
 			<div class="modal fade add-event" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
@@ -58,6 +58,17 @@
 			      		
 
 			            <div class="modal-body">
+			            	<!-- <div class="row">
+			            		 <div class="col-sm-12">
+				            		 <div class="form-group margin-none">
+	                                    <label for="reservationtime">Meeting Dates:</label>
+	                                    <div class="input-group">
+	                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                                        <input type="text" name="reservation" id="reservationtime" class="form-control" value="07-10-2014 1:00 PM - 07-10-2014 1:30 PM" />
+	                                    </div>
+	                                </div>
+	                              </div>
+			            	</div> -->
 			                <div class="row">
 
 			                    <div class="col-sm-6">
@@ -70,6 +81,7 @@
 											</div>
 			                            </div>
 			                        </div>
+
 			                    </div>
 
 			                    <div class="col-sm-6">
@@ -82,6 +94,60 @@
 											</div>
 			                            </div>
 			                        </div>
+			                    </div>
+			                </div>
+			                <div class="row">
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_text" class="control-label">Meeting Type</label>
+			                            <div class="controls">
+			                            	<select class="form-control" name="meeting_id">
+			                            		<option value="0">Parent Meeting</option>
+			                              		<?php
+			                              		//if users exist display them
+			                              		$events_query = $this->events_model->get_events();
+												if ($events_query->num_rows() > 0)
+												{
+													foreach ($events_query->result() as $evts)
+													{
+														$meeting_id = $evts->meeting_id;
+														$subject = $evts->subject;
+														$meeting_date = $evts->meeting_date;
+														$meeting_date = date('j M Y',strtotime($meeting_date));
+														?>
+														<option value="<?php echo $meeting_id;?>"><?php echo $subject;?></option>
+														<?php
+													}
+												}
+			                              		?>     	
+			                              </select>	  
+			                            </div>
+			                        </div>
+
+			                    </div>
+			                    <div class="col-sm-6">
+			                        <div class="control-group">
+			                            <label for="review_text" class="control-label">Events Type</label>
+			                            <div class="controls">
+			                            	<select class="form-control" name="event_type_id">
+			                              		<?php
+			                              		//if users exist display them
+												if ($event_types->num_rows() > 0)
+												{
+													foreach ($event_types->result() as $evt)
+													{
+														$event_type_id = $evt->event_type_id;
+														$event_type_name = $evt->event_type_name;
+														?>
+														<option value="<?php echo $event_type_id;?>"><?php echo $event_type_name;?></option>
+														<?php
+													}
+												}
+			                              		?>     	
+			                              </select>	  
+			                            </div>
+			                        </div>
+
 			                    </div>
 			                </div>
 
@@ -135,32 +201,7 @@
 			                    </div>
 			                </div>
 
-			                <div class="row">
-			                    <div class="col-sm-6">
-			                        <div class="control-group">
-			                            <label for="review_text" class="control-label">Events Type</label>
-			                            <div class="controls">
-			                            	<select class="form-control" name="event_type_id">
-			                              		<?php
-			                              		//if users exist display them
-												if ($event_types->num_rows() > 0)
-												{
-													foreach ($event_types->result() as $evt)
-													{
-														$event_type_id = $evt->event_type_id;
-														$event_type_name = $evt->event_type_name;
-														?>
-														<option value="<?php echo $event_type_id;?>"><?php echo $event_type_name;?></option>
-														<?php
-													}
-												}
-			                              		?>     	
-			                              </select>	  
-			                            </div>
-			                        </div>
-
-			                    </div>
-			                </div>
+			                
 			                  <div class="row">
 			                    <div class="col-sm-6">
 			                        <div class="control-group">

@@ -20,12 +20,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="main-nav">
                     <ul class="nav navbar-nav">
+                        <li><a href="<?php echo base_url();?>home">Dashboard</a></li>
+                        <li><a href="<?php echo base_url();?>calender">Meetings Calender</a></li>
                         
-                        <li><a href="<?php echo base_url();?>calender">TNC Events Calender</a></li>
-                        
-                        <li><a href="<?php echo base_url();?>all-events">Event Lists</a></li>
+                        <li><a href="<?php echo base_url();?>all-events">Meetings Lists</a></li>
+
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">TNC Social <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">TNC Private <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                <!--  <li class="active"><a href="<?php echo base_url();?>home">Timeline</a>
                                 </li> -->
@@ -82,3 +83,43 @@
                 <!-- /.navbar-collapse -->
             </div>
         </div>
+<script type="text/javascript">
+     $(document).ready(function(){
+      assigned_tasks_notification();
+    });
+
+    function assigned_tasks_notification(){
+
+        var XMLHttpRequestObject = false;
+            
+        if (window.XMLHttpRequest) {
+        
+            XMLHttpRequestObject = new XMLHttpRequest();
+        } 
+            
+        else if (window.ActiveXObject) {
+            XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        var url = "<?php echo base_url();?>assigned-tasks-notification";
+
+                
+        if(XMLHttpRequestObject) {
+            
+            var obj = document.getElementById("assigned_tasks_notification");
+                    
+            XMLHttpRequestObject.open("GET", url);
+                    
+            XMLHttpRequestObject.onreadystatechange = function(){
+                
+                if (XMLHttpRequestObject.readyState == 4 && XMLHttpRequestObject.status == 200) {
+                    obj.innerHTML = XMLHttpRequestObject.responseText;
+                   
+                 
+                }
+            }
+                    
+            XMLHttpRequestObject.send(null);
+        }
+    }
+</script>

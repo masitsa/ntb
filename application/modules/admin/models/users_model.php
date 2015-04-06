@@ -216,34 +216,27 @@ class Users_model extends CI_Model
 	*/
 	public function edit_password($user_id)
 	{
-		if($this->input->post('slug') == md5($this->input->post('current_password')))
-		{
-			if($this->input->post('new_password') == $this->input->post('confirm_password'))
-			{
-				$data['password'] = md5($this->input->post('new_password'));
 		
-				$this->db->where('user_id', $user_id);
-				
-				if($this->db->update('users', $data))
-				{
-					$return['result'] = TRUE;
-				}
-				else{
-					$return['result'] = FALSE;
-					$return['message'] = 'Oops something went wrong and your password could not be updated. Please try again';
-				}
+		if($this->input->post('new_password') == $this->input->post('confirm_password'))
+		{
+			$data['password'] = md5($this->input->post('new_password'));
+	
+			$this->db->where('user_id', $user_id);
+			
+			if($this->db->update('users', $data))
+			{
+				$return['result'] = TRUE;
 			}
 			else{
-					$return['result'] = FALSE;
-					$return['message'] = 'New Password and Confirm Password don\'t match';
+				$return['result'] = FALSE;
+				$return['message'] = 'Oops something went wrong and your password could not be updated. Please try again';
 			}
 		}
-		
-		else
-		{
-			$return['result'] = FALSE;
-			$return['message'] = 'You current password is not correct. Please try again';
+		else{
+				$return['result'] = FALSE;
+				$return['message'] = 'New Password and Confirm Password don\'t match';
 		}
+		
 		
 		return $return;
 	}

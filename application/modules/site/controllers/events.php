@@ -110,41 +110,18 @@ class Events extends account {
 			$end_date_ts = strtotime($end_date);
 
 			$todays_date = strtotime(date("Y-m-d"));
-
-
-			if($meeting_date_ts >= $meeting_date_ts)
+			
+			if($this->events_model->add_event())
 			{
-				// also check if the meeting date is 
-
-				if($meeting_date_ts > $todays_date)
-				{
-					if($this->events_model->add_event())
-					{
-						$this->session->set_userdata('success_message', 'Meeting added successfully');
-						redirect('calender');
-					}
-					
-					else
-					{
-							$this->session->set_userdata('error_message', 'Unable to add meeting details. Please try again');
-							redirect('calender');
-					}
-
-				}
-				else
-				{
-						$this->session->set_userdata('error_message', 'Unable to create the meeting. Ensure that the date of the meeting is not today or days before');
-						redirect('calender');
-	
-				}
-				
+				$this->session->set_userdata('success_message', 'Meeting added successfully');
+				redirect('calender');
 			}
+			
 			else
 			{
-						$this->session->set_userdata('error_message', 'Ensure that meeting date is equal to or greater that the complating date');
-						redirect('calender');
-
-			}
+					$this->session->set_userdata('error_message', 'Unable to add meeting details. Please try again');
+					redirect('calender');
+			}	
 		}
 		else
 		{
@@ -161,9 +138,7 @@ class Events extends account {
 				$v_data['event_type_id_error'] = form_error('event_type_id');
 				$v_data['agency_id_error'] = form_error('agency_id');
 				$v_data['meeting_date_error'] = form_error('meeting_date');
-				$v_data['end_date_error'] = form_error('end_date');
-
-				
+				$v_data['end_date_error'] = form_error('end_date');				
 				
 				//repopulate fields
 				$v_data['subject'] = set_value('subject');
@@ -181,8 +156,7 @@ class Events extends account {
 			}
 			
 		}
-			
-		// $this->load->view('includes/top_navigation');
+		
 		$where = 'meeting.country_id = country.country_id AND meeting.event_type_id = event_type.event_type_id AND meeting.agency_id = agency.agency_id';
 		$table = 'meeting, agency, event_type,country';
 		//pagination
@@ -192,8 +166,7 @@ class Events extends account {
 		$config['uri_segment'] = 2;
 		$config['per_page'] = 20;
 		$config['num_links'] = 5;
-		
-		
+				
 		$config['full_tag_open'] = '<ul class="pagination pull-right">';
 		$config['full_tag_close'] = '</ul>';
 		
@@ -255,10 +228,9 @@ class Events extends account {
 		{
 			if($this->events_model->update_event($event_id))
 			{
-				$this->session->set_userdata('success_message', 'event updated successfully');
-				redirect('calender');
-			}
-			
+					$this->session->set_userdata('success_message', 'event updated successfully');
+					redirect('calender');
+			}			
 			else
 			{
 					$this->session->set_userdata('error_message', 'Unable to update meeting details. Please try again');
@@ -305,9 +277,7 @@ class Events extends account {
 	*/
 	public function deactivate_event($event_id)
 	{
-		$data = array(
-				'meeting_status' => 2
-			);
+		$data = array('meeting_status'=>2);
 		$this->db->where('meeting_id', $event_id);
 		
 		if($this->db->update('meeting', $data))
@@ -328,7 +298,121 @@ class Events extends account {
 		
 		echo json_encode($return);
 	}
+	
+	function save_meeting_agenda($meeting_id)
+	{
+		
+			//  enter into the nurse notes trail
+		$this->form_validation->set_rules('editor2', 'editor2', 'trim|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+				//  check whether the date are withing the stated time
+			
 
-      
+				// check whether data exists 
+				$checker = $this->events_model->check_meeting_agenda($meeting_id);
+
+				if($checker == TRUE)
+				{
+
+				// if exists please update
+					$meeting_agenda = $this->events_model->update_meeting_agenda($meeting_id);
+
+					if($meeting_agenda == TRUE)
+					{
+						$data['result'] = 'The agenda has been updated successfully';
+					}
+					else
+					{
+						$data['result'] = 'Sorry something went wrong when updating the agenda. Please try again';
+					}
+
+				}
+				else
+				{
+
+				// if doesnt exisit please insert
+
+					$meeting_agenda = $this->events_model->insert_meeting_agenda($meeting_id);
+					if($meeting_agenda == TRUE)
+					{
+						$data['result'] = 'The agenda has been created successfully';
+					}
+					else
+					{
+						$data['result'] = 'Sorry something went wrong when creating the agenda. Please try again';
+					}
+				}
+
+				
+		}
+		else
+		{
+			$data['result'] = 'No data entered. Please enter details into the text area then submit';
+		
+		}
+
+		echo json_encode($data);
+
+	}
+     
+    public function save_meeting_notes($meeting_id)
+    {
+    		//  enter into the nurse notes trail
+		$this->form_validation->set_rules('editor1', 'editor1', 'trim|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+				//  check whether the date are withing the stated time
+			
+
+				// check whether data exists 
+				$checker = $this->events_model->check_meeting_notes($meeting_id);
+
+				if($checker == TRUE)
+				{
+
+				// if exists please update
+					$meeting_notes = $this->events_model->update_meeting_notes($meeting_id);
+
+					if($meeting_notes == TRUE)
+					{
+						$data['result'] = 'The notes has been updated successfully';
+					}
+					else
+					{
+						$data['result'] = 'Sorry something went wrong when updating the notes. Please try again';
+					}
+
+				}
+				else
+				{
+
+				// if doesnt exisit please insert
+
+					$meeting_notes = $this->events_model->insert_meeting_notes($meeting_id);
+					if($meeting_notes == TRUE)
+					{
+						$data['result'] = 'The notes has been created successfully';
+					}
+					else
+					{
+						$data['result'] = 'Sorry something went wrong when creating the notes. Please try again';
+					}
+				}
+
+				
+		}
+		else
+		{
+			$data['result'] = 'No data entered. Please enter details into the text area then submit';
+		
+		}
+
+		echo json_encode($data);
+    }
    
 }

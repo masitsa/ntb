@@ -95,15 +95,8 @@
            dataType: 'json',
            success:function(data){
             
-            if(data.result == "success")
-            {
-                alert('The action point has been successfully added.');
-                 parent.location ='<?php echo base_url(); ?>calendar';   
-            }
-            else
-            {
-                alert('Sorry, something went wrong make sure your have rated and entered your name.');
-            }
+            window.alert(data.result);
+            meeting_action_points(meeting_id);
            },
            error: function(xhr, status, error) {
             alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
@@ -131,15 +124,17 @@
            dataType: 'json',
            success:function(data){
             
-            if(data.result == "success")
-            {
-                alert('You have successfully added a new attendee.');
-                 parent.location ='<?php echo base_url(); ?>calendar';   
-            }
-            else
-            {
-                alert('Sorry, something went wrong all the fields are filled.');
-            }
+            alert(data.result);
+            
+            // if(data.result == "success")
+            // {
+            //     alert('You have successfully added a new attendee.');
+            //      parent.location ='<?php echo base_url(); ?>calendar';   
+            // }
+            // else
+            // {
+            //     alert('Sorry, something went wrong all the fields are filled.');
+            // }
            },
            error: function(xhr, status, error) {
             alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
@@ -169,7 +164,7 @@
             if(data.result == "success")
             {
                 alert('You have successfully added a new convenor.');
-                 parent.location ='<?php echo base_url(); ?>calendar';   
+                meeting_facilitator();
             }
             else
             {
@@ -202,14 +197,121 @@
            dataType: 'json',
            success:function(data){
             
-            if(data.result == "success")
-            {
-                alert('Minutes have been updated.'); 
-            }
-            else
-            {
-                alert('Sorry, something went wrong, you might not have the rights to update or create this, only the person who created the meeting should be able to do this action.');
-            }
+           window.alert(data.result);
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+        //Add to meeting data
+       $(document).on("submit","form#meeting_agenda_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            window.alert(data.result);
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+
+       //Add to meeting data
+       $(document).on("submit","form#update_convenor_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var facilitator_id = $(this).attr('facilitator_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            window.alert(data.result);
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+
+       //Add to meeting data
+       $(document).on("submit","form#update_action_point_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            window.alert(data.result);
+            meeting_action_points(meeting_id);
+           },
+           error: function(xhr, status, error) {
+            alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+           
+           }
+          });
+          return false;
+         });
+
+
+       //Add to meeting data
+       $(document).on("submit","form#update_attendee_form",function(e)
+         {
+          e.preventDefault();
+          
+          var formData = new FormData(this);
+          
+           var meeting_id = $(this).attr('meeting_id');
+          $.ajax({
+           type:'POST',
+           url: $(this).attr('action'),
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           dataType: 'json',
+           success:function(data){
+            
+            window.alert(data.result);
+            meeting_attendees(meeting_id);
            },
            error: function(xhr, status, error) {
             alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
@@ -238,14 +340,8 @@
            dataType: 'json',
            success:function(data){
             
-            if(data.result == "success")
-            {
-                alert('Attachment has been successfully uploaded.'); 
-            }
-            else
-            {
-                alert('Sorry, something went wrong all the fields are filled.');
-            }
+              window.alert(data.result);
+             meeting_attachments(meeting_id);
            },
            error: function(xhr, status, error) {
             alert("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);

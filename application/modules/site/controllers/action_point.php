@@ -7,8 +7,10 @@ class Action_point extends account
 		parent:: __construct();
 		$this->load->model('site_model');
 		$this->load->model('action_point_model');
+		$this->load->model('site/attendee_model');
 		$this->load->model('admin/users_model');
 		$this->load->model('site/events_model');
+		$this->load->model('admin/users_model');
 	}
     
 	/*
@@ -80,6 +82,37 @@ class Action_point extends account
 		$this->load->view('templates/general_page', $data);
 	}
     
+    /*
+	*
+	*	Add action point
+	*
+	*/
+	public function add_meeting_action_point($meeting_id) 
+	{
+		
+		$this->form_validation->set_rules('assigned_to', 'Assigned to', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('priority_status_id', 'Priority', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('actions_status_id', 'Action', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('action_point_notes', 'Notes', 'trim|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->action_point_model->add_action_point($meeting_id))
+			{
+				$data['result'] = 'Action point details has been added successfully';
+			}
+			else
+			{
+				$data['result'] = 'Something went wrong when adding the action point details. Please try again';
+			}
+		}
+		else
+		{
+			$data['result'] = 'Ensure that all details have been entered';
+		}
+		echo json_encode($data);
+	}
 	/*
 	*
 	*	Add action point
@@ -158,6 +191,31 @@ class Action_point extends account
 	*	Edit action point
 	*
 	*/
+	public function edit_meeting_action_point($action_point_id,$meeting_id)
+	{
+		$this->form_validation->set_rules('assigned_to', 'Assigned to', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('priority_status_id', 'Priority', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('actions_status_id', 'Action', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('action_point_notes', 'Notes', 'trim|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->action_point_model->edit_action_point($action_point_id))
+			{
+				$data['result'] = 'Action point details has been updated successfully';
+			}
+			else
+			{
+				$data['result'] = 'Something went wrong when updating Action point details. Please try again';
+			}
+		}
+		else
+		{
+			$data['result'] = 'Ensure that all details have been entered';
+		}
+		echo json_encode($data);
+	}
 	public function edit_action_point($action_point_id,$meeting_id) 
 	{
 		//initialize required variables
@@ -259,32 +317,51 @@ class Action_point extends account
 		}
 		redirect('all-action-points/'.$meeting_id);
 	}
-	public function add_meeting_action_point($meeting_id)
+	
+	public function meeting_action_points($meeting_id)
 	{
-
-		$this->form_validation->set_rules('assigned_to', 'Assigned to', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('priority_status_id', 'Priority', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('actions_status_id', 'Action', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('action_point_notes', 'Notes', 'trim|xss_clean');
-		
-		//if form conatins invalid data
-		if ($this->form_validation->run())
+		$data = array('meeting_id'=>$meeting_id);
+		$this->load->view('action_point/show_action_points',$data);
+	}
+	/*
+	*
+	*	Activate an existing facilitator
+	*	@param int $facilitator_id
+	*
+	*/
+	public function activate_action_point($action_point_id,$meeting_id)
+	{
+		if($this->action_point_model->activate_action_point($action_point_id))
 		{
-			if($this->action_point_model->add_action_point($meeting_id))
-			{
-				$data['result'] = 'success';
-			}
-			else
-			{
-				$data['result'] = 'failure';
-			}
+			$this->session->set_userdata('success_message', 'action_point activated successfully');
 		}
+		
 		else
 		{
-			$data['result'] = 'failure';
+			$this->session->set_userdata('error_message', 'Unable to activate action_point. Please try again');
 		}
+	}
+    
+	/*
+	*
+	*	Deactivate an existing action_point
+	*	@param int $action_point_id
+	*
+	*/
+	public function deactivate_action_point($action_point_id,$meeting_id)
+	{
 		
-		echo json_encode($data);
+			if($this->action_point_model->deactivate_action_point($action_point_id))
+			{
+				// $this->session->set_userdata('success_message', 'action_point deactivate successfully');
+
+			}
+			
+			else
+			{
+				// $this->session->set_userdata('error_message', 'Unable to deactivate action_point. Please try again');
+			}
+		
 	}
 }
 ?>

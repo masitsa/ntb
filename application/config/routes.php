@@ -89,13 +89,39 @@ $route['deactivate-agency/(:num)'] = 'admin/agency/deactivate_agency/$1';
 
 
 /*
+* Event type routes
+*/ 
+
+$route['all-event-type'] = 'admin/event_type/index';
+$route['all-event-type/(:num)'] = 'admin/event_type/index/$1';
+$route['add-event-type'] = 'admin/event_type/add_event_type';
+$route['edit-event-type/(:num)'] = 'admin/event_type/edit_event_type/$1';
+$route['delete-event-type/(:num)'] = 'admin/event_type/delete_event_type/$1';
+$route['activate-event-type/(:num)'] = 'admin/event_type/activate_event_type/$1';
+$route['deactivate-event-type/(:num)'] = 'admin/event_type/deactivate_event_type/$1';
+
+
+
+/*
+* Countries routes
+*/ 
+
+$route['all-country'] = 'admin/country/index';
+$route['all-country/(:num)'] = 'admin/country/index/$1';
+$route['add-country'] = 'admin/country/add_country';
+$route['edit-country/(:num)'] = 'admin/country/edit_country/$1';
+$route['delete-country/(:num)'] = 'admin/country/delete_country/$1';
+$route['activate-country/(:num)'] = 'admin/country/activate_country/$1';
+$route['deactivate-country/(:num)'] = 'admin/country/deactivate_country/$1';
+
+
+/*
 *	site Routes
 */
 
 
 $route['home'] = 'site/index';
 $route['calender'] = 'site/calender';
-$route['calendar'] = 'site/calender';
 $route['messages'] = 'site/messages';
 $route['profile'] = 'site/profile';
 $route['timeline'] = 'site/index';
@@ -104,16 +130,21 @@ $route['add-event'] = 'site/events/add_event';
 $route['edit-event/(:num)'] = 'site/events/edit_event/$1';
 $route['activate-event/(:num)'] = 'site/events/activate_event/$1';
 $route['deactivate-event/(:num)'] = 'site/events/deactivate_event/$1';
-$route['events/view-event/(:num)'] = 'site/view_event/$1';
+$route['view-meeting/(:num)'] = 'site/view_event/$1';
 $route['events/book-event/(:num)'] = 'site/book_event/$1';
 $route['events/open-event/(:num)'] = 'site/open_event/$1';
 
 $route['all-action-points'] = 'site/action_point/all_action_points';
 $route['all-action-points/(:num)'] = 'site/action_point/all_action_points/$1';
-$route['add-action-point/(:num)'] = 'site/action_point/add_action_point/$1';
+$route['add-action-point/(:num)'] = 'site/action_point/add_meeting_action_point/$1';
+$route['update-meeting-action-point/(:num)/(:num)'] = 'site/action_point/edit_meeting_action_point/$1/$2';
 $route['add-meeting-action-point/(:num)'] = 'site/action_point/add_meeting_action_point/$1';
-
 $route['delete-action-point/(:num)/(:num)'] = 'site/action_point/delete_action_point/$1/$2';
+$route['activate-action-point/(:num)/(:num)'] = 'site/action_point/activate_action_point/$1/$2';
+$route['deactivate-action-point/(:num)/(:num)'] = 'site/action_point/deactivate_action_point/$1/$2';
+
+
+
 $route['edit-action-point/(:num)/(:num)'] = 'site/action_point/edit_action_point/$1/$2';
 
 $route['all-attendees'] = 'site/attendee/all_attendees';
@@ -121,11 +152,13 @@ $route['all-attendees/(:num)'] = 'site/attendee/all_attendees/$1';
 $route['add-attendee/(:num)'] = 'site/attendee/add_attendee/$1';
 $route['add-meeting-attendee/(:num)'] = 'site/attendee/add_meeting_attendee/$1';
 $route['edit-attendee/(:num)/(:num)'] = 'site/attendee/edit_attendee/$1/$2';
+$route['update-meeting-attendee/(:num)/(:num)'] = 'site/attendee/edit_meeting_attendee/$1/$2';
 $route['delete-attendee/(:num)/(:num)'] = 'site/attendee/delete_attendee/$1/$2';
 $route['activate-attendee/(:num)/(:num)'] = 'site/attendee/activate_attendee/$1/$2';
 $route['deactivate-attendee/(:num)/(:num)'] = 'site/attendee/deactivate_attendee/$1/$2';
 $route['send-attendee-notification/(:num)/(:num)'] = 'site/attendee/send_attendee_notification/$1/$2';
 $route['send-attendee-mass-notification/(:num)'] = 'site/attendee/send_attendee_mass_notification/$1';
+
 
 $route['all-facilitators'] = 'site/facilitator/all_facilitators';
 $route['all-facilitators/(:num)'] = 'site/facilitator/all_facilitators/$1';
@@ -133,6 +166,7 @@ $route['add-facilitator/(:num)'] = 'site/facilitator/add_facilitator/$1';
 $route['add-meeting-facilitator/(:num)'] = 'site/facilitator/add_meeting_facilitator/$1';
 $route['edit-facilitator/(:num)/(:num)'] = 'site/facilitator/edit_facilitator/$1/$2';
 $route['delete-facilitator/(:num)/(:num)'] = 'site/facilitator/delete_facilitator/$1/$2';
+$route['update-meeting-facilitator/(:num)/(:num)'] = 'site/facilitator/edit_meeting_facilitator/$1/$2';
 
 $route['delete-meeting-facilitator/(:num)/(:num)'] = 'site/facilitator/delete_meeting_facilitator/$1/$2';
 $route['activate-facilitator/(:num)/(:num)'] = 'site/facilitator/activate_facilitator/$1/$2';
@@ -152,7 +186,7 @@ $route['account/orders-list'] = 'site/account/orders_list';
 $route['account/my-details'] = 'site/account/my_details';
 $route['account/wishlist'] = 'site/account/wishlist';
 $route['account/update-details'] = 'site/account/update_account';
-$route['account/update-password'] = 'site/account/update_password';
+$route['update-password'] = 'site/account/update_password';
 $route['account/sign-out'] = 'login/logout_user';
 
 $route['profile'] = 'site/profile/edit_profile';
@@ -162,3 +196,34 @@ $route['profilez'] = 'site/profile/profile_page';
 
 $route['messages'] = 'site/messages/inbox';
 $route['messages/(:any)'] = 'site/messages/view_message/$1';
+
+
+$route['meetings/(:any)'] = 'social/index/$1';
+$route['meeting-comments/(:num)'] = 'social/meeting_comments/$1';
+$route['open-meetings/(:any)/(:num)'] = 'social/open_meeting/$1/$2';
+$route['save-meeting-comment/(:num)'] ='social/save_meeting_comments/$1';
+
+// meeting notes
+$route['meeting-facilitators/(:num)'] = 'site/facilitator/meeting_facilitators/$1';
+$route['meeting-attendees/(:num)'] = 'site/attendee/meeting_attendees/$1';
+$route['save-meeting-agenda/(:num)'] = 'site/events/save_meeting_agenda/$1';
+$route['save-meeting-notes/(:num)'] = 'site/events/save_meeting_notes/$1';
+$route['meeting-action-points/(:num)'] = 'site/action_point/meeting_action_points/$1';
+
+
+$route['meeting-attachments/(:num)'] = 'site/attachments/meeting_attachments/$1';
+$route['delete-attachment/(:num)/(:num)'] = 'site/attachments/delete_attachment/$1/$2';
+$route['activate-attachment/(:num)/(:num)'] = 'site/attachments/activate_attachment/$1/$2';
+$route['deactivate-attachment/(:num)/(:num)'] = 'site/attachments/deactivate_attachment/$1/$2';
+// end 
+
+
+
+$route['assigned-tasks'] = 'site/assigned_tasks';
+$route['tasks-to-review'] = 'site/tasks_to_review';
+$route['upcoming-meetings'] = 'site/upcoming_meetings';
+$route['my-statistics'] = 'site/my_statistics';
+$route['send-other-notification/(:num)/(:num)/(:num)/(:num)'] = 'site/send_other_notification/$1/$2/$3/$4';
+$route['mark-as-complete/(:num)'] = 'site/mark_as_complete/$1';
+$route['send-for-review/(:num)/(:num)/(:num)'] = 'site/send_for_review/$1/$2/$3';
+$route['assigned-tasks-notification'] = 'site/assigned_tasks_notification';

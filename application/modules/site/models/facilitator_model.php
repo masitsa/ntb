@@ -127,7 +127,7 @@ class Facilitator_model extends CI_Model
 	public function activate_facilitator($facilitator_id)
 	{
 		$data = array(
-				'facilitator_status' => 1
+				'facilitator_status' => 0
 			);
 		$this->db->where('facilitator_id', $facilitator_id);
 		
@@ -148,7 +148,7 @@ class Facilitator_model extends CI_Model
 	public function deactivate_facilitator($facilitator_id)
 	{
 		$data = array(
-				'facilitator_status' => 0
+				'facilitator_status' => 1
 			);
 		$this->db->where('facilitator_id', $facilitator_id);
 		
@@ -214,7 +214,7 @@ class Facilitator_model extends CI_Model
 		
 		$subject = "Reminder for ".$subject2;
 		$message = '
-				<p>Please remember your attendance in our event <strong>'.$subject2.'</strong> which is scheduled for '.$meeting_date.'. The event will take place at '.$location.'. Kindly keep time</p>
+				<p>Please remember your attendance as a facilitator in our event <strong>'.$subject2.'</strong> which is scheduled for '.$meeting_date.'. The event will take place at '.$location.'. Kindly keep time</p>
 				';
 		$sender_email = "mugoken@gmail.com";
 		$shopping = "";

@@ -154,6 +154,18 @@ class Profile_model extends CI_Model
 		return $image_query;
 	}
 	
+	public function get_profile_details($user_id)
+	{
+		//get profile data
+		$table = "users";
+		$where = "user_id = ".$user_id;
+		
+		$this->db->select('*');
+		$this->db->where($where);
+		$query = $this->db->get($table);
+		
+		return $query;
+	}	
 	public function display_profile_image($image_query, $image_path, $image_location, $image_size, $thumb_size)
 	{
 		if($image_query->num_rows() > 0)

@@ -49,21 +49,20 @@
                     <i class="fa fa-fw fa-info-circle"></i> About
                 </div>
                 <div class="panel-body">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                     <?php echo form_open_multipart('site/profile/update_profile_image/'.$user_image, array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Profile image</label>
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 
                                 <div class="row">
                                 
-                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="height:160px; width:212px;">
+                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="height:160px; width:100%;">
                                         		<img src="<?php echo $profile_image_location;?>">
                                             </div>
                                             <div>
-                                                <span class="btn btn-file btn-info"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image"></span>
+                                                <span class="btn btn-file btn-info btn-sm"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input type="file" name="profile_image"></span>
                                                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                             </div>
                                         </div>
@@ -73,19 +72,43 @@
                             </div>
                         </div>
                         <div class="align-center">
-                        	<button type="submit" class="btn btn-sm btn-success">Update image</button>
+                        	<button type="submit" class="btn btn-sm btn-success col-md-10">Update image</button>
                         </div>
                      <?php echo form_close();?>
                     </div>
-                    <div class="col-md-5">
+                    <?php
+                    $details = $this->profile_model->get_profile_details($this->session->userdata('user_id'));
+
+                    if($details->num_rows() > 0)
+                    {
+                        foreach($details->result() as $row){
+                            $first_name = $row->first_name;
+                            $other_names = $row->other_names;
+                            $address = $row->address;
+                            $phone = $row->phone;
+                            $city = $row->city;
+                            $email = $row->email;
+                            $gender_id = $row->gender_id;
+
+                            if($gender_id = 1)
+                            {
+                                $gender_title = 'Male';
+                            }
+                            else
+                            {
+                                $gender_title = 'Female';
+                            }
+                        }
+                    }
+                    ?>
+                    <div class="col-md-4">
                         <ul class="list-unstyled profile-about margin-none">
                             <li class="padding-v-5">
                                 <div class="row">
                                     <div class="col-sm-4"><span class="text-muted">Names : </span></div>
                                     
                                     <div class="col-sm-8" >
-                                        <input type="text" id="inputSuccess1" name='first_name' class="form-control" placeholder="First name">
-                                     
+                                        <?php echo $first_name." ".$other_names;?>                                     
                                     </div>
                                     
                                 </div>
@@ -94,35 +117,63 @@
                                 <div class="row">
                                     <div class="col-sm-4"><span class="text-muted">Email address : </span>
                                     </div>
-                                    <div class="col-sm-8">Specialist</div>
+                                    <div class="col-sm-8"><?php echo $email;?></div>
                                 </div>
                             </li>
                             <li class="padding-v-5">
                                 <div class="row">
                                     <div class="col-sm-4"><span class="text-muted">Gender</span>
                                     </div>
-                                    <div class="col-sm-8">Male</div>
+                                    <div class="col-sm-8"><?php echo $gender_title;?></div>
                                 </div>
                             </li>
                             <li class="padding-v-5">
                                 <div class="row">
                                     <div class="col-sm-4"><span class="text-muted">Lives in</span>
                                     </div>
-                                    <div class="col-sm-8">Miami, FL, USA</div>
-                                </div>
-                            </li>
-                            <li class="padding-v-5">
-                                <div class="row">
-                                    <div class="col-sm-4"><span class="text-muted">Credits</span>
-                                    </div>
-                                    <div class="col-sm-8">249</div>
+                                    <div class="col-sm-8"><?php echo $city;?></div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-3">
+                    <?php echo form_open_multipart('update-password', array('class' => 'upload_profile_pic', 'id' => 'upload_image'));?>
+
+                    <div class="col-md-4">
+                        <h4>Change Password</h4>
                         <!-- notifications -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="current_passsword" class="col-sm-4 control-label">Current Password <span class="required">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" name="current_password" placeholder="Current password" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="form-group">
+                                <label for="new_passsword" class="col-sm-4 control-label">New Password <span class="required">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" name="new_password" placeholder="New password" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                         <div class="form-group">
+                            <label for="confirm_password" class="col-sm-4 control-label">Confirm Password <span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="confirm_password" placeholder="Confirm password" value="">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                         <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="submit" class="btn btn-success btn-sm col-md-12" name="" value="Change Password">
+                            </div>
+                        </div>
+                        </div>
                     </div>
+                    <?php echo form_close();?>
                 </div>
             </div>
         </div>

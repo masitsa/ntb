@@ -152,6 +152,34 @@ class Attendee extends account
 		$data['title'] = 'Add';
 		$this->load->view('site/templates/general_page', $data);
 	}
+
+	public function edit_meeting_attendee($attendee_id,$meeting_id) 
+	{
+		//initialize required variables
+		
+		$this->form_validation->set_rules('attendee_title', 'Title', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('attendee_first_name', 'First name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('attendee_last_name', 'Last name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('attendee_email', 'Email', 'trim|required|valid_email|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->attendee_model->edit_attendee($attendee_id))
+			{
+				$data['result'] = 'Attendee details has been updated successfully';
+			}
+			else
+			{
+				$data['result'] = 'Something went wrong when updating Attendee details. Please try again';
+			}
+		}
+		else
+		{
+			$data['result'] = 'Ensure that all details have been entered';
+		}
+		echo json_encode($data);
+	}
     
 	/*
 	*
@@ -276,7 +304,6 @@ class Attendee extends account
 		{
 			$this->session->set_userdata('error_message', 'Unable to activate attendee. Please try again');
 		}
-		redirect('all-attendees/'.$meeting_id);
 	}
     
 	/*
@@ -296,144 +323,114 @@ class Attendee extends account
 		{
 			$this->session->set_userdata('error_message', 'Unable to deactivate attendee. Please try again');
 		}
-		redirect('all-attendees/'.$meeting_id);
 	}
 	public function add_meeting_attendee($meeting_id)
 	{
-		$this->form_validation->set_rules('attendee_title', 'Title', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('attendee_first_name', 'First name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('attendee_last_name', 'Last name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('attendee_email', 'Email', 'trim|required|valid_email|xss_clean');
-		
-		//if form conatins invalid data
-		if ($this->form_validation->run())
+		if($this->input->post('attendee_type') == 1)
 		{
-			if($this->attendee_model->add_attendee($meeting_id))
+			$this->form_validation->set_rules('member_id', 'member id', 'trim|required|valid_email|xss_clean');
+			
+
+			//if form conatins invalid data
+			if ($this->input->post('member_id') > 0)
 			{
-				$this->session->set_userdata('success_message', 'Attendee edited successfully');
-				$data['result'] = 'success';
+				if($this->attendee_model->add_attendee($meeting_id))
+				{
+					$this->session->set_userdata('success_message', 'Attendee edited successfully');
+					$data['result'] = 'You have successfully added an attendee';
+				}
+				else
+				{
+					$data['result'] = 'Sorry something went wrong. Please try again adding the member';
+				}
 			}
 			else
 			{
-				$data['result'] = 'failure';
+				$data['result'] = 'Please select a tnc member';
 			}
 		}
 		else
 		{
-			$data['result'] = 'failure';
+			$this->form_validation->set_rules('attendee_title', 'Title', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('attendee_first_name', 'First name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('attendee_last_name', 'Last name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('attendee_email', 'Email', 'trim|required|valid_email|xss_clean');
+			
+			//if form conatins invalid data
+			if ($this->form_validation->run())
+			{
+				if($this->attendee_model->add_attendee($meeting_id))
+				{
+					$this->session->set_userdata('success_message', 'Attendee edited successfully');
+					$data['result'] = 'You have successfully added an attendee';
+				}
+				else
+				{
+					$data['result'] = 'Sorry something went wrong. Please try again creating the attendee';
+				}
+			}
+			else
+			{
+				$data['result'] = 'Sorry the attendee could not be created. Ensure you have filled in all the fields';
+			}			
 		}
+		
 		
 		echo json_encode($data);
 	}
 
 	function send_attendee_notification($attendee_id,$meeting_id)
 	{
-			// get meeting details
-			$meeting_detail = $this->events_model->get_event_name($meeting_id);
-			if ($meeting_detail->num_rows() > 0)
-			{
-			    foreach ($meeting_detail->result() as $row)
-			    {
-			        $meeting_id = $row->meeting_id;
-			        $meeting_date = $row->meeting_date;
-			        $meeting_status = $row->meeting_status;
-			        $end_date = $row->end_date;
-			        $country_id = $row->country_id;
-			        $country_name = $row->country_name;
-
-			        $event_type_id = $row->event_type_id;
-			        $event_type_name = $row->event_type_name;
-			        $agency_id = $row->agency_id;
-
-			        $agency_name = $row->agency_name;
-			        $location = $row->location;
-			        $subject = $row->subject;
-
-			        $meeting_date = date('j M Y',strtotime($meeting_date));
-			        $end_date = date('j M Y',strtotime($end_date));
-			    }
-			}
-			
-			// get facilitator details
-			$attendee_array = $this->attendee_model->get_attendee($attendee_id);
-			if ($attendee_array->num_rows() > 0)
-			{
-			    foreach ($attendee_array->result() as $attendee_row)
-			    {
-			    	$attendee_id = $attendee_row->attendee_id;
-                    $attendee_first_name = $attendee_row->attendee_first_name;
-                    $attendee_last_name = $attendee_row->attendee_last_name;
-                    $attendee_title = $attendee_row->attendee_title;
-                    $attendee_email = $attendee_row->attendee_email;
-                    $attendee_status = $attendee_row->attendee_status;
-			    }
-			}
-			// end of attendee details
-
-			//  use this to create a message and send to the attendee 
-
-			// message function here
-			// end of message function here
-
+		if($this->attendee_model->send_meeting_attendee_reminder_email($meeting_id, $attendee_id))
+		{			
 			$data['result'] = 'success';
+		}
+		
+		else
+		{
+			$data['result'] = 'fail';
+		}
 
-			echo json_encode($data);
+		echo json_encode($data);
 	}
 
 	function send_attendee_mass_notification($meeting_id)
 	{
-			// get meeting details
-			$meeting_detail = $this->events_model->get_event_name($meeting_id);
-			if ($meeting_detail->num_rows() > 0)
-			{
-			    foreach ($meeting_detail->result() as $row)
-			    {
-			        $meeting_id = $row->meeting_id;
-			        $meeting_date = $row->meeting_date;
-			        $meeting_status = $row->meeting_status;
-			        $end_date = $row->end_date;
-			        $country_id = $row->country_id;
-			        $country_name = $row->country_name;
+		// get attendee details
+		$attendee_array = $this->attendee_model->get_all_attendees_time($meeting_id);
+		if ($attendee_array->num_rows() > 0)
+		{
+		    foreach ($attendee_array->result() as $attendee_row)
+		    {
+		    	$attendee_id = $attendee_row->attendee_id;
+                $attendee_first_name = $attendee_row->attendee_first_name;
+                $attendee_last_name = $attendee_row->attendee_last_name;
+                $attendee_title = $attendee_row->attendee_title;
+                $attendee_email = $attendee_row->attendee_email;
+                $attendee_status = $attendee_row->attendee_status;
 
-			        $event_type_id = $row->event_type_id;
-			        $event_type_name = $row->event_type_name;
-			        $agency_id = $row->agency_id;
+                // message function here
+                if($this->attendee_model->send_meeting_attendee_reminder_email($meeting_id, $attendee_id))
+				{			
+					$data['result'] = 'success';
+				}
+				
+				else
+				{
+					$data['result'] = 'fail';
+				}
+				// end of message function here
+		    }
+		}
+		// end of attendee details
 
-			        $agency_name = $row->agency_name;
-			        $location = $row->location;
-			        $subject = $row->subject;
+		echo json_encode($data);
+	}
+	public function meeting_attendees($meeting_id)
+	{
 
-			        $meeting_date = date('j M Y',strtotime($meeting_date));
-			        $end_date = date('j M Y',strtotime($end_date));
-			    }
-			}
-			
-			// get attendee details
-			$attendee_array = $this->attendee_model->get_all_attendees_time($meeting_id);
-			if ($attendee_array->num_rows() > 0)
-			{
-			    foreach ($attendee_array->result() as $attendee_row)
-			    {
-			    	$attendee_id = $attendee_row->attendee_id;
-                    $attendee_first_name = $attendee_row->attendee_first_name;
-                    $attendee_last_name = $attendee_row->attendee_last_name;
-                    $attendee_title = $attendee_row->attendee_title;
-                    $attendee_email = $attendee_row->attendee_email;
-                    $attendee_status = $attendee_row->attendee_status;
-
-                    // message function here
-
-					// end of message function here
-			    }
-			}
-			// end of attendee details
-
-
-			
-
-			$data['result'] = 'success';
-
-			echo json_encode($data);
+		$data = array('meeting_id'=>$meeting_id);
+		$this->load->view('attendee/show_attendees',$data);	
 	}
 }
 ?>

@@ -18,6 +18,13 @@ if ($meeting_detail->num_rows() > 0)
         $agency_name = $row->agency_name;
         $location = $row->location;
         $subject = $row->subject;
+        $parent_meeting = $row->parent_meeting;
+        // get the parent meeting name
+        $meeting_name = $this->events_model->get_parent_meeting_name($parent_meeting);
+        // get the parent meeting ends
+
+        // 
+
 
         $meeting_date = date('j M Y',strtotime($meeting_date));
         $end_date = date('j M Y',strtotime($end_date));
@@ -75,6 +82,7 @@ if ($meeting_detail->num_rows() > 0)
          <p><span>Event Dates : </span> <?php echo $meeting_date;?> - <?php echo $end_date;?></p>
           <p><span>Event type :</span> <?php echo $event_type_name;?>, <span>Agency :</span> <?php echo $agency_name;?></p>
          <p><span>Country :</span> <?php echo $country_name;?>,<span> Location : <span/><?php echo $location;?></p>
+         <p><span>Parent Meeting :</span> <?php echo $meeting_name;?>
     </div>
 </div>
 
@@ -336,63 +344,107 @@ if ($meeting_detail->num_rows() > 0)
                         <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-meeting-attendee/<?php echo $meeting_id;?>"  id = "attendee_form" method="post">
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="control-group">
-                                            <label class="control-label">Title</label>
-                                            <div class="controls">
-                                               <select name="attendee_title" class="form-control">
-                                                <option value="">--Select title--</option>
-                                                <?php
-                                                $titles_query = $this->attendee_model->get_titles();
+                                    <div class="col-md-12">
+                                         <div class="form-group">
+                                            <label class="col-lg-4 control-label"> </label>
+                                            <div class="col-lg-8">
+                                                <input type="radio" name="attendee_type" value="2"   onclick="check_attendee_type(2)"> Other Member
+                                                <input type="radio" name="attendee_type" value="1" onclick="check_attendee_type(1)"> TNC Member
+                                             </div>
+                                         </div>
+                                    </div>
+                                </div>
+                                <div id="tnc_member_div" style="display:none">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="control-group">
+                                                <label class="control-label">Member</label>
+                                                <div class="controls">
+                                                   <select name="member_id" class="form-control">
+                                                    <option value="">--Select a member--</option>
+                                                    <?php
+                                                    $members_query = $this->events_model->get_all_members();
 
-                                                if($titles_query->num_rows() > 0)
-                                                {
-                                                    foreach($titles_query->result() as $res)
+                                                    if($members_query->num_rows() > 0)
                                                     {
-                                                        $title_id = $res->title_id;
-                                                        $title_name = $res->title_name;
-                                                        
-                                                        if($title_name == $attendee_title)
+                                                        foreach($members_query->result() as $res)
                                                         {
-                                                            echo '<option value="'.$title_name.'" selected="selected">'.$title_name.'</option>';
-                                                        }
-                                                        
-                                                        else
-                                                        {
-                                                            echo '<option value="'.$title_name.'">'.$title_name.'</option>';
+                                                            $user_id = $res->user_id;
+                                                            $first_name = $res->first_name;
+                                                            $other_names = $res->other_names;
+                                                            $name = $first_name." ".$other_names;
+                                                            echo '<option value="'.$user_id.'">'.$name.'</option>';
+                                                            
                                                         }
                                                     }
-                                                }
-                                            ?>
-                                            </select>
+                                                ?>
+                                                </select>
+                                                </div>
                                             </div>
                                         </div>
+                                       
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="control-group">
-                                             <label class="control-label">First Name</label>
-                                            <div class="controls">
-                                                 <input type="text" class="form-control" name="attendee_first_name" placeholder="First name" value="">
+                                 <div id="other_member_div" style="display:block">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                <label class="control-label">Title</label>
+                                                <div class="controls">
+                                                   <select name="attendee_title" class="form-control">
+                                                    <option value="">--Select title--</option>
+                                                    <?php
+                                                    $titles_query = $this->attendee_model->get_titles();
+
+                                                    if($titles_query->num_rows() > 0)
+                                                    {
+                                                        foreach($titles_query->result() as $res)
+                                                        {
+                                                            $title_id = $res->title_id;
+                                                            $title_name = $res->title_name;
+                                                            
+                                                            if($title_name == $attendee_title)
+                                                            {
+                                                                echo '<option value="'.$title_name.'" selected="selected">'.$title_name.'</option>';
+                                                            }
+                                                            
+                                                            else
+                                                            {
+                                                                echo '<option value="'.$title_name.'">'.$title_name.'</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+                                                </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                         <div class="control-group">
+                                                 <label class="control-label">First Name</label>
+                                                <div class="controls">
+                                                     <input type="text" class="form-control" name="attendee_first_name" placeholder="First name" value="">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="control-group">
-                                             <label class="control-label">Last Name</label>
-                                            <div class="controls">
-                                                 <input type="text" class="form-control" name="attendee_last_name" placeholder="Last name" value="">
+                                    <div class="row">
+                                       
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                 <label class="control-label">Last Name</label>
+                                                <div class="controls">
+                                                     <input type="text" class="form-control" name="attendee_last_name" placeholder="Last name" value="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="control-group">
-                                             <label class="control-label">Atendee email</label>
-                                            <div class="controls">
-                                                 <input type="text" class="form-control" name="attendee_email" placeholder="Email address" value="">
+                                   
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                 <label class="control-label">Atendee email</label>
+                                                <div class="controls">
+                                                     <input type="text" class="form-control" name="attendee_email" placeholder="Email address" value="">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -468,14 +520,14 @@ if ($meeting_detail->num_rows() > 0)
                                 <td><?php echo $attendee_last_name;?></td>
                                 <td><?php echo $attendee_email;?></td>
                                 <td><?php echo $status;?></td>
-                                <td><?php echo $button;?></td>
+                                <!-- <td><?php echo $button;?></td> -->
                                 
-                                <td>
+                                <!-- <td>
                                     <a href="<?php echo base_url();?>edit-attendee/<?php echo $attendee_id;?>/<?php echo $meeting_id;?>" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                 </td>
                                 <td>
                                     <a href="#" class="btn btn-danger btn-xs " data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                                </td>
+                                </td> -->
                                 <td>
                                     <a  class="btn btn-info btn-xs send_attendees_mail" href="<?php echo $combine2;?>" attendee_id="<?php echo $combine2;?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="send notification"><i class="fa fa-fw fa-envelope"></i></a>
                                 </td>
@@ -732,9 +784,9 @@ if ($meeting_detail->num_rows() > 0)
                                     </td>
                                     <td><a href="<?php echo base_url();?>assets/files/<?php echo $file_name;?>" target="_blank">Download attachment</a></td>
 
-                                    <td >
+                                   <!--  <td >
                                          <a href="<?php echo base_url();?>" target="_blank" class="btn btn-warning btn-sm">Delete</a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                                 <?php    
                             }
@@ -748,7 +800,25 @@ if ($meeting_detail->num_rows() > 0)
     </div>
 </div>
 <script type="text/javascript">
+function check_attendee_type(type_id){
 
+        var myTarget2 = document.getElementById("tnc_member_div");
+
+        var myTarget3 = document.getElementById("other_member_div");
+
+        if(type_id == 1)
+        {
+            myTarget2.style.display = 'block';
+            myTarget3.style.display = 'none';
+        }
+        else
+        {
+            myTarget2.style.display = 'none';
+            myTarget3.style.display = 'block';
+        }
+
+        
+    }
 function save_meeting_notes(meeting_id){
     var data_url = '<?php echo site_url()?>site/save_meeting_notes/'+meeting_id;
     var val = instance.val();

@@ -9,6 +9,7 @@ class Facilitator extends account
 		$this->load->model('facilitator_model');
 		$this->load->model('admin/users_model');
 		$this->load->model('site/events_model');
+		$this->load->model('site/attendee_model');
 	}
     
 	/*
@@ -153,6 +154,36 @@ class Facilitator extends account
 		$this->load->view('site/templates/general_page', $data);
 	}
     
+    /*
+	*
+	*	Edit facilitator
+	*
+	*/
+	public function edit_meeting_facilitator($facilitator_id,$meeting_id) 
+	{
+		$this->form_validation->set_rules('facilitator_title', 'Title', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('facilitator_first_name', 'First name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('facilitator_last_name', 'Last name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('facilitator_email', 'Email', 'trim|required|valid_email|xss_clean');
+		
+		//if form conatins invalid data
+		if ($this->form_validation->run())
+		{
+			if($this->facilitator_model->edit_facilitator($facilitator_id))
+			{
+				$data['result'] = 'Facilitator details has been updated successfully';
+			}
+			else
+			{
+				$data['result'] = 'Something went wrong when updating facilitator details. Please try again';
+			}
+		}
+		else
+		{
+			$data['result'] = 'Ensure that all details have been entered';
+		}
+		echo json_encode($data);
+	}
 	/*
 	*
 	*	Edit facilitator
@@ -256,7 +287,6 @@ class Facilitator extends account
 		{
 			$this->session->set_userdata('error_message', 'Unable to delete facilitator. Please try again');
 		}
-		redirect('all-facilitators/'.$meeting_id);
 	}
     
     public function delete_meeting_facilitator($facilitator_id,$meeting_id){
@@ -315,35 +345,38 @@ class Facilitator extends account
 	*/
 	public function deactivate_facilitator($facilitator_id,$meeting_id)
 	{
-		$meeting_detail = $this->events_model->get_event_name($meeting_id);
-		if ($meeting_detail->num_rows() > 0)
-		{
-		    foreach ($meeting_detail->result() as $row)
-		    {
-		        $created_by = $row->created_by;
-		    }
-		}
+		// $meeting_detail = $this->events_model->get_event_name($meeting_id);
+		// if ($meeting_detail->num_rows() > 0)
+		// {
+		//     foreach ($meeting_detail->result() as $row)
+		//     {
+		//         $created_by = $row->created_by;
+		//     }
+		// }
 
-		if($created_by == $this->user_id)
-		{
+		// if($created_by == $this->user_id)
+		// {
 			if($this->facilitator_model->deactivate_facilitator($facilitator_id))
 			{
-				$this->session->set_userdata('success_message', 'Facilitator deactivate successfully');
+				// $this->session->set_userdata('success_message', 'Facilitator deactivate successfully');
+
 			}
 			
 			else
 			{
-				$this->session->set_userdata('error_message', 'Unable to deactivate facilitator. Please try again');
+				// $this->session->set_userdata('error_message', 'Unable to deactivate facilitator. Please try again');
 			}
-		}
-		else
-		{
-			$this->session->set_userdata('error_message', 'You do not have the rights to perform thhis action');
+		// }
+		// else
+		// {
+		// 	$this->session->set_userdata('error_message', 'You do not have the rights to perform thhis action');
 
 			
-		}
-		redirect('all-facilitators/'.$meeting_id);
+		// }
+		// redirect('all-facilitators/'.$meeting_id);
 	}
+
+
 	
 	public function deactivate_meeting_facilitator($facilitator_id)
 	{
@@ -428,6 +461,12 @@ class Facilitator extends account
 		}
 		
 		echo json_encode($data);
+	}
+	public function meeting_facilitators($meeting_id)
+	{
+
+		$data = array('meeting_id'=>$meeting_id);
+		$this->load->view('facilitator/show_facilitators',$data);	
 	}
 }
 ?>

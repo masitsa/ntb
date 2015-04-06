@@ -22,6 +22,7 @@
                     <ul>
                         <li><a href="<?php echo site_url();?>all-agencies">Agencies</a></li>
                         <li><a href="<?php echo site_url();?>all-event-types">Event type</a></li>
+                        <li><a href="<?php echo site_url();?>all-country">Countries</a></li>
                     </ul>
                 </li>        
                 

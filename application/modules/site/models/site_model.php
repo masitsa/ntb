@@ -258,6 +258,17 @@ class Site_model extends CI_Model
         }
         return $number;
 	}
+
+	public function get_meeting_agenda($meeting_id)
+	{
+		//retrieve all orders
+		$this->db->from('meeting_agenda');
+		$this->db->select('*');
+		$this->db->where('meeting_id = '.$meeting_id);
+		$this->db->order_by('meeting_id','DESC');
+		$query = $this->db->get();
+        return $query;
+	}
     
 	/*
 	*
