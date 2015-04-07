@@ -53,8 +53,8 @@
 					 <div class="modal-header">
 			            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			            <div class="hgroup title">
-			                 <h3>You're one step closer to ceating a meeting!</h3>
-				                <h5>"" Fill in all the fields to add this meetinf</h5>
+			                 <h3>You're one step closer to creating a meeting!</h3>
+				                <h5>Please fill in all the fields to add this meeting</h5>
 			            </div>
 			        </div>
 

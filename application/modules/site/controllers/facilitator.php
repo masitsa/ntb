@@ -100,6 +100,8 @@ class Facilitator extends account
 		$this->form_validation->set_rules('facilitator_title', 'Title', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('facilitator_first_name', 'First name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('facilitator_last_name', 'Last name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('organization_name', 'Organization name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('designation', 'Designation', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('facilitator_email', 'Email', 'trim|required|valid_email|xss_clean');
 		
 		//if form conatins invalid data
@@ -165,6 +167,8 @@ class Facilitator extends account
 		$this->form_validation->set_rules('facilitator_first_name', 'First name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('facilitator_last_name', 'Last name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('facilitator_email', 'Email', 'trim|required|valid_email|xss_clean');
+		$this->form_validation->set_rules('organization_name', 'Organization name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('designation', 'Designation', 'trim|required|xss_clean');
 		
 		//if form conatins invalid data
 		if ($this->form_validation->run())

@@ -6,7 +6,7 @@
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <div class="hgroup title">
-                 <h3>Action point for !</h3>
+                 <h3>Action point </h3>
             </div>
         </div>
             <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-action-point/<?php echo $meeting_id;?>"  id = "action_point_form" method="post">
@@ -41,6 +41,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                                    <div class="control-group">
+                                        <label class="control-label">End Date</label>
+                                        <div class="controls">
+                                            <div class='input-group date' >
+                                                <input type='text' id='datepicker3' name="end_date" class="form-control" placeholder="YYYY-mm-dd"/>
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">

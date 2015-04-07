@@ -114,13 +114,13 @@ class Events extends account {
 			if($this->events_model->add_event())
 			{
 				$this->session->set_userdata('success_message', 'Meeting added successfully');
-				redirect('calender');
+				redirect('all-events');
 			}
 			
 			else
 			{
 					$this->session->set_userdata('error_message', 'Unable to add meeting details. Please try again');
-					redirect('calender');
+					redirect('all-events');
 			}	
 		}
 		else

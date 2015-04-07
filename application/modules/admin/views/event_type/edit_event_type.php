@@ -34,7 +34,7 @@
             }
             ?>
             
-            <?php echo form_open('edit-event_type/'.$event_type_id, array("class" => "form-horizontal", "role" => "form"));?>
+            <?php echo form_open('edit-event-type/'.$event_type_id, array("class" => "form-horizontal", "role" => "form"));?>
             <!-- First Name -->
             <div class="form-group">
                 <label class="col-lg-4 control-label">Event type Name</label>

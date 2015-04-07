@@ -1,5 +1,6 @@
  <?php
 $meeting_detail = $this->events_model->get_event_name($meeting_id);
+ $heading_data = '';
 if ($meeting_detail->num_rows() > 0)
 {
     foreach ($meeting_detail->result() as $row)
@@ -28,7 +29,15 @@ if ($meeting_detail->num_rows() > 0)
 
         $meeting_date = date('j M Y',strtotime($meeting_date));
         $end_date = date('j M Y',strtotime($end_date));
+
     }
+    $heading_data = '<div class="hgroup title">
+				         <h4>Subject : '.$subject.'</h4>
+				         <p><span>Event Dates : </span> '.$meeting_date.' - '.$end_date.'</p>
+				          <p><span>Event type :</span> '.$event_type_name.', <span>Agency :</span> '.$agency_name.'</p>
+				         <p><span>Country :</span> '.$country_name.',<span> Location : <span/> '.$location.'</p>
+				         <p><span>Parent Meeting :</span> '.$meeting_name.'></p>
+				    </div>';
 }
 
 // follwo up actions start
@@ -302,13 +311,7 @@ if ($meeting_detail->num_rows() > 0)
 	 	<div class="col-md-12 col-lg-12">
 		 	<div class="panel panel-default">
 			 	<div class="modal-header">
-				    <div class="hgroup title">
-				         <h4>Subject : <?php echo $subject;?></h4>
-				         <p><span>Event Dates : </span> <?php echo $meeting_date;?> - <?php echo $end_date;?></p>
-				          <p><span>Event type :</span> <?php echo $event_type_name;?>, <span>Agency :</span> <?php echo $agency_name;?></p>
-				         <p><span>Country :</span> <?php echo $country_name;?>,<span> Location : <span/><?php echo $location;?></p>
-				         <p><span>Parent Meeting :</span> <?php echo $meeting_name;?></p>
-				    </div>
+				    <?php echo $heading_data;?>
 				</div>
 				<div class="modal-body">
 				    <div role="tabpanel">
@@ -329,7 +332,7 @@ if ($meeting_detail->num_rows() > 0)
 				      <!-- Tab panes -->
 				      <div class="tab-content">
 				      	 <div role="tabpanel" class="tab-pane active" id="agenda">
-				      	 	 <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>save-meeting-agenda-comment/<?php echo $meeting_id;?>"  id = "meeting_agenda_form" method="post">
+				      	 	 <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>save-meeting-agenda/<?php echo $meeting_id;?>"  id = "meeting_agenda_form" method="post">
 
 				                <div class="row">
 				                    <div class="col-sm-12">
@@ -431,8 +434,30 @@ $(document).ready(function(){
   $(function() {
     $( "#datepicker2" ).datepicker();
   });
-});
 
+ 
+});
+$(function() {
+    $( "#datepicker3" ).datepicker();
+});
+function check_attendee_type(type_id){
+    var myTarget2 = document.getElementById("tnc_member_div");
+
+    var myTarget3 = document.getElementById("other_member_div");
+
+    if(type_id == 1)
+    {
+        myTarget2.style.display = 'block';
+        myTarget3.style.display = 'none';
+    }
+    else
+    {
+        myTarget2.style.display = 'none';
+        myTarget3.style.display = 'block';
+    }
+
+    
+}
 function meeting_facilitator(meeting_id){
 
     var XMLHttpRequestObject = false;

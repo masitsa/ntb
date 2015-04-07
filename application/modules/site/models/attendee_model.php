@@ -38,7 +38,7 @@ class Attendee_model extends CI_Model
 	{
 		$this->db->from('attendee');
 		$this->db->select('attendee.*');
-		$this->db->where('attendee_status = 0 AND meeting_id ='.$meeting_id);
+		$this->db->where('attendee_status = 1 AND meeting_id ='.$meeting_id);
 		$this->db->order_by('attendee_id','DESC');
 		
 		$query = $this->db->get();
@@ -97,6 +97,8 @@ class Attendee_model extends CI_Model
 				'attendee_first_name' => $first_name,
 				'attendee_last_name' => $last_name,
 				'attendee_email' => $email,
+				'organization_name' => $this->input->post('organization_name'),
+				'designation' => $this->input->post('designation'),
 				'meeting_id' => $meeting_id,
 				'user_id' => $this->input->post('member_id'),
 				'created' => date('Y-m-d H:i:s')
@@ -110,6 +112,8 @@ class Attendee_model extends CI_Model
 				'attendee_title' => $this->input->post('attendee_title'),
 				'attendee_first_name' => $this->input->post('attendee_first_name'),
 				'attendee_last_name' => $this->input->post('attendee_last_name'),
+				'organization_name' => $this->input->post('organization_name'),
+				'designation' => $this->input->post('designation'),
 				'attendee_email' => $this->input->post('attendee_email'),
 				'meeting_id' => $meeting_id,
 				'created' => date('Y-m-d H:i:s')
@@ -156,7 +160,9 @@ class Attendee_model extends CI_Model
 			'attendee_title' => $this->input->post('attendee_title'),
 			'attendee_first_name' => $this->input->post('attendee_first_name'),
 			'attendee_last_name' => $this->input->post('attendee_last_name'),
-			'attendee_email' => $this->input->post('attendee_email'),
+			'organization_name' => $this->input->post('organization_name'),
+			'designation' => $this->input->post('designation'),
+			'attendee_email' => $this->input->post('attendee_email')
 		);
 		
 		$this->db->where('attendee_id', $attendee_id);
@@ -391,7 +397,7 @@ class Attendee_model extends CI_Model
 		$shopping = "";
 		$from = "Ken";
 		
-		$button = '<a href='.base_url().'/meetings/'.$attendee_email.'';
+		$button = '<a href='.base_url().'meetings/'.$attendee_email.'>Meeting agenda</a>';
 		$response = $this->email_model->send_mandrill_mail($attendee_email, "Hi ".$attendee_first_name, $subject, $message, $sender_email, $shopping, $from, $button);
 		
 		return $response;

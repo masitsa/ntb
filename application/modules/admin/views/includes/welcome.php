@@ -5,7 +5,7 @@
             <!-- Page header start -->
             <div class="page-header">
                 <div class="page-title">
-                    <h3>Messaging Store</h3>
+                    <h3>Meeting manager</h3>
                     <span>
 					<?php 
 					//salutation
@@ -28,7 +28,7 @@
                     </span>
                 </div>
                 <ul class="page-stats">
-                    <li>
+                   <!--  <li>
                         <div class="summary">
                             <span>Active Posts</span>
                             <h3><?php echo "0";?></h3>
@@ -41,7 +41,7 @@
                             <h3>$ <?php echo "0";?></h3>
                         </div>
                         <span id="sparklines2"></span>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <!-- Page header ends -->

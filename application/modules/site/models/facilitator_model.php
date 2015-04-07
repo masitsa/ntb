@@ -46,6 +46,8 @@ class Facilitator_model extends CI_Model
 			'facilitator_title' => $this->input->post('facilitator_title'),
 			'facilitator_first_name' => $this->input->post('facilitator_first_name'),
 			'facilitator_last_name' => $this->input->post('facilitator_last_name'),
+			'organization_name' => $this->input->post('organization_name'),
+			'designation' => $this->input->post('designation'),
 			'facilitator_email' => $this->input->post('facilitator_email'),
 			'meeting_id' => $meeting_id,
 			'created' => date('Y-m-d H:i:s')
@@ -94,6 +96,8 @@ class Facilitator_model extends CI_Model
 			'facilitator_title' => $this->input->post('facilitator_title'),
 			'facilitator_first_name' => $this->input->post('facilitator_first_name'),
 			'facilitator_last_name' => $this->input->post('facilitator_last_name'),
+			'organization_name' => $this->input->post('organization_name'),
+			'designation' => $this->input->post('designation'),
 			'facilitator_email' => $this->input->post('facilitator_email'),
 		);
 		

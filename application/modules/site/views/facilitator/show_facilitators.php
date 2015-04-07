@@ -8,7 +8,7 @@
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <div class="hgroup title">
-                 <h3>Convenors for</h3>
+                 <h3>Convenors</h3>
             </div>
         </div>
             <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-meeting-facilitator/<?php echo $meeting_id;?>"  id = "convenor_form" method="post">
@@ -46,8 +46,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6">
                             <div class="control-group">
                                  <label class="control-label">First Name</label>
@@ -56,6 +54,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-sm-6">
                             <div class="control-group">
                                  <label class="control-label">Last Name</label>
@@ -64,13 +65,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
+                         <div class="col-sm-6">
                             <div class="control-group">
                                  <label class="control-label">Convenor email</label>
                                 <div class="controls">
                                      <input type="text" class="form-control" name="facilitator_email" placeholder="Email address" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                       
+                        <div class="col-sm-6">
+                            <div class="control-group">
+                                 <label class="control-label">Organization</label>
+                                <div class="controls">
+                                     <input type="text" class="form-control" name="organization_name" placeholder="organization name" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="control-group">
+                                 <label class="control-label">Designation</label>
+                                <div class="controls">
+                                     <input type="text" class="form-control" name="designation" placeholder="Designation name" value="">
                                 </div>
                             </div>
                         </div>
@@ -116,6 +134,9 @@
                 $facilitator_title = $row->facilitator_title;
                 $facilitator_email = $row->facilitator_email;
                 $facilitator_status = $row->facilitator_status;
+
+                $organization_name = $row->organization_name;
+                $designation = $row->designation;
 
                 $combine = $facilitator_id."/".$meeting_id;
                 
@@ -224,6 +245,24 @@
 						                            </div>
 						                        </div>
 						                    </div>
+                                             <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="control-group">
+                                                         <label class="control-label">Organization</label>
+                                                        <div class="controls">
+                                                             <input type="text" class="form-control" name="organization_name" placeholder="organization name" value="<?php echo $organization_name?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="control-group">
+                                                         <label class="control-label">Designation</label>
+                                                        <div class="controls">
+                                                             <input type="text" class="form-control" name="designation" placeholder="Designation name" value="<?php echo $designation;?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 						                </div>
 						                <div class="modal-footer">
 						                    <div class="pull-right">

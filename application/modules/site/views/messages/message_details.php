@@ -4,6 +4,7 @@
 	{
 		$row = $receiver->row();
 		$receiver_username = $row->user_username;
+		$first_name = $row->first_name;
 		if(empty($row->user_thumb))
         {
             $receiver_thumb = "http://placehold.it/350x150";
@@ -67,7 +68,7 @@ if(is_array($messages))
 	                            <div class="pull-right">
 	                                <small class="text-muted">'.$difference.'</small>
 	                            </div>
-	                            <a href="#">Mary D.</a>
+	                            <a href="#">'.$first_name.'.</a>
 	                        </div>
 	                        <div class="panel-body">
 	                            '.$user_message_details.'

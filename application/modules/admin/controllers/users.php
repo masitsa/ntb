@@ -67,7 +67,7 @@ class Users extends admin {
 		{
 			$data['content'] = '<a href="'.site_url().'add-user" class="btn btn-success pull-right">Add Administrator</a> There are no administrators';
 		}
-		$data['title'] = 'All Administrators';
+		$data['title'] = 'All Users';
 		
 		$this->load->view('templates/general_admin', $data);
 	}
@@ -105,7 +105,7 @@ class Users extends admin {
 		}
 		
 		//open the add new user page
-		$data['title'] = 'Add New Administrator';
+		$data['title'] = 'Add New User';
 		$data['content'] = $this->load->view('users/add_user', '', TRUE);
 		$this->load->view('templates/general_admin', $data);
 	}
@@ -154,7 +154,7 @@ class Users extends admin {
 		}
 		
 		//open the add new user page
-		$data['title'] = 'Edit Administrator';
+		$data['title'] = 'Edit User ';
 		
 		//select the user from the database
 		$query = $this->users_model->get_user($user_id);
@@ -182,12 +182,12 @@ class Users extends admin {
 	{
 		if($this->users_model->delete_user($user_id))
 		{
-			$this->session->set_userdata('success_message', 'Administrator has been deleted');
+			$this->session->set_userdata('success_message', 'User has been deleted');
 		}
 		
 		else
 		{
-			$this->session->set_userdata('error_message', 'Administrator could not be deleted');
+			$this->session->set_userdata('error_message', 'User could not be deleted');
 		}
 		
 		redirect('all-users');
@@ -203,12 +203,12 @@ class Users extends admin {
 	{
 		if($this->users_model->activate_user($user_id))
 		{
-			$this->session->set_userdata('success_message', 'Administrator has been activated');
+			$this->session->set_userdata('success_message', 'User has been activated');
 		}
 		
 		else
 		{
-			$this->session->set_userdata('error_message', 'Administrator could not be activated');
+			$this->session->set_userdata('error_message', 'User could not be activated');
 		}
 		
 		redirect('all-users');
@@ -224,12 +224,12 @@ class Users extends admin {
 	{
 		if($this->users_model->deactivate_user($user_id))
 		{
-			$this->session->set_userdata('success_message', 'Administrator has been disabled');
+			$this->session->set_userdata('success_message', 'User has been disabled');
 		}
 		
 		else
 		{
-			$this->session->set_userdata('error_message', 'Administrator could not be disabled');
+			$this->session->set_userdata('error_message', 'User could not be disabled');
 		}
 		
 		redirect('all-users');

@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a href="<?php echo site_url().'all-users';?>" class="navbar-brand"><span class="bold">Messaging</span> CMS</a>
+    <a href="<?php echo site_url().'all-users';?>" class="navbar-brand"><span class="bold">Meetings </span> Manager</a>
 </div>
 <!-- Site name for smallar screens -->
 

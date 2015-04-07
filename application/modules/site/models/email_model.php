@@ -120,9 +120,9 @@ class Email_model extends CI_Model
 		),
 		'tags' => array('mandrill-mail'),
 		'subaccount' => NULL, //'customer-123',
-		'google_analytics_domains' => array('www.privatebushflights.com'),
+		'google_analytics_domains' => array('www.thenatureconservancy.com'),
 		'google_analytics_campaign' => 'alvaromasitsa104@gmail.com',
-		'metadata' => array('website' => 'www.privatebushflights.com'),
+		'metadata' => array('website' => 'www.thenatureconservancy.com'),
 		'recipient_metadata' => array(
 			array(
 				'rcpt' => $sender_email,

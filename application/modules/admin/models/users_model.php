@@ -88,6 +88,7 @@ class Users_model extends CI_Model
 				'post_code'=>$this->input->post('post_code'),
 				'city'=>$this->input->post('city'),
 				'created'=>date('Y-m-d H:i:s'),
+				'user_username'=>$this->input->post('email'),
 				'activated'=>$this->input->post('activated')
 			);
 			

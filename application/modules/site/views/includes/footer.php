@@ -125,7 +125,7 @@
            success:function(data){
             
             alert(data.result);
-            
+            meeting_attendees(meeting_id);
             // if(data.result == "success")
             // {
             //     alert('You have successfully added a new attendee.');
@@ -164,11 +164,12 @@
             if(data.result == "success")
             {
                 alert('You have successfully added a new convenor.');
-                meeting_facilitator();
+                meeting_facilitator(meeting_id);
             }
             else
             {
                 alert('Sorry, something went wrong all the fields are filled.');
+                meeting_facilitator(meeting_id);
             }
            },
            error: function(xhr, status, error) {

@@ -8,7 +8,7 @@
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <div class="hgroup title">
-                 <h3>Attendees for</h3>
+                 <h3>Attendees </h3>
             </div>
         </div>
             <form enctype="multipart/form-data" meeting_id="<?php echo $meeting_id;?>" action="<?php echo base_url();?>add-meeting-attendee/<?php echo $meeting_id;?>"  id = "attendee_form" method="post">
@@ -118,6 +118,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                       
+                            <div class="col-sm-6">
+                                <div class="control-group">
+                                     <label class="control-label">Organization</label>
+                                    <div class="controls">
+                                         <input type="text" class="form-control" name="organization_name" placeholder="organization name" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="control-group">
+                                     <label class="control-label">Designation</label>
+                                    <div class="controls">
+                                         <input type="text" class="form-control" name="designation" placeholder="Designation name" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -163,6 +182,8 @@
                 $attendee_status = $row->attendee_status;
                 $user_id = $row->user_id;
                  $combine2 = $attendee_id."/".$meeting_id;
+                  $organization_name = $row->organization_name;
+                $designation = $row->designation;
                
                 if($attendee_status == 0)
                 {
@@ -269,6 +290,24 @@
 						                                </div>
 						                            </div>
 						                        </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="control-group">
+                                                             <label class="control-label">Organization</label>
+                                                            <div class="controls">
+                                                                 <input type="text" class="form-control" name="organization_name" placeholder="organization name" value="<?php echo $organization_name?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="control-group">
+                                                             <label class="control-label">Designation</label>
+                                                            <div class="controls">
+                                                                 <input type="text" class="form-control" name="designation" placeholder="Designation name" value="<?php echo $designation;?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 						                   
 						                </div>
 						                <div class="modal-footer">

@@ -42,7 +42,7 @@
                             </a>
                         </li>
                     </ul>
-                </li> -->
+                </li> 
                 <li class="range">
                     <a href="#">
                         <i class="icon-tasks"></i>
@@ -58,7 +58,7 @@
                             Visitors <strong>(<?php echo $visitors?>)</strong>
                         </span>
                     </a>
-                </li>
+                </li>-->
                 <li class="range">
                     <a href="#">
                         <i class="icon-calendar"></i>

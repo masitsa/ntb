@@ -50,6 +50,7 @@ class Action_point_model extends CI_Model
 			'actions_status_id' => $this->input->post('actions_status_id'),
 			'action_point_notes' => $this->input->post('action_point_notes'),
 			'meeting_id' => $meeting_id,
+			'action_date' => $this->input->post('end_date'),
 			'created' => date('Y-m-d H:i:s')
 		);
 		
@@ -91,6 +92,7 @@ class Action_point_model extends CI_Model
 			'assigned_to' => $this->input->post('assigned_to'),
 			'priority_status_id' => $this->input->post('priority_status_id'),
 			'actions_status_id' => $this->input->post('actions_status_id'),
+			'action_date' => $this->input->post('end_date'),
 			'action_point_notes' => $this->input->post('action_point_notes')
 		);
 		
